@@ -22,10 +22,28 @@ Web examples for Computer Graphics concepts
   * Matrix Multiplication
 * Transformations
   * Translation
+   * X-Axis
+   * Y-Axis
+   * Z-Axis
+   * Multiple-Axes
   * Rotation
+   * X-Axis
+   * Y-Axis
+   * Z-Axis
   * Scale
+   * X-Axis
+   * Y-Axis
+   * Z-Axis
+   * Multiple-Axes
   * Mirror
+   * X-Axis
+   * Y-Axis
+   * Z-Axis
+   * Multiple-Axes
   * Shear
+   * X-Axis
+   * Y-Axis
+   * Z-Axes
   * Projections
-    * parallel projection
-    * perspective projection
+    * Parallel Projection
+    * Perspective Projection
