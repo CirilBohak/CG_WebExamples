@@ -1,0 +1,63 @@
+body {
+	text-align: center;
+	font-family: Verdana;
+	text-align: center;
+	color: #336699;
+	font-size: 11px;
+}
+
+body h1 {
+	margin-top: 48px;
+	text-align: center;
+	font-size: 42px;
+}
+
+a {
+	color: #666666;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#surface {
+	outline: none;
+	border-left: 3px solid #336699;
+}
+
+#content{
+	margin: auto;
+	width: 1280px;
+	text-align: left;
+}
+
+.threeColumns {
+	-moz-column-count:3; /* Firefox */
+	-webkit-column-count:3; /* Safari and Chrome */
+	column-count: 3;
+	column-gap: 20px;
+	height: 540px;
+}
+
+#contentLeft {
+	width: 31%;
+	float: left;
+	text-align: left;
+	padding: 10px;
+}
+
+#contentRight {
+	width: 66%;
+	float: left;
+}
+
+#vectorList {
+	font-size: 10px;
+	font-style: italic;
+}
+
+.vecInput {
+	width: 40px;
+	margin-right: 10px;
+}
