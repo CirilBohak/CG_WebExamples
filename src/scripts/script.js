@@ -30,7 +30,7 @@ function draw() {
 
 function mouseMoved() {}
 
-var enabledAddingPoints = false;
+var enabledAddingPoints = true;
 function mouseClicked() {
     if (enabledAddingPoints) {
         addPoint(proc.mouseX, proc.mouseY);
