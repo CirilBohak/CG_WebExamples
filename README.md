@@ -4,6 +4,10 @@ Web examples for Computer Graphics concepts
 
 ## Content ##
 
+### Points ###
+* Location
+* Subtraction
+
 ### Vectors ###
 * Negation
 * Addition
