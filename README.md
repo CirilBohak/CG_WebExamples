@@ -2,7 +2,7 @@
 
 Web examples for Computer Graphics concepts
 
-## Content: ##
+## Content ##
 
 ### Vectors ###
 * Negation
