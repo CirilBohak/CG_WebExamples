@@ -46,17 +46,6 @@ var proc = null;
 
 // End of processing init functions
 
-// auxiliary class
-var Point = function(x, y) {
-    this.x = x;
-    this.y = y;
-
-    this.draw = function() {
-        var pt = gridToCanvasTransform(this);
-        proc.ellipse(pt.x, pt.y, 5, 5);
-    };
-};
-
 // lists of points and vectors
 var points = Array();
 var vectors = Array();
@@ -66,52 +55,12 @@ window.onload = function() {
 	// attaching the sketchProc function to the canvas
 	proc = new Processing(canvas, initProcessing);
 
-    addVectorToList(new Vector(2, 5, 1, 2));
-    addVectorToList(new Vector(6, 3, -2, 2));
+    exampleInit();
 }
 
 // adding new point to the list 
 function addPoint(x, y) {
     points.push(canvasToGridTransform(new Point(x, y)));
-}
-
-// adding new vector to the list
-function addVectorToList(vec) {
-    vectors.push(vec);
-    $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\"> "+
-        "Vector " + (vectors.length - 1) + ":"+
-        "<br />"+
-        "x: <input class=\"vecInput\" type=\"number\" value=\""+vec.x+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-        "y: <input class=\"vecInput\" type=\"number\" value=\""+vec.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-        "lx: <input class=\"vecInput\" type=\"number\" value=\""+vec.locX+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-        "ly: <input class=\"vecInput\" type=\"number\" value=\""+vec.locY+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-        "<button type=\"button\" onClick=\"vectors["+(vectors.length-1)+"].negate()\">Negate</button>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
-}
-
-// updating vector values
-function updateVectors(values) {
-    if (!values) {
-        for (var i = 0; i < vectors.length; i++) {
-            var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
-            vec.x = $(vals[0]).val();
-            vec.y = $(vals[1]).val();
-            vec.locX = $(vals[2]).val();
-            vec.locY = $(vals[3]).val();
-        }
-    } else {
-        for (var i = 0; i < vectors.length; i++) {
-            var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
-            $(vals[0]).val(vec.x);
-            $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.locX);
-            $(vals[3]).val(vec.locY);
-        }
-    }
 }
 
 // drawing all the stored points
