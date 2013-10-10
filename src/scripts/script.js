@@ -58,11 +58,6 @@ window.onload = function() {
     exampleInit();
 }
 
-// adding new point to the list 
-function addPoint(x, y) {
-    points.push(canvasToGridTransform(new Point(x, y)));
-}
-
 // drawing all the stored points
 function drawPoints() {
     for (var i = 0; i < points.length; i++) {
