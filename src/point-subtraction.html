@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<script src="./scripts/jquery.min.js"></script>
+		<script src="./scripts/processing.min.js"></script>
+		<script src="./scripts/point.js"></script>
+		<script src="./scripts/script.js"></script>
+		<script src="./scripts/point-subtraction.js"></script>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Points: Subtraction</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft">
+			<p>
+				In the sketch on the right you can see several points. You can add new points to the sketch by clicking or by using button below.
+			</p>
+			<div id="pointList">
+			</div>
+			<button type="button" onClick="addPointToList(new Point(2, 2))">Add point</button>
+			<p>
+				<br />Subtract two points:<br /><br />
+				First point: <input id="firstpoint" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br />
+				Subtracted from second point: <input id="secondpoint" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br /><br />
+				<button type="button" onClick="addSubtractedPointToList()">Add subtracted point</button>
+			</p>			
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>
