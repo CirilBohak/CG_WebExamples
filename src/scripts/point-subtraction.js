@@ -23,15 +23,17 @@ function addPointToList(point) {
         "</div>"+
         "<br /><br />");
     $("#point"+ (points.length - 1) +" input").on('change', function () { updatePoints(false); });
+	updateDropDownLists(points.length - 1);
 }
 
-function addSubtractedPointToList() {
+function subtractPoints() {
 	var firstPoint0=$($("#point"+$("#firstpoint").val()+" input")[0]).val();
 	var firstPoint1=$($("#point"+$("#firstpoint").val()+" input")[1]).val();
 	var secondPoint0=$($("#point"+$("#secondpoint").val()+" input")[0]).val();
 	var secondPoint1=$($("#point"+$("#secondpoint").val()+" input")[1]).val();
-    var point=new Point((firstPoint0-secondPoint0), (firstPoint1-secondPoint1));
-    addPointToList(point)
+	
+	var vector=new Vector((secondPoint0-firstPoint0), (secondPoint1-firstPoint1), firstPoint0, firstPoint1);
+	addVectorToList(vector);	
 }
 
 // updating point values
@@ -54,7 +56,77 @@ function updatePoints(values) {
     console.log("Bla");
 }
 
+// update drop down lists when adding a new point
+function updateDropDownLists(pointIndex)
+{
+	$("#firstpoint").append('<option value=\"'+pointIndex+'\">Point '+pointIndex+'</option>');	
+	$("#secondpoint").append('<option value=\"'+pointIndex+'\">Point '+pointIndex+'</option>');	
+}
+
 // adding new point to the list 
 function addPoint(x, y) {
     addPointToList(canvasToGridTransform(new Point(x, y)));
+}
+
+// ------------- VECTORS ------------
+
+// adding new vector to the list
+function addVectorToList(vec) {
+    vectors.push(vec);
+    $("#vectorList").append(
+        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+            "<div class=\"floatLeft vectorValue\" style=\"display:none;\">"+
+                "Vector " + (vectors.length - 1) + ":"+
+                "<br />"+
+                "<div class=\"squareBracket\">"+
+                    "["+
+                "</div>"+
+                "<div class=\"floatLeft\">"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+                "</div>"+
+                "<div class=\"squareBracket\">"+
+                    "]"+
+                "</div>"+
+            "</div>"+
+            "<div class=\"vectorValue\">"+
+                "Vector " + (vectors.length - 1) + ":"+
+                "<br />"+
+                "<div class=\"squareBracket\">"+
+                    "["+
+                "</div>"+
+                "<div class=\"floatLeft\">"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locX+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locY+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+                "</div>"+
+                "<div class=\"squareBracket\">"+
+                    "]"+
+                "</div>"+
+            "</div>"+
+        "</div>"+
+        "<br /><br />");
+    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+}
+
+// updating vector values
+function updateVectors(values) {
+    if (!values) {
+        for (var i = 0; i < vectors.length; i++) {
+            var vals = $("#vec"+i+" input");
+            var vec = vectors[i];
+            vec.x = $(vals[0]).val();
+            vec.y = $(vals[1]).val();
+            vec.locX = $(vals[2]).val();
+            vec.locY = $(vals[3]).val();
+        }
+    } else {
+        for (var i = 0; i < vectors.length; i++) {
+            var vals = $("#vec"+i+" input");
+            var vec = vectors[i];
+            $(vals[0]).val(vec.x);
+            $(vals[1]).val(vec.y);
+            $(vals[2]).val(vec.locX);
+            $(vals[3]).val(vec.locY);
+        }
+    }
 }
