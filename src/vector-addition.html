@@ -20,13 +20,17 @@
 			</p>
 			<div id="vectorList">
 			</div>
-			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0))">Add vector</button>
+			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0))">Add vector</button>	
 			<p>
-				<br />Add two vectors:<br /><br />
-				First vector: <input id="firstvector" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br />
-				Add to second vector: <input id="secondvector" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br /><br />
-				<button type="button" onClick="addAddedVectorToList()">Add summed vector</button>
-			</p>			
+				<br /><br />Vectors addition:<br /><br />
+                <div class="floatLeft">
+				1. vector: <select id="firstvector" class="vecDropDown"></select><br />
+				2. vector: <select id="secondvector" class="vecDropDown"></select>
+				</div>
+				<div class="squareBracket">]+</div>				
+				<br style="clear:both;" /><br />
+				<button type="button" onClick="addAddedVectorToList()">Sum vectors</button>				
+			</p>						
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>
