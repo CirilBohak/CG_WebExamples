@@ -1,5 +1,5 @@
 function exampleInit() {
-    addPointToList(new Point(3, 2));
+    addPointToList(new Point(3, 2, 0));
 }
 
 function addPointToList(point) {
@@ -32,8 +32,8 @@ function subtractPoints() {
 	var secondPoint0=$($("#point"+$("#secondpoint").val()+" input")[0]).val();
 	var secondPoint1=$($("#point"+$("#secondpoint").val()+" input")[1]).val();
 	
-	var vector=new Vector((secondPoint0-firstPoint0), (secondPoint1-firstPoint1), firstPoint0, firstPoint1);
-	addVectorToList(vector);	
+	var vector=new Vector((secondPoint0-firstPoint0), (secondPoint1-firstPoint1), 0, firstPoint0, firstPoint1, 0);
+	addVectorToList(vector);
 }
 
 // updating point values
@@ -64,8 +64,8 @@ function updateDropDownLists(pointIndex)
 }
 
 // adding new point to the list 
-function addPoint(x, y) {
-    addPointToList(canvasToGridTransform(new Point(x, y)));
+function addPoint(x, y, z) {
+    addPointToList(canvasToGridTransform(new Point(x, y, z)));
 }
 
 // ------------- VECTORS ------------
@@ -96,8 +96,8 @@ function addVectorToList(vec) {
                     "["+
                 "</div>"+
                 "<div class=\"floatLeft\">"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locX+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locY+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
                 "</div>"+
                 "<div class=\"squareBracket\">"+
                     "]"+
@@ -116,8 +116,10 @@ function updateVectors(values) {
             var vec = vectors[i];
             vec.x = $(vals[0]).val();
             vec.y = $(vals[1]).val();
-            vec.locX = $(vals[2]).val();
-            vec.locY = $(vals[3]).val();
+            vec.loc.x = $(vals[3]).val();
+            vec.loc.y = $(vals[4]).val();
+			
+			console.log($(vals));
         }
     } else {
         for (var i = 0; i < vectors.length; i++) {
@@ -125,8 +127,10 @@ function updateVectors(values) {
             var vec = vectors[i];
             $(vals[0]).val(vec.x);
             $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.locX);
-            $(vals[3]).val(vec.locY);
+            $(vals[3]).val(vec.loc.x);
+            $(vals[4]).val(vec.loc.y);
+	
+			console.log($(vals));
         }
     }
 }

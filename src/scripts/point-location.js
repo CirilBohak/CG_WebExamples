@@ -1,5 +1,5 @@
 function exampleInit() {
-    addPointToList(new Point(3, 2));
+    addPointToList(new Point(3, 2, 0));
 }
 
 function addPointToList(point) {
@@ -46,6 +46,6 @@ function updatePoints(values) {
 }
 
 // adding new point to the list 
-function addPoint(x, y) {
-    addPointToList(canvasToGridTransform(new Point(x, y)));
+function addPoint(x, y, z) {
+    addPointToList(canvasToGridTransform(new Point(x, y, z)));
 }

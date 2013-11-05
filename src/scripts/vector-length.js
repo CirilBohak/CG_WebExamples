@@ -1,6 +1,6 @@
 function exampleInit() {
-    addVectorToList(new Vector(2, 5, 1, 2));
-    addVectorToList(new Vector(6, 3, -2, 2));
+    addVectorToList(new Vector(2, 5, 0, 1, 2, 0));
+    addVectorToList(new Vector(6, 3, 0, -2, 2, 0));
 }
 
 // adding new vector to the list
@@ -29,8 +29,8 @@ function addVectorToList(vec) {
                     "["+
                 "</div>"+
                 "<div class=\"floatLeft\">"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locX+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locY+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
                 "</div>"+
                 "<div class=\"squareBracket\">"+
                     "]"+
@@ -64,8 +64,8 @@ function updateVectors(values) {
             var vec = vectors[i];
             vec.x = $(vals[0]).val();
             vec.y = $(vals[1]).val();
-            vec.locX = $(vals[2]).val();
-            vec.locY = $(vals[3]).val();
+            vec.loc.x = $(vals[2]).val();
+            vec.loc.y = $(vals[3]).val();
         }
     } else {
         for (var i = 0; i < vectors.length; i++) {
@@ -73,8 +73,8 @@ function updateVectors(values) {
             var vec = vectors[i];
             $(vals[0]).val(vec.x);
             $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.locX);
-            $(vals[3]).val(vec.locY);
+            $(vals[2]).val(vec.loc.x);
+            $(vals[3]).val(vec.loc.y);
         }
     }
 }

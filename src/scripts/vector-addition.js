@@ -1,6 +1,6 @@
 function exampleInit() {
-    addVectorToList(new Vector(2, 5, 1, 2));
-    addVectorToList(new Vector(6, 3, -2, 2));
+    addVectorToList(new Vector(2, 5, 0, 1, 2, 0));
+    addVectorToList(new Vector(6, 3, 0, -2, 2, 0));
 }
 
 // adding new vector to the list
@@ -29,8 +29,8 @@ function addVectorToList(vec) {
                     "["+
                 "</div>"+
                 "<div class=\"floatLeft\">"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locX+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.locY+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+                    "<input class=\"vecInput\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
                 "</div>"+
                 "<div class=\"squareBracket\">"+
                     "]"+
@@ -56,11 +56,11 @@ function addAddedVectorToList() {
 	var point1X=(firstVectorX+secondVectorX);
 	var point1Y=(firstVectorY+secondVectorY);
 	
-	var vector=new Vector(point1X, point1Y, firstVectorLocX, firstVectorLocY,250);
+	var vector=new Vector(point1X, point1Y, 0, firstVectorLocX, firstVectorLocY,0,250);
 	addVectorToList(vector);	
 	
 	// add temporary vector	
-	vectors.push(new Vector(secondVectorX, secondVectorY, (firstVectorX+firstVectorLocX), (firstVectorY+firstVectorLocY), 224, 102, 0));	
+	vectors.push(new Vector(secondVectorX, secondVectorY, 0, (firstVectorX+firstVectorLocX), (firstVectorY+firstVectorLocY), 0, 224, 102, 0));	
 	//window.setTimeout(cancelTemporaryVector(vectors.length - 1), 3000);
 	setTimeout(function(){ vectors.pop(); updateVectors(false);},1500);	
 }
@@ -73,8 +73,8 @@ function updateVectors(values,color,color1,color2) {
             var vec = vectors[i];
             vec.x = $(vals[0]).val();
             vec.y = $(vals[1]).val();
-            vec.locX = $(vals[2]).val();
-            vec.locY = $(vals[3]).val();
+            vec.loc.x = $(vals[2]).val();
+            vec.loc.y = $(vals[3]).val();
 			if (color !== undefined) { vec.color=color; }
 			if (color1 !== undefined) { vec.color1=color1; }
 			if (color2 !== undefined) { vec.color2=color2; }
@@ -85,8 +85,8 @@ function updateVectors(values,color,color1,color2) {
             var vec = vectors[i];
             $(vals[0]).val(vec.x);
             $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.locX);
-            $(vals[3]).val(vec.locY);
+            $(vals[2]).val(vec.loc.x);
+            $(vals[3]).val(vec.loc.y);
         }
     }
 }
