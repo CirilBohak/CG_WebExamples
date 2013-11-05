@@ -57,13 +57,12 @@ function addAddedVectorToList() {
 	var point1Y=(firstVectorY+secondVectorY);
 	
 	var vector=new Vector(point1X, point1Y, firstVectorLocX, firstVectorLocY,250);
+	addVectorToList(vector);	
 	
 	// add temporary vector	
 	vectors.push(new Vector(secondVectorX, secondVectorY, (firstVectorX+firstVectorLocX), (firstVectorY+firstVectorLocY), 224, 102, 0));	
 	//window.setTimeout(cancelTemporaryVector(vectors.length - 1), 3000);
-	setTimeout(function(){vectors.splice((vectors.length),1);updateVectors(false);},2000);	
-	
-	addVectorToList(vector);
+	setTimeout(function(){ vectors.pop(); updateVectors(false);},1500);	
 }
 
 // updating vector values
