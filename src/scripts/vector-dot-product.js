@@ -42,6 +42,7 @@ function addVectorToList(vec) {
         "</div>"+
         "<br /><br />");
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+	updateDropDownLists(vectors.length - 1);	
 }
 
 function calculateDotProduct() {
@@ -51,7 +52,7 @@ function calculateDotProduct() {
 	var secondVectorY=parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val());
 	
 	var dotProduct=(firstVectorX*secondVectorX)+(firstVectorY*secondVectorY);
-	$("#result").html("Dot product of vectors is "+dotProduct+".");
+	$("#result").html("<b>Result:</b> ("+firstVectorX+")*("+secondVectorX+") + ("+firstVectorY+")*("+secondVectorY+") = "+dotProduct);
 }
 
 // updating vector values
@@ -75,4 +76,11 @@ function updateVectors(values) {
             $(vals[3]).val(vec.locY);
         }
     }
+}
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
+	$("#secondvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
