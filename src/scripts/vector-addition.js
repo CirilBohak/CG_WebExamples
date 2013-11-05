@@ -42,6 +42,7 @@ function addVectorToList(vec) {
         "</div>"+
         "<br /><br />");
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+	updateDropDownLists(vectors.length - 1);	
 }
 
 function addAddedVectorToList() {
@@ -55,12 +56,18 @@ function addAddedVectorToList() {
 	var point1X=(firstVectorX+secondVectorX);
 	var point1Y=(firstVectorY+secondVectorY);
 	
-	var vector=new Vector(point1X, point1Y, firstVectorLocX, firstVectorLocY);
+	var vector=new Vector(point1X, point1Y, firstVectorLocX, firstVectorLocY,250);
+	
+	// add temporary vector	
+	vectors.push(new Vector(secondVectorX, secondVectorY, (firstVectorX+firstVectorLocX), (firstVectorY+firstVectorLocY), 224, 102, 0));	
+	//window.setTimeout(cancelTemporaryVector(vectors.length - 1), 3000);
+	setTimeout(function(){vectors.splice((vectors.length),1);updateVectors(false);},2000);	
+	
 	addVectorToList(vector);
 }
 
 // updating vector values
-function updateVectors(values) {
+function updateVectors(values,color,color1,color2) {
     if (!values) {
         for (var i = 0; i < vectors.length; i++) {
             var vals = $("#vec"+i+" input");
@@ -69,6 +76,9 @@ function updateVectors(values) {
             vec.y = $(vals[1]).val();
             vec.locX = $(vals[2]).val();
             vec.locY = $(vals[3]).val();
+			if (color !== undefined) { vec.color=color; }
+			if (color1 !== undefined) { vec.color1=color1; }
+			if (color2 !== undefined) { vec.color2=color2; }
         }
     } else {
         for (var i = 0; i < vectors.length; i++) {
@@ -80,4 +90,11 @@ function updateVectors(values) {
             $(vals[3]).val(vec.locY);
         }
     }
+}
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
+	$("#secondvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
