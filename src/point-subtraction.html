@@ -5,8 +5,9 @@
 		<script src="./scripts/jquery.min.js"></script>
 		<script src="./scripts/processing.min.js"></script>
 		<script src="./scripts/point.js"></script>
+		<script src="./scripts/vector.js"></script>		
 		<script src="./scripts/script.js"></script>
-		<script src="./scripts/point-subtraction.js"></script>
+		<script src="./scripts/point-subtraction.js"></script>		
 </head>
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
@@ -19,12 +20,18 @@
 			</p>
 			<div id="pointList">
 			</div>
-			<button type="button" onClick="addPointToList(new Point(2, 2))">Add point</button>
+			<button type="button" onClick="addPointToList(new Point(2, 2))">Add point</button><br /><br />
+			<div id="vectorList">
+			</div>			
 			<p>
-				<br />Subtract two points:<br /><br />
-				First point: <input id="firstpoint" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br />
-				Subtracted from second point: <input id="secondpoint" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br /><br />
-				<button type="button" onClick="addSubtractedPointToList()">Add subtracted point</button>
+				Points subtraction:<br /><br />
+                <div class="floatLeft">
+				1. point: <select id="firstpoint" class="vecDropDown"></select><br />
+				2. point: <select id="secondpoint" class="vecDropDown"></select>
+				</div>
+				<div class="squareBracket">]-</div>				
+				<br style="clear:both;" /><br />
+				<button type="button" onClick="subtractPoints()">Subtract points</button>				
 			</p>			
 		</div>
 		<div id="contentRight">
