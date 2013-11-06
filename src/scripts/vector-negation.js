@@ -1,3 +1,5 @@
+enabledAddingPoints = false;
+
 function exampleInit() {
     addVectorToList(new Vector(2, 5, 0, 1, 2, 0));
     addVectorToList(new Vector(6, 3, 0,-2, 2, 0));
@@ -11,7 +13,7 @@ function addVectorToList(vec) {
 
 function createVectorSelection(vec, index){
 	$("#vectorList").append(
-        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
+        "<div onmouseover='vectors["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='vectors["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
                 "Vector " + index + ":"+
                 "<br />"+

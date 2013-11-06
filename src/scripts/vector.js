@@ -1,5 +1,5 @@
 // auxiliary class for vector
-var Vector = function(x, y, z, lx, ly, lz, color, color1, color2) {
+var Vector = function(x, y, z, lx, ly, lz, r, g, b) {
     this.x = x || 0;
     this.y = y || 0;
 	this.z = z || 0;
@@ -7,9 +7,9 @@ var Vector = function(x, y, z, lx, ly, lz, color, color1, color2) {
     this.loc = new Point(lx || 0, ly || 0, lz || 0);
 	
 	//Maybe we can find a better solution for colours??? 
-	this.color  = color  || 0;
-	this.color1 = color1 || 0;
-	this.color2 = color2 || 0;
+	this.r = r || 0;
+	this.g = g || 0;
+	this.b = b || 0;
 }
 
 Vector.prototype = {
@@ -54,7 +54,8 @@ Vector.prototype = {
 		}
 	},
 	
-	setLocation : function (vector){
+	//LOCATION
+	setLocationFromVector : function (vector){
 		this.loc.x = vector.loc.x;
 		this.loc.y = vector.loc.y;
 		this.loc.y = vector.loc.y;
@@ -80,6 +81,36 @@ Vector.prototype = {
 	
 	setLocationZ : function (z){
 		this.loc.z = z;
+		return this;
+	},
+	
+	//COLOUR
+	setColor : function (vector){ //try to fix with color.js
+		this.r = vector.x;
+		this.g = vector.y;
+		this.b = vector.y;
+		return this;
+	},
+	
+	setColor : function (r,g,b){
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		return this;
+	},
+	
+	setColorR : function (r){
+		this.r = r;
+		return this;
+	},
+	
+	setColorG : function (g){
+		this.g = g;
+		return this;
+	},
+	
+	setColorB : function (b){
+		this.b = b;
 		return this;
 	},
 	
@@ -348,7 +379,7 @@ Vector.prototype = {
         var c_loc = gridToCanvasTransform(new Point(this.loc.x, this.loc.y));
         var toX = c_loc.x + this.x * unit;
         var toY = c_loc.y - this.y * unit;
-		proc.stroke(this.color, this.color1, this.color2);
+		proc.stroke(this.r, this.g, this.b);
         proc.line(c_loc.x, c_loc.y, toX, toY);
         
         var headLen = 14;

@@ -1,3 +1,5 @@
+enabledAddingPoints = false;
+
 function exampleInit() {
     addVectorToList(new Vector(2, 5, 0, 1, 2, 0));
     addVectorToList(new Vector(6, 3, 0, -2, 2, 0));
@@ -14,7 +16,7 @@ function addVectorToList(vec) {
 
 function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
+        "<div onmouseover='vectors["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='vectors["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
                 "Vector " + index + ":"+
                 "<br />"+
@@ -71,19 +73,20 @@ function addAddedVectorToList() {
 								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
 								0,
 								parseInt($($("#vec"+$("#firstvector").val()+" input")[2]).val()),
-								parseInt($($("#vec"+$("#firstvector").val()+" input")[3]).val()));
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[3]).val()),
+								0);
 
 	var vectorB = new Vector(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
 								parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
 								0);
 	
-	var result = (new Vector().addVectors(vectorA,vectorB)).setLocation(vectorA);	//ADD OPERATION
+	var result = new Vector().addVectors(vectorA,vectorB).setLocationFromVector(vectorA);	//ADD OPERATION
 	addVectorToList(result);
 	
 	// Temporary vector	
 	vectors.push(new Vector(vectorB.x, vectorB.y, vectorB.z, 
 							vectorA.x + vectorA.loc.x, vectorA.y + vectorA.loc.y, vectorA.z + vectorA.loc.z, 
-							224, 102, 0));
+							0, 200, 0));
 	setTimeout(function(){ vectors.pop(); updateVectors(false);},1500);
 }
 

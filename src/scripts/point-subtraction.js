@@ -12,7 +12,7 @@ function addPointToList(point) {
 
 function createPointSelection(point, index){
 	$("#pointList").append(
-        "<div id=\"point"+ index +"\" class=\"vectorItem\">"+
+        "<div onmouseover='points["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='points["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"point"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
                 "Point " + index + ":"+
                 "<br />"+
@@ -109,7 +109,7 @@ function addVectorToList(vec) {
 
 function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
+        "<div onmouseover='vectors["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='vectors["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\" style=\"display:none;\">"+
                 "Vector " + index + ":"+
                 "<br />"+
