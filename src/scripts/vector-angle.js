@@ -42,6 +42,7 @@ function addVectorToList(vec) {
         "</div>"+
         "<br /><br />");
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+	updateDropDownLists(vectors.length - 1);	
 }
 
 function precise_round(num,decimals){
@@ -59,7 +60,7 @@ function calculateAngle() {
 	var secondVectorLength=Math.sqrt((secondVectorX*secondVectorX)+(secondVectorY*secondVectorY));
 	var angle=Math.acos(precise_round(dotProduct/(firstVectorLength*secondVectorLength),3));
 	
-	$("#result").html("Angle between two vectors is aproximately "+precise_round(angle,2)+" radians.");
+	$("#result").html("<b>Result:</b><br />a*b = ("+firstVectorX+", "+firstVectorY+")*("+secondVectorX+", "+secondVectorY+") = ("+firstVectorX+")*("+secondVectorX+")+("+firstVectorY+")*("+secondVectorY+") = "+dotProduct+"<br />||a||*||b|| = sqrt(("+firstVectorX+")^2+("+firstVectorY+")^2)*sqrt(("+secondVectorX+")^2+("+secondVectorY+")^2) = "+precise_round(firstVectorLength*secondVectorLength,2)+"<br /><br />&Phi;=arcCos(a*b / ||a||*||b||) = "+precise_round((angle*57.2957795),2)+"&deg;");
 }
 
 // updating vector values
@@ -83,4 +84,12 @@ function updateVectors(values) {
             $(vals[3]).val(vec.locY);
         }
     }
+}
+
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
+	$("#secondvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
