@@ -105,6 +105,9 @@ function addVectorToList(vec) {
             "</div>"+
         "</div>"+
         "<br /><br />");
+	if(vectors.length==1) { 
+      $("#vectorList").prepend("<br /><p style=\"font-family:Verdana;font-size:11px;font-style:normal\"><b>Note:</b> values do not represent vector components but its location!</p><br />");	
+	}
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
 }
 
