@@ -20,13 +20,16 @@
 			</p>
 			<div id="vectorList">
 			</div>
-			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0, 0, 0))">Add vector</button>
+			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0))">Add vector</button>	
 			<p>
-				<br />Calculate length of vector:<br /><br />
-				Vector: <input id="firstvector" class="vecInput" type="number" value="0" min="0" max="20" step="1" /><br /><br />
-				<button type="button" onClick="calculateLength()">Calculate</button>
-				<div id="result"></div>
-			</p>			
+				<br />Vector length:<br /><br />
+                <div class="floatLeft">
+				Vector: <select id="firstvector" class="vecDropDown"></select>
+				</div>			
+				<br style="clear:both;" /><br />
+				<button type="button" onClick="calculateLength()">Calculate</button><br /><br /><br />
+				<div id="result"></div>				
+			</p>					
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>

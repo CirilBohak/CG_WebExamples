@@ -6,10 +6,17 @@ function exampleInit() {
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+	
+    createVectorSelection(vec, vectors.length-1);
+	
+	updateDropDownLists(vectors.length - 1);	
+}
+
+function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -23,7 +30,7 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"vectorValue\">"+
-                "Point " + (vectors.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -37,29 +44,52 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"paddingLeft\">"+
-                "<button type=\"button\" onClick=\"vectors["+(vectors.length-1)+"].negate()\">Negate</button>"+
-            "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+                "<button type=\"button\" onClick=\"vectors["+index+"].negate(),updateVectors(true)\">Negate</button>"+
+                "<button type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
+			"</div>"+
+        "</div>");
+    $("#vec"+ index +" input").on('change', function () { updateVectors(false); });
+}
+
+function removedVectorUpdate(index){
+	vectors.splice(index,1);
+	$("#vectorList").html("");
+	//REMOVE ALL VECTORS FROM DROPDOWN MENU
+	$("#firstvector").html("");
+	$("#secondvector").html("");
+	
+	for(var i=0; i < vectors.length; i++){
+		createVectorSelection(vectors[i], i);
+		updateDropDownLists(i);
+	}
+	
+	updateVectors(true);
 }
 
 function precise_round(num,decimals){
-return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals);
+	return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals);
 }
 
 function calculateAngle() {
-	var firstVectorX=parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val());
-	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());	
-	var secondVectorX=parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val());
-	var secondVectorY=parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val());
+	var vectorA = new Vector(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+								0);
 	
-	var dotProduct=(firstVectorX*secondVectorX)+(firstVectorY*secondVectorY);
-	var firstVectorLength=Math.sqrt((firstVectorX*firstVectorX)+(firstVectorY*firstVectorY));
-	var secondVectorLength=Math.sqrt((secondVectorX*secondVectorX)+(secondVectorY*secondVectorY));
-	var angle=Math.acos(precise_round(dotProduct/(firstVectorLength*secondVectorLength),3));
+	var vectorB = new Vector(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
+								0);
 	
-	$("#result").html("Angle between two vectors is aproximately "+precise_round(angle,2)+" radians.");
+	var dotProduct = new Vector().dotVectors(vectorA,vectorB);
+	var vectorA_Length = vectorA.length();
+	var vectorB_Length = vectorB.length();
+	var angle = Math.acos(precise_round(dotProduct/(vectorA_Length * vectorB_Length),3));
+	
+	$("#result").html(	"<b>Result:</b><br />a*b = ("+vectorA.x+", "+vectorA.y+")*("+vectorB.x+", "+vectorB.y+") ="+
+						" ("+vectorA.x+")*("+vectorA.x+")+("+vectorB.x+")*("+vectorB.x+") ="+
+						" "+dotProduct+"<br />||a||*||b|| = "+
+						"sqrt(("+vectorA.x+")^2+("+vectorA.y+")^2)*sqrt(("+vectorB.x+")^2+("+vectorB.y+")^2) ="+
+						" "+precise_round(vectorA_Length*vectorB_Length,2)+"<br /><br />&Phi;"+
+						"=arcCos(a*b / ||a||*||b||) = "+precise_round((angle*57.2957795),2)+"&deg;");
 }
 
 // updating vector values
@@ -83,4 +113,11 @@ function updateVectors(values) {
             $(vals[3]).val(vec.loc.y);
         }
     }
+}
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
+	$("#secondvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }

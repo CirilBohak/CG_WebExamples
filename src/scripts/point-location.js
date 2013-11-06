@@ -4,10 +4,14 @@ function exampleInit() {
 
 function addPointToList(point) {
     points.push(point);
-     $("#pointList").append(
-        "<div id=\"point"+ (points.length - 1) +"\" class=\"vectorItem\">"+
+    createPointSelection(point, points.length-1);
+}
+
+function createPointSelection(point, index){
+	$("#pointList").append(
+        "<div id=\"point"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Point " + (points.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -19,10 +23,23 @@ function addPointToList(point) {
                 "<div class=\"squareBracket\">"+
                     "]"+
                 "</div>"+
+				"<div class=\"paddingLeftPoint\">"+
+					"<button type=\"button\" onClick=\"removedPointUpdate("+index+")\">Remove</button>"+
+                "</div>"+
             "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#point"+ (points.length - 1) +" input").on('change', function () { updatePoints(false); });
+        "</div>");
+    $("#point"+ index +" input").on('change', function () { updatePoints(false); });
+}
+
+function removedPointUpdate(index){
+	points.splice(index,1);
+	$("#pointList").html("");
+	
+	for(var i=0; i < points.length; i++){
+		createPointSelection(points[i], i);
+	}
+	
+	updatePoints(true);
 }
 
 // updating point values

@@ -74,6 +74,7 @@ a:hover {
 .vectorItem {
 	width: 100%;
 	height: 64px;
+	padding-bottom: 10px;
 }
 
 .vectorValue {
@@ -84,9 +85,16 @@ a:hover {
 	float:left;
 }
 
+.paddingLeft, .paddingLeftPoint{
+	padding-top: 10px;
+}
+
 .paddingLeft {
 	padding-left: 200px;
-	padding-top: 10px;
+}
+
+.paddingLeftPoint {
+	padding-left: 80px;
 }
 
 .squareBracket {

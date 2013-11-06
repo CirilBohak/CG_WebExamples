@@ -6,10 +6,17 @@ function exampleInit() {
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+	
+    createVectorSelection(vec, vectors.length-1);
+	
+	updateDropDownLists(vectors.length - 1);	
+}
+
+function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -23,7 +30,7 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"vectorValue\">"+
-                "Point " + (vectors.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -37,22 +44,39 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"paddingLeft\">"+
-                "<button type=\"button\" onClick=\"vectors["+(vectors.length-1)+"].negate()\">Negate</button>"+
-            "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
-	updateDropDownLists(vectors.length - 1);	
+                "<button type=\"button\" onClick=\"vectors["+index+"].negate(),updateVectors(true)\">Negate</button>"+
+                "<button type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
+			"</div>"+
+        "</div>");
+    $("#vec"+ index +" input").on('change', function () { updateVectors(false); });
+}
+
+function removedVectorUpdate(index){
+	vectors.splice(index,1);
+	$("#vectorList").html("");
+	//REMOVE ALL VECTORS FROM DROPDOWN MENU
+	$("#firstvector").html("");
+	$("#secondvector").html("");
+	
+	for(var i=0; i < vectors.length; i++){
+		createVectorSelection(vectors[i], i);
+		updateDropDownLists(i);
+	}
+	
+	updateVectors(true);
 }
 
 function calculateDotProduct() {
-	var firstVectorX=parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val());
-	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());	
-	var secondVectorX=parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val());
-	var secondVectorY=parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val());
+	var vectorA = new Vector(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+								0);
+	var vectorB = new Vector(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
+								0);
 	
-	var dotProduct=(firstVectorX*secondVectorX)+(firstVectorY*secondVectorY);
-	$("#result").html("<b>Result:</b> ("+firstVectorX+")*("+secondVectorX+") + ("+firstVectorY+")*("+secondVectorY+") = "+dotProduct);
+	var dotProduct = new Vector().dotVectors(vectorA,vectorB);
+	
+	$("#result").html("<b>Result:</b> ("+vectorA.x+")*("+vectorA.y+") + ("+vectorB.x+")*("+vectorB.y+") = "+dotProduct);
 }
 
 // updating vector values

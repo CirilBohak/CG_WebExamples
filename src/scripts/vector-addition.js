@@ -6,10 +6,17 @@ function exampleInit() {
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+	
+    createVectorSelection(vec, vectors.length-1);
+	
+	updateDropDownLists(vectors.length - 1);	
+}
+
+function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -23,7 +30,7 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"vectorValue\">"+
-                "Point " + (vectors.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -37,32 +44,47 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"paddingLeft\">"+
-                "<button type=\"button\" onClick=\"vectors["+(vectors.length-1)+"].negate()\">Negate</button>"+
-            "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
-	updateDropDownLists(vectors.length - 1);	
+                "<button type=\"button\" onClick=\"vectors["+index+"].negate(),updateVectors(true)\">Negate</button>"+
+                "<button type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
+			"</div>"+
+        "</div>");
+    $("#vec"+ index +" input").on('change', function () { updateVectors(false); });
+}
+
+function removedVectorUpdate(index){
+	vectors.splice(index,1);
+	$("#vectorList").html("");
+	//REMOVE ALL VECTORS FROM DROPDOWN MENU
+	$("#firstvector").html("");
+	$("#secondvector").html("");
+	
+	for(var i=0; i < vectors.length; i++){
+		createVectorSelection(vectors[i], i);
+		updateDropDownLists(i);
+	}
+	
+	updateVectors(true);
 }
 
 function addAddedVectorToList() {
-	var firstVectorX=parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val());
-	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());
-	var firstVectorLocX=parseInt($($("#vec"+$("#firstvector").val()+" input")[2]).val());
-	var firstVectorLocY=parseInt($($("#vec"+$("#firstvector").val()+" input")[3]).val());
-	var secondVectorX=parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val());
-	var secondVectorY=parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val());
+	var vectorA = new Vector(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+								0,
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[2]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[3]).val()));
+
+	var vectorB = new Vector(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
+								0);
 	
-	var point1X=(firstVectorX+secondVectorX);
-	var point1Y=(firstVectorY+secondVectorY);
+	var result = (new Vector().addVectors(vectorA,vectorB)).setLocation(vectorA);	//ADD OPERATION
+	addVectorToList(result);
 	
-	var vector=new Vector(point1X, point1Y, 0, firstVectorLocX, firstVectorLocY,0,250);
-	addVectorToList(vector);	
-	
-	// add temporary vector	
-	vectors.push(new Vector(secondVectorX, secondVectorY, 0, (firstVectorX+firstVectorLocX), (firstVectorY+firstVectorLocY), 0, 224, 102, 0));	
-	//window.setTimeout(cancelTemporaryVector(vectors.length - 1), 3000);
-	setTimeout(function(){ vectors.pop(); updateVectors(false);},1500);	
+	// Temporary vector	
+	vectors.push(new Vector(vectorB.x, vectorB.y, vectorB.z, 
+							vectorA.x + vectorA.loc.x, vectorA.y + vectorA.loc.y, vectorA.z + vectorA.loc.z, 
+							224, 102, 0));
+	setTimeout(function(){ vectors.pop(); updateVectors(false);},1500);
 }
 
 // updating vector values

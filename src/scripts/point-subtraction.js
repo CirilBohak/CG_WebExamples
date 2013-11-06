@@ -4,10 +4,17 @@ function exampleInit() {
 
 function addPointToList(point) {
     points.push(point);
-     $("#pointList").append(
-        "<div id=\"point"+ (points.length - 1) +"\" class=\"vectorItem\">"+
+	
+    createPointSelection(point, points.length-1);
+
+	updateDropDownLists(points.length - 1);
+}
+
+function createPointSelection(point, index){
+	$("#pointList").append(
+        "<div id=\"point"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Point " + (points.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -19,21 +26,45 @@ function addPointToList(point) {
                 "<div class=\"squareBracket\">"+
                     "]"+
                 "</div>"+
+				"<div class=\"paddingLeftPoint\">"+
+					"<button type=\"button\" onClick=\"removedPointUpdate("+index+")\">Remove</button>"+
+                "</div>"+
             "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#point"+ (points.length - 1) +" input").on('change', function () { updatePoints(false); });
-	updateDropDownLists(points.length - 1);
+        "</div>");
+    $("#point"+ index +" input").on('change', function () { updatePoints(false); });
+}
+
+function removedPointUpdate(index){
+	points.splice(index,1);
+	$("#pointList").html("");
+	//REMOVE ALL POINTS FROM DROPDOWN MENU
+	$("#firstpoint").html("");
+	$("#secondpoint").html("");
+	
+	for(var i=0; i < points.length; i++){
+		createPointSelection(points[i], i);
+		updateDropDownLists(i);
+	}
+	
+	updatePoints(true);
 }
 
 function subtractPoints() {
-	var firstPoint0=$($("#point"+$("#firstpoint").val()+" input")[0]).val();
-	var firstPoint1=$($("#point"+$("#firstpoint").val()+" input")[1]).val();
-	var secondPoint0=$($("#point"+$("#secondpoint").val()+" input")[0]).val();
-	var secondPoint1=$($("#point"+$("#secondpoint").val()+" input")[1]).val();
-	
-	var vector=new Vector((secondPoint0-firstPoint0), (secondPoint1-firstPoint1), 0, firstPoint0, firstPoint1, 0);
-	addVectorToList(vector);
+	if(points.length === 1) { 
+		$("#vectorList").prepend("<br /><p style=\"font-family:Verdana;font-size:11px;font-style:normal\"><b>Note:</b> values do not represent vector components but its location!</p><br />");	
+	}else{
+		var pointA = new Point(	$($("#point"+$("#firstpoint").val()+" input")[0]).val(),
+								$($("#point"+$("#firstpoint").val()+" input")[1]).val(),
+								0);
+		
+		var pointB = new Point(	$($("#point"+$("#secondpoint").val()+" input")[0]).val(),
+								$($("#point"+$("#secondpoint").val()+" input")[1]).val(),
+								0);
+		
+		var result = new Vector((pointB.x-pointA.x), (pointB.y-pointA.y), (pointB.z-pointA.z), 
+								pointA.x, pointA.y, pointA.z);	
+		addVectorToList(result);
+	}
 }
 
 // updating point values
@@ -53,7 +84,7 @@ function updatePoints(values) {
             $(vals[1]).val(point.y);
         }
     }
-    console.log("Bla");
+    //console.log("Bla");
 }
 
 // update drop down lists when adding a new point
@@ -73,10 +104,14 @@ function addPoint(x, y, z) {
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+    createVectorSelection(vec, vectors.length-1);
+}
+
+function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\" style=\"display:none;\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -90,7 +125,7 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"vectorValue\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -102,10 +137,23 @@ function addVectorToList(vec) {
                 "<div class=\"squareBracket\">"+
                     "]"+
                 "</div>"+
+				"<div class=\"paddingLeftPoint\">"+
+					"<button type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
+				"</div>"+
             "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+        "</div>");
+    $("#vec"+ index +" input").on('change', function () { updateVectors(false); });
+}
+
+function removedVectorUpdate(index){
+	vectors.splice(index,1);
+	$("#vectorList").html("");
+	
+	for(var i=0; i < vectors.length; i++){
+		createVectorSelection(vectors[i], i);
+	}
+	
+	updateVectors(true);
 }
 
 // updating vector values

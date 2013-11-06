@@ -6,10 +6,17 @@ function exampleInit() {
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+	
+    createVectorSelection(vec, vectors.length-1);
+	
+	updateDropDownLists(vectors.length - 1);	
+}
+
+function createVectorSelection(vec, index){
     $("#vectorList").append(
-        "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
+        "<div id=\"vec"+ index +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
-                "Vector " + (vectors.length - 1) + ":"+
+                "Vector " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -23,7 +30,7 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"vectorValue\">"+
-                "Point " + (vectors.length - 1) + ":"+
+                "Point " + index + ":"+
                 "<br />"+
                 "<div class=\"squareBracket\">"+
                     "["+
@@ -37,22 +44,38 @@ function addVectorToList(vec) {
                 "</div>"+
             "</div>"+
             "<div class=\"paddingLeft\">"+
-                "<button type=\"button\" onClick=\"vectors["+(vectors.length-1)+"].negate()\">Negate</button>"+
-            "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+                "<button type=\"button\" onClick=\"vectors["+index+"].negate(),updateVectors(true)\">Negate</button>"+
+                "<button type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
+			"</div>"+
+        "</div>");
+    $("#vec"+ index +" input").on('change', function () { updateVectors(false); });
+}
+
+function removedVectorUpdate(index){
+	vectors.splice(index,1);
+	$("#vectorList").html("");
+	//REMOVE ALL VECTORS FROM DROPDOWN MENU
+	$("#firstvector").html("");
+	
+	for(var i=0; i < vectors.length; i++){
+		createVectorSelection(vectors[i], i);
+		updateDropDownLists(i);
+	}
+	
+	updateVectors(true);
 }
 
 function precise_round(num,decimals){
-return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals);
+	return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals);
 }
 
 function calculateLength() {
-	var firstVectorX=parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val());
-	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());	
+	var vector = new Vector(parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+							parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+							0);
 	
-	var length=precise_round(Math.sqrt((firstVectorX*firstVectorX)+(firstVectorY*firstVectorY)),2);
+	var length = precise_round(vector.length(),2);
+	
 	$("#result").html("Length of vector is "+length+".");
 }
 
@@ -77,4 +100,10 @@ function updateVectors(values) {
             $(vals[3]).val(vec.loc.y);
         }
     }
+}
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');
 }
