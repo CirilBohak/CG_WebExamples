@@ -42,6 +42,7 @@ function addVectorToList(vec) {
         "</div>"+
         "<br /><br />");
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+	updateDropDownLists(vectors.length - 1);	
 }
 
 function precise_round(num,decimals){
@@ -53,7 +54,7 @@ function calculateLength() {
 	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());	
 	
 	var length=precise_round(Math.sqrt((firstVectorX*firstVectorX)+(firstVectorY*firstVectorY)),2);
-	$("#result").html("Length of vector is "+length+".");
+	$("#result").html("<b>Result:</b> ||Vector "+$("#firstvector").val()+"|| = sqrt("+firstVectorX+"^2 + "+firstVectorY+"^2) = "+length);
 }
 
 // updating vector values
@@ -77,4 +78,10 @@ function updateVectors(values) {
             $(vals[3]).val(vec.locY);
         }
     }
+}
+
+// update drop down lists when adding a new point
+function updateDropDownLists(vectorIndex)
+{
+	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
