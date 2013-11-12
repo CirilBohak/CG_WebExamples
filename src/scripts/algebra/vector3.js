@@ -1,5 +1,5 @@
 // auxiliary class for vector
-var Vector = function(x, y, z, lx, ly, lz, r, g, b) {
+var Vector3 = function(x, y, z, lx, ly, lz, r, g, b) {
     this.x = x || 0;
     this.y = y || 0;
 	this.z = z || 0;
@@ -12,8 +12,8 @@ var Vector = function(x, y, z, lx, ly, lz, r, g, b) {
 	this.b = b || 0;
 }
 
-Vector.prototype = {
-	constructor: Vector,
+Vector3.prototype = {
+	constructor: Vector3,
 	
 	/*****************
 	   SET FUNCTIONS
@@ -50,7 +50,7 @@ Vector.prototype = {
 			case 0: this.x = value; break;
 			case 1: this.y = value; break;
 			case 2: this.z = value; break;
-			default: throw new Error("Index 0 = x, 1 = y, 2 = z, you tried: " + index)
+			default: throw new Error("Index 0 = x, 1 = y, 2 = z, you tried: " + index);
 		}
 	},
 	
@@ -123,7 +123,7 @@ Vector.prototype = {
 			case 0: return this.x;
 			case 1: return this.y;
 			case 2: return this.z;
-			default: throw new Error("Index 0 = x, 1 = y, 2 = z, you tried: " + index)
+			default: throw new Error("Index 0 = x, 1 = y, 2 = z, you tried: " + index);
 		}
 	},
 	
@@ -139,7 +139,7 @@ Vector.prototype = {
 	},
 	
 	clone : function (){
-		return new Vector(this.x, this.y, this.z, this.loc.x, this.loc.y, this.loc.z, this.color, this.color1, this.color2);
+		return new Vector3(this.x, this.y, this.z, this.loc.x, this.loc.y, this.loc.z, this.r, this.g, this.b);
 	},
 	
 	equals : function (vector){
@@ -289,7 +289,7 @@ Vector.prototype = {
 		return vectorA.x*vectorB.x + vectorA.y*vectorB.y + vectorA.z*vectorB.z;
 	},
 	
-	//MIN / MAX / CLAMP / LERP / NORMALIZE
+	//MIN / MAX / CLAMP / LERP
 	makeMin : function (vector){
 		if(this.x > vector.x) this.x = vector.x;
 		if(this.y > vector.y) this.y = vector.y;
@@ -389,3 +389,12 @@ Vector.prototype = {
         proc.line(toX, toY, toX - headLen * Math.cos(angle + Math.PI / 8), toY - headLen * Math.sin(angle + Math.PI / 8));
     }
 }
+
+//Extend "Vector.prototype"
+Vector3.prototype.__proto__ = {
+	test : function(){
+		return function () {
+			return "HELLO";
+		}
+	}()
+};

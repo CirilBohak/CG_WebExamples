@@ -2,11 +2,16 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<script src="./scripts/jquery.min.js"></script>
-		<script src="./scripts/processing.min.js"></script>
-		<script src="./scripts/vector.js"></script>
-		<script src="./scripts/point.js"></script>
-		<script src="./scripts/script.js"></script>
+		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/processing.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		
 		<script src="./scripts/vector-addition.js"></script>
 </head>
 <body>
@@ -20,16 +25,19 @@
 			</p>
 			<div id="vectorList">
 			</div>
-			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0, 0, 0))">Add vector</button>	
+			<br /><br />
+			<button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button>	
+			<button id="remove" type="button" onClick="clear_all_elements()">Clear</button>
 			<p>
 				<br /><br />Vectors addition:<br /><br />
                 <div class="floatLeft">
 				1. vector: <select id="firstvector" class="vecDropDown"></select><br />
 				2. vector: <select id="secondvector" class="vecDropDown"></select>
 				</div>
-				<div class="squareBracket">]+</div>				
-				<br style="clear:both;" /><br />
-				<button type="button" onClick="addAddedVectorToList()">Sum vectors</button>				
+				
+				<div class="aritmeticItem"><div class="bracket right"><div class="top"></div><div class="bottom"></div></div><span>+</span></div><br /><br />
+				
+				<button type="button" onClick="addAddedVectorToList()">Sum vectors</button>		
 			</p>						
 		</div>
 		<div id="contentRight">

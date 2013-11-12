@@ -12,23 +12,27 @@ body h1 {
 	font-size: 42px;
 }
 
-input {
-	text-align: right;
-}
+button { border: solid 1px #666; color:#666; }
+button:hover { border: solid 1px #000; background-color: #888; color:#000; cursor:pointer; cursor: hand; }
 
-a {
-	color: #666666;
-	text-decoration: none;
-}
+#remove { border: solid 1px #B55D63; background-color: #EC888F; color:#B55D63; }
+#remove:hover { border: solid 1px #8D1A21; background-color: #EB2B36; color:#8D1A21; cursor:pointer; cursor: hand; }
 
-a:hover {
-	text-decoration: underline;
-}
+/*INDEX.html*/
 
-#surface {
-	outline: none;
-	border-left: 3px solid #336699;
-}
+.done{ color: green; }
+.inprogress{ color: orange; }
+.undone{ color: red; }
+
+a { color: #666666; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+input { text-align: right; }
+
+/*OTHER*/
+
+/*Content and drawing surfaces*/
+#surface { outline: none; border-left: 3px solid #336699; }
 
 #content{
 	margin: auto;
@@ -44,62 +48,85 @@ a:hover {
 	height: 540px;
 }
 
-#contentLeft {
-	width: 31%;
-	float: left;
-	text-align: left;
-	padding: 10px;
+#contentLeft { width: 31%; float: left; text-align: left; padding: 10px; }
+#contentRight { width: 66%; float: left; }
+
+/*Components*/
+
+#vectorList, #pointList { font-size: 10px; font-style: italic; }
+
+.floatLeft { float:left; }
+.floatRight { float:right; }
+
+.paddingLeft, .paddingLeftPoint{ padding-top: 15px; }
+.paddingLeft { padding-left: 200px; }
+.paddingLeftPoint{padding-left: 100px;}
+
+.vectorItem { width: 100%; height: 58px; padding-bottom: 15px; }
+.matrixItem { height: 108px; }
+.aritmeticItem { line-height: 49px; height: 49px; }
+.aritmeticItem > span {
+	margin-left: 5px;
+	display:inline-block;
+	
+	font-size: 40px;
+    vertical-align: middle;
 }
 
-#contentRight {
-	width: 66%;
-	float: left;
+.vecInputCol, .vecInputRow{ width: 50px; }
+.vecInputCol, .vecInputRow, .vecDropDown{
+	height: 23px; border: solid 1px #DDD;
+	text-align: center;
 }
 
-#vectorList {
-	font-size: 10px;
-	font-style: italic;
+.vecDropDown { width: 80px; margin-right: 10px; margin:0px 4px 2px 0px; }
+
+.vecInputCol { margin:2px 0px 0px 0px;  }
+.vecInputRow { margin: -3px -1px 0px 0px; }
+.vectorValue { margin: 0px 10px 0px 5px; }
+
+.x, .y, .z, .N { background-color: #fff; }
+
+#X:hover{ background-color: #c0362c; } /*RED*/
+#X:hover .x{ background-color: #df9a95; color:#fff; font-weight:bold; border-color: #c0362c; }
+#Y:hover{ background-color: #0c3707; } /*GREEN*/
+#Y:hover .y{ background-color: #859b83; color:#fff; font-weight:bold; border-color: #0c3707; }
+#Z:hover{ background-color: #165571; } /*BLUE*/
+#Z:hover .z{ background-color: #2cabe2; color:#fff; font-weight:bold; border-color: #165571; }
+
+#N1{ padding-bottom: 2px; }
+#N1:hover, #N2:hover{ background-color: #AAA; } /*BLUE*/
+#N1:hover .n, #N2:hover .n{ background-color: #CCC; color:#fff; font-weight:bold; border-color: #AAA; }
+
+/*POINT - VECTOR BRACKET*/
+.bracket, .top, .bottom{ background-image: url('bracket.png'); }
+
+.bracket{
+	position: relative; 
+	float:left; 
+	
+	background-repeat: repeat-y; 
+	
+	width: 8px;
+	height: 100%;
 }
 
-.vecInput {
-	width: 50px;
-	margin-right: 10px;
+.left{ left: 0; background-position: left top; }
+.right{ right: 0; background-position: right top; }
+
+.top, .bottom{
+	position: absolute; 
+	background-repeat: repeat-x; 
+	width: 100%; height: 5px;
 }
 
-.vecDropDown {
-	width: 80px;
-	margin-right: 10px;
-}
+.top{ top: 0; background-position: left top; }
+.bottom{ bottom: 0; background-position: left bottom; }
 
-.vectorItem {
-	width: 100%;
-	height: 64px;
-	padding-bottom: 10px;
-}
+.margin3 { margin: 3px 0; }
+.marginBetween { margin-right: 3px; }
 
-.vectorValue {
-	margin: 0px 20px;
-}
+/*MathJax*/
 
-.floatLeft {
-	float:left;
-}
-
-.paddingLeft, .paddingLeftPoint{
-	padding-top: 10px;
-}
-
-.paddingLeft {
-	padding-left: 200px;
-}
-
-.paddingLeftPoint {
-	padding-left: 80px;
-}
-
-.squareBracket {
-	float: left;
-	font-size: 32px;
-	font-style: normal;
-	margin-left: -10px;
-}
+#result{ display: none; visibility: hidden; }
+.scale{ font-size: 15px; }

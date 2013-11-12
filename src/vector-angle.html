@@ -2,13 +2,34 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<script src="./scripts/jquery.min.js"></script>
-		<script src="./scripts/processing.min.js"></script>
-		<script src="./scripts/vector.js"></script>
-		<script src="./scripts/point.js"></script>
-		<script src="./scripts/script.js"></script>
+		<script src="./scripts/core/mathjax/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
+		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/processing.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		
 		<script src="./scripts/vector-angle.js"></script>
 </head>
+
+<script type="text/x-mathjax-config">
+	/*extensions: ["http://cs.jsu.edu/mathjax-ext/github/forminput/forminput.js"],*/
+	MathJax.Hub.Config({
+		showProcessingMessages: false,
+		tex2jax: { inlineMath: [['$','$'],['\\(','\\)']]},
+		styles: { ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+			fill: "#336699",
+			stroke: "#336699"
+			}}
+	});
+	
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"result"]);
+</script>
+
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
 	<h2>Vectors: Angle between vectors</h2>
@@ -20,17 +41,23 @@
 			</p>
 			<div id="vectorList">
 			</div>
-			<button type="button" onClick="addVectorToList(new Vector(2, 2, 0, 0))">Add vector</button>	
+			<br /><br />
+			<button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0))">Add vector</button>	
+			<button id="remove" type="button" onClick="clear_all_elements()">Clear</button>
 			<p>
 				<br /><br />Vectors angle:<br /><br />
                 <div class="floatLeft">
 				1. vector: <select id="firstvector" class="vecDropDown"></select><br />
 				2. vector: <select id="secondvector" class="vecDropDown"></select>
 				</div>
-				<div class="squareBracket">]<div style="padding-top:4px; float:right;">&Phi;</div></div>				
-				<br style="clear:both;" /><br />
+				
+				<div class="aritmeticItem"><div class="bracket right"><div class="top"></div><div class="bottom"></div></div><span>&Phi;</span></div><br /><br />
+				
 				<button type="button" onClick="calculateAngle()">Calculate</button><br /><br /><br />
-				<div id="result"></div>				
+				<div id="result"><b>Result:</b>
+				<br /><br /><span class="scale">${}$</span>
+				<br /><br /> <span class="scale">${}$</span>
+				<br /><br /> <span class="scale">${}$</span></div>
 			</p>				
 		</div>
 		<div id="contentRight">

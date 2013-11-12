@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/processing.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		<script src="./scripts/algebra/matrix3.js"></script>
+		
+		<script src="./scripts/camera-projection.js"></script>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Projection: Parallel</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft">
+			<p>
+				In the sketch on the right you can see example, how projection is done.
+			</p>
+			
+			<b>DEMO matrix:</b><br /><br />
+			<div class="matrixItem vectorValue" id="vector_point_selection">
+				<div class="bracket left"><div class="top"></div><div class="bottom"></div></div>
+				<div class="floatLeft">
+					<div style="height:80px;"> <!-- need to add this style to design.css -->
+							<div id="X" class="floatLeft margin3 marginBetween"><!-- 1. Vector -->
+								<input class="x vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+								<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+							</div>
+							<div id="Y" class="floatLeft margin3 marginBetween"><!-- 2. Vector -->
+								<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="y vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+								<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+							</div>
+							<div id="Z" class="floatLeft margin3 marginBetween"><!-- 3. Vector -->
+								<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="z vecInputCol" type="number" value="-1" min="-20" max="20" step="1" />
+							</div>
+							<div id="N1" class="floatLeft margin3"><!-- Extended vector -->
+								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+							</div>
+					</div>
+					<div><div id="N2"> <!-- Last line -->
+						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+						<input class="n vecInputRow" type="number" value="1" min="-20" max="20" step="1" />
+					</div></div>
+				</div>
+				<div class="bracket right"><div class="top"></div><div class="bottom"></div></div>
+			</div>
+			
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>
