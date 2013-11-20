@@ -18,6 +18,7 @@ Vector3.prototype = {
 	/*****************
 	   SET FUNCTIONS
 	******************/
+	
 	setScalar : function (number){
 		this.x = number, this.y = number, this.z = number;
 		return this;
@@ -55,6 +56,7 @@ Vector3.prototype = {
 	},
 	
 	//LOCATION
+	
 	setLocationFromVector : function (vector){
 		this.loc.x = vector.loc.x;
 		this.loc.y = vector.loc.y;
@@ -85,6 +87,7 @@ Vector3.prototype = {
 	},
 	
 	//COLOUR
+	
 	setColor : function (vector){ //try to fix with color.js
 		this.r = vector.x;
 		this.g = vector.y;
@@ -167,6 +170,7 @@ Vector3.prototype = {
 		this.x += number;
 		this.y += number;
 		this.z += number;
+		return this;
 	},
 	
 	addVectors : function (vectorA, vectorB){
@@ -189,6 +193,7 @@ Vector3.prototype = {
 		this.x -= number;
 		this.y -= number;
 		this.z -= number;
+		return this;
 	},
 	
 	subVectors : function (vectorA, vectorB){
@@ -199,6 +204,7 @@ Vector3.prototype = {
 	},
 	
 	//MULTIPLY
+	
 	multiply : function (vector){
 		this.x *= vector.x;
 		this.y *= vector.y;
@@ -210,6 +216,7 @@ Vector3.prototype = {
 		this.x *= number;
 		this.y *= number;
 		this.z *= number;
+		return this;
 	},
 	
 	multiplyVectors : function (vectorA, vectorB){
@@ -219,7 +226,8 @@ Vector3.prototype = {
 		return this;
 	},
 	
-	//DEVIDE
+	//DIVIDE
+	
 	divide : function (vector){
 		this.x /= vector.x;
 		this.y /= vector.y;
@@ -261,6 +269,7 @@ Vector3.prototype = {
 	},
 	
 	//CROSS
+	
 	cross : function (vector){
 		var x = this.x, y = this.y, z = this.z; //This is because it is called twice for one calculation
 		
@@ -280,7 +289,8 @@ Vector3.prototype = {
 		return this;
 	},
 	
-	//DOT - find better solution!!!
+	//DOT
+	
 	dot : function (vector){
 		return this.x*vector.x + this.y*vector.y + this.z*vector.z;
 	},
@@ -290,6 +300,7 @@ Vector3.prototype = {
 	},
 	
 	//MIN / MAX / CLAMP / LERP
+	
 	makeMin : function (vector){
 		if(this.x > vector.x) this.x = vector.x;
 		if(this.y > vector.y) this.y = vector.y;
@@ -323,6 +334,7 @@ Vector3.prototype = {
 	},
 	
 	// NEGATE / NORMALIZE
+	
     negate : function () {
         this.x = -this.x;
         this.y = -this.y;
@@ -335,6 +347,7 @@ Vector3.prototype = {
 	},
 
 	//LENGTH
+	
 	lengthSqrt : function (){
 		return this.x * this.x + this.y * this.y + this.z * this.z;
 	},
@@ -354,6 +367,7 @@ Vector3.prototype = {
 	},
 	
 	//DISTANCE
+	
 	distanceToSqrt : function (vector){
 		var Dx = this.x - vector.x;
 		var Dy = this.y - vector.y;
@@ -366,11 +380,92 @@ Vector3.prototype = {
 		return Math.sqrt( this.distanceToSqrt(vector) );
 	},
 	
+	/************************
+	   QUATERNION FUNCTIONS
+	*************************/
+	
+		//TODO: applyQuaternion
+		//TODO: Euler.setFromQuaternion()
+	
+	/********************
+	   EULER FUNCTIONS
+	*********************/
+	
+		//TODO: Euler.setFromRotationMatrix()
+	
 	/****************************
 	   MATRIX RELATED FUNCTIONS
 	*****************************/
 	
-	//@TODO: Like in Three.js
+	//GET
+	
+	getColumnFromMatrix: function ( index, matrix ) {
+		if(index > matrix.n || index < -1) throw new Error("Matrix does not contain this column!!!");
+		var m = matrix.MD_Array;
+		
+		this.x = m[0][index];
+		this.y = m[1][index];
+		this.z = m[2][index];
+		
+		return this;
+	},
+	
+	getPositionFromMatrix: function ( matrix ) {
+		var m = matrix.MD_Array;
+		
+		this.x = m[3][0];
+		this.y = m[3][1];
+		this.z = m[3][2];
+		
+		return this;
+	},
+	
+	getScaleFromMatrix: function ( matrix ) {
+		var m = matrix.MD_Array;
+		
+		var sx = this.set( m[0][0], m.[0][1], m.[0][2] ).length();
+		var sy = this.set( m[1][0], m.[1][1], m.[1][2] ).length();
+		var sz = this.set( m[2][0], m.[2][1], m.[2][2] ).length();
+		
+		this.x = sx;
+		this.y = sy;
+		this.z = sz;
+		
+		return this;
+	},
+	
+	//APPLY
+	
+	applyMatrix: function ( matrix ) {
+		// input: THREE.Matrix4 affine matrix
+		// vector interpreted as a direction
+		
+		var x = this.x, y = this.y, z = this.z;
+		var m = matrix.MD_Array;
+		
+		this.x = m[0][0] * x + m[1][0] * y + m[2][0] * z;
+		this.y = m[0][1] * x + m[1][1] * y + m[2][1] * z;
+		this.z = m[0][2] * x + m[1][2] * y + m[2][2] * z;
+		
+		return this;
+	},
+	
+	applyProjection: function ( matrix ) {
+		// input: THREE.Matrix4 projection matrix
+		
+		var x = this.x, y = this.y, z = this.z;
+		var m = matrix.MD_Array;
+		
+		var d = 1 / ( m[0][3] * x + m[1][3] * y + m[2][3] * z + m[3][3] ); // perspective divide
+		
+		this.x = ( m[0][0] * x + m[1][0] * y + m[2][0] * z + m[3][0] ) * d;
+		this.y = ( m[0][1] * x + m[1][1] * y + m[2][1] * z + m[3][1] ) * d;
+		this.z = ( m[0][2] * x + m[1][2] * y + m[2][2] * z + m[3][2] ) * d;
+		
+		return this;
+	},
+	
+	transformDirection: function ( matrix ) { return this.applyMatrix( matrix ).normalize(); },
 	
 	/****************************
 	   PROCESSING DRAW FUNCTION
@@ -392,9 +487,34 @@ Vector3.prototype = {
 
 //Extend "Vector.prototype"
 Vector3.prototype.__proto__ = {
-	test : function(){
-		return function () {
-			return "HELLO";
+		//TODO: applyEuler
+		//TODO: applyAxisAngle
+
+	projectOnVector: function () {
+		var v1 = new THREE.Vector3();
+		
+		return function ( vector ) {
+			v1.copy( vector ).normalize();
+			var d = this.dot( v1 );
+			return this.copy( v1 ).multiplyScalar( d );
+		};
+	}(),
+
+	projectOnPlane: function () {
+		var v1 = new THREE.Vector3();
+		
+		return function ( planeNormal ) {
+			v1.copy( this ).projectOnVector( planeNormal );
+			return this.sub( v1 );
+		}
+	}(),
+
+	reflect: function () {
+		var v1 = new THREE.Vector3();
+		
+		return function ( vector ) {
+		    v1.copy( this ).projectOnVector( vector ).multiplyScalar( 2 );
+		    return this.subVectors( v1, this );
 		}
 	}()
 };

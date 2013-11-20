@@ -12,7 +12,7 @@ function initProcessing(processing) {
 	processing.mouseOut = mouseOut;
 }
 
-function setup() {}
+function setup() { }
 
 function draw() {
     // clear background
