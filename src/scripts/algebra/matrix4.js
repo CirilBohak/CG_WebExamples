@@ -222,7 +222,7 @@ Matrix4.prototype = {
 	*****************************/
 	
 	extractRotation: function () {
-		var v1 = new THREE.Vector3();
+		var v1 = new Vector3();
 
 		return function ( matrix ) {
 			var M = this.MD_Array;
@@ -241,9 +241,9 @@ Matrix4.prototype = {
 	}(),
 	
 	lookAt: function() {
-		var x = new THREE.Vector3();
-		var y = new THREE.Vector3();
-		var z = new THREE.Vector3();
+		var x = new Vector3();
+		var y = new Vector3();
+		var z = new Vector3();
 
 		return function ( eye, target, up ) {
 			z.subVectors( eye, target ).normalize();

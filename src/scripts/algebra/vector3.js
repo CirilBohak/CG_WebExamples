@@ -423,9 +423,9 @@ Vector3.prototype = {
 	getScaleFromMatrix: function ( matrix ) {
 		var m = matrix.MD_Array;
 		
-		var sx = this.set( m[0][0], m.[0][1], m.[0][2] ).length();
-		var sy = this.set( m[1][0], m.[1][1], m.[1][2] ).length();
-		var sz = this.set( m[2][0], m.[2][1], m.[2][2] ).length();
+		var sx = this.set( m[0][0], m[0][1], m[0][2] ).length();
+		var sy = this.set( m[1][0], m[1][1], m[1][2] ).length();
+		var sz = this.set( m[2][0], m[2][1], m[2][2] ).length();
 		
 		this.x = sx;
 		this.y = sy;
@@ -491,7 +491,7 @@ Vector3.prototype.__proto__ = {
 		//TODO: applyAxisAngle
 
 	projectOnVector: function () {
-		var v1 = new THREE.Vector3();
+		var v1 = new Vector3();
 		
 		return function ( vector ) {
 			v1.copy( vector ).normalize();
@@ -501,7 +501,7 @@ Vector3.prototype.__proto__ = {
 	}(),
 
 	projectOnPlane: function () {
-		var v1 = new THREE.Vector3();
+		var v1 = new Vector3();
 		
 		return function ( planeNormal ) {
 			v1.copy( this ).projectOnVector( planeNormal );
@@ -510,7 +510,7 @@ Vector3.prototype.__proto__ = {
 	}(),
 
 	reflect: function () {
-		var v1 = new THREE.Vector3();
+		var v1 = new Vector3();
 		
 		return function ( vector ) {
 		    v1.copy( this ).projectOnVector( vector ).multiplyScalar( 2 );
