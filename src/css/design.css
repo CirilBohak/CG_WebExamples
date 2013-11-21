@@ -1,4 +1,4 @@
-body {
+body, table, th, td, tr {
 	text-align: center;
 	font-family: Verdana;
 	text-align: center;
@@ -12,10 +12,12 @@ body h1 {
 	font-size: 42px;
 }
 
-button { border: solid 1px #666; color:#666; }
+.clear {clear: both;}
+
+button { border: solid 1px #666; color:#666; margin-right:5px; }
 button:hover { border: solid 1px #000; background-color: #888; color:#000; cursor:pointer; cursor: hand; }
 
-#remove { border: solid 1px #B55D63; background-color: #EC888F; color:#B55D63; }
+#remove { border: solid 1px #B55D63; background-color: #EC888F; color:#B55D63; margin-left:5px; }
 #remove:hover { border: solid 1px #8D1A21; background-color: #EB2B36; color:#8D1A21; cursor:pointer; cursor: hand; }
 
 /*INDEX.html*/
@@ -52,7 +54,6 @@ input { text-align: right; }
 #contentRight { width: 66%; float: left; }
 
 /*Components*/
-
 #vectorList, #pointList { font-size: 10px; font-style: italic; }
 
 .floatLeft { float:left; }
@@ -62,8 +63,7 @@ input { text-align: right; }
 .paddingLeft { padding-left: 200px; }
 .paddingLeftPoint{padding-left: 100px;}
 
-.vectorItem { width: 100%; height: 58px; padding-bottom: 15px; }
-.matrixItem { height: 108px; }
+.vectorItem { width: 100%; overflow: auto; margin-bottom: 5px; padding-bottom: 4px; }
 .aritmeticItem { line-height: 49px; height: 49px; }
 .aritmeticItem > span {
 	margin-left: 5px;
@@ -81,9 +81,23 @@ input { text-align: right; }
 
 .vecDropDown { width: 80px; margin-right: 10px; margin:0px 4px 2px 0px; }
 
-.vecInputCol { margin:2px 0px 0px 0px;  }
-.vecInputRow { margin: -3px -1px 0px 0px; }
-.vectorValue { margin: 0px 10px 0px 5px; }
+.vecInputCol { margin:2px 0px 0px 0px; padding:0px; } /*Why firefox margin padding problems????!!!!*/
+.vecInputRow { margin-right: -1px; padding:0px; } /*Why IE10 margin padding problems????!!!!*/
+/*.vectorValue { margin: 0px 10px 0px 5px; }*/
+
+/*POINT - VECTOR - MATRIX BRACKET*/
+table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; padding:0px; margin:0px;}
+.space{padding-right:5px;}
+
+.leftMV, .rightMV, .leftM4U, .rightM4U, .leftM4D, .rightM4D{ width: 8px; }
+
+.leftMV{ border-top: solid 2px; border-left: solid 2px; border-bottom: solid 2px; border-color:#336699;}
+.rightMV{ border-top: solid 2px; border-right: solid 2px; border-bottom: solid 2px;  border-color:#336699;}
+
+.leftM4U{ border-top: solid 2px; border-left: solid 2px; border-color:#336699;}
+.rightM4U{ border-top: solid 2px; border-right: solid 2px; border-color:#336699;}
+.leftM4D{ border-bottom: solid 2px; border-left: solid 2px; border-color:#336699;}
+.rightM4D{ border-bottom: solid 2px; border-right: solid 2px; border-color:#336699;}
 
 .x, .y, .z, .N { background-color: #fff; }
 
@@ -94,36 +108,12 @@ input { text-align: right; }
 #Z:hover{ background-color: #165571; } /*BLUE*/
 #Z:hover .z{ background-color: #2cabe2; color:#fff; font-weight:bold; border-color: #165571; }
 
-#N1{ padding-bottom: 2px; }
+.N2 {padding-top:2px;}
+#N2 {margin-bottom:2px;}
 #N1:hover, #N2:hover{ background-color: #AAA; } /*BLUE*/
 #N1:hover .n, #N2:hover .n{ background-color: #CCC; color:#fff; font-weight:bold; border-color: #AAA; }
 
-/*POINT - VECTOR BRACKET*/
-.bracket, .top, .bottom{ background-image: url('bracket.png'); }
-
-.bracket{
-	position: relative; 
-	float:left; 
-	
-	background-repeat: repeat-y; 
-	
-	width: 8px;
-	height: 100%;
-}
-
-.left{ left: 0; background-position: left top; }
-.right{ right: 0; background-position: right top; }
-
-.top, .bottom{
-	position: absolute; 
-	background-repeat: repeat-x; 
-	width: 100%; height: 5px;
-}
-
-.top{ top: 0; background-position: left top; }
-.bottom{ bottom: 0; background-position: left bottom; }
-
-.margin3 { margin: 3px 0; }
+.margin3 { margin: 0px 0px 2px 0px; padding:0px }
 .marginBetween { margin-right: 3px; }
 
 /*MathJax*/

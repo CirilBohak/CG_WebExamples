@@ -15,6 +15,28 @@
 		<script src="./scripts/algebra/matrix4.js"></script>
 		
 		<script src="./scripts/camera-projection.js"></script>
+			<style type="text/css">
+			.group:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.group { display: inline-block; }
+			
+      #doug-neiner-three { 
+			overflow: hidden;
+			
+			background-color: #ccc;  
+		}
+		#doug-neiner-three .col {
+			float: left; padding: 2%;
+		}
+		#doug-neiner-three .col:nth-child(1) { margin-left:  25%; width: 46%; } /* PRIMARY */
+		#doug-neiner-three .col:nth-child(2) { width: 10px; } 
+	</style>
 </head>
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
@@ -26,43 +48,49 @@
 				In the sketch on the right you can see example, how projection is done.
 			</p>
 			
-			<b>DEMO matrix:</b><br /><br />
-			<div class="matrixItem vectorValue" id="vector_point_selection">
-				<div class="bracket left"><div class="top"></div><div class="bottom"></div></div>
-				<div class="floatLeft">
-					<div style="height:80px;"> <!-- need to add this style to design.css -->
-							<div id="X" class="floatLeft margin3 marginBetween"><!-- 1. Vector -->
-								<input class="x vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
-								<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
-							</div>
-							<div id="Y" class="floatLeft margin3 marginBetween"><!-- 2. Vector -->
-								<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="y vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
-								<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
-							</div>
-							<div id="Z" class="floatLeft margin3 marginBetween"><!-- 3. Vector -->
-								<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="z vecInputCol" type="number" value="-1" min="-20" max="20" step="1" />
-							</div>
-							<div id="N1" class="floatLeft margin3"><!-- Extended vector -->
-								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-								<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
-							</div>
-					</div>
-					<div><div id="N2"> <!-- Last line -->
-						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
-						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
-						<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
-						<input class="n vecInputRow" type="number" value="1" min="-20" max="20" step="1" />
-					</div></div>
-				</div>
-				<div class="bracket right"><div class="top"></div><div class="bottom"></div></div>
-			</div>
-			
+			<b>DEMO matrix:</b><br /><br />			
+			<table>
+				<tr>
+					<td class="leftM4U"> </td>
+					<td>
+						<div id="X" class="floatLeft marginBetween"><!-- 1. Vector -->
+							<input class="x vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+						<div id="Y" class="floatLeft marginBetween"><!-- 2. Vector -->
+							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="y vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+						<div id="Z" class="floatLeft marginBetween"><!-- 3. Vector -->
+							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="z vecInputCol" type="number" value="-1" min="-20" max="20" step="1" />
+						</div>
+						<div id="N1" class="floatLeft"><!-- Extended vector -->
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+					</td>
+					<td class="rightM4U"></td>
+				</tr>
+				<tr>
+					<td class="leftM4D"></td>
+					<td class="N2">
+						<div id="N2" class="floatLeft"> <!-- Last line -->
+							<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+							<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+							<input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" />
+							<input class="n vecInputRow" type="number" value="1" min="-20" max="20" step="1" />
+						</div>
+					</td>
+					<td class="rightM4D"></td>
+				</tr>
+			</table>
 		</div>
+		
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>
 		</div>

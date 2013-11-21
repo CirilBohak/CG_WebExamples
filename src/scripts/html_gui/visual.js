@@ -23,13 +23,17 @@ function createPointSelection(point, index){
             "<div class=\"vectorValue\">"+
                 "Point " + index + ":"+
                 "<br />"+
-				"<div id=\"vector_point_selection\">"+
-					"<div class=\"bracket left\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
-					"<div class=\"floatLeft margin3\">"+
-						"<input class=\"vecInputCol\" type=\"number\" value=\""+point.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-						"<input class=\"vecInputCol\" type=\"number\" value=\""+point.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-					"</div>"+
-					"<div class=\"bracket right\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
+				"<div class=\"floatLeft space\">"+
+					"<table><tr>"+
+						"<td class=\"leftMV\"></td>"+
+						"<td>"+
+							"<div class=\"floatLeft\">"+
+								"<input class=\"vecInputCol\" type=\"number\" value=\""+point.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+								"<input class=\"vecInputCol\" type=\"number\" value=\""+point.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+							"</div>"+
+						"</td>"+
+						"<td class=\"rightMV\"></td>"+
+					"</tr></table>"+
 				"</div>"+
 				"<div class=\"paddingLeftPoint\">"+
 					"<button  id=\"remove\" type=\"button\" onClick=\"removedPointUpdate("+index+")\">Remove</button>"+
@@ -95,25 +99,33 @@ function createVectorSelection(vec, index){
 		"<div class=\"floatLeft vectorValue\">"+
 			"Vector " + index + ":"+
 			"<br />"+
-			"<div id=\"vector_point_selection\">"+
-				"<div class=\"bracket left\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
-				"<div class=\"floatLeft margin3\">"+
-					"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-					"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-				"</div>"+
-				"<div class=\"bracket right\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
+			"<div class=\"floatLeft space\">"+
+				"<table><tr>"+
+					"<td class=\"leftMV\"></td>"+
+					"<td>"+
+						"<div class=\"floatLeft\">"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+						"</div>"+
+					"</td>"+
+					"<td class=\"rightMV\"></td>"+
+				"</tr></table>"+
 			"</div>"+
 		"</div>"+
 		"<div class=\"vectorValue\">"+
 			"Point " + index + ":"+
 			"<br />"+
-			"<div id=\"vector_point_selection\">"+
-				"<div class=\"bracket left\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
-				"<div class=\"floatLeft margin3\">"+
-					"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-					"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-				"</div>"+
-				"<div class=\"bracket right\"><div class=\"top\"></div><div class=\"bottom\"></div></div>"+
+			"<div class=\"floatLeft space\">"+
+				"<table><tr>"+
+					"<td class=\"leftMV\"></td>"+
+					"<td>"+
+						"<div class=\"floatLeft\">"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+						"</div>"+
+					"</td>"+
+					"<td class=\"rightMV\"></td>"+
+				"</tr></table>"+
 			"</div>"+
 		"</div>"+
 		"<div class=\"paddingLeft\">"+
