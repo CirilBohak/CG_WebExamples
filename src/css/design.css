@@ -82,7 +82,7 @@ input { text-align: right; }
 .vecDropDown { width: 80px; margin-right: 10px; margin:0px 4px 2px 0px; }
 
 .vecInputCol { margin:2px 0px 0px 0px; padding:0px; } /*Why firefox margin padding problems????!!!!*/
-.vecInputRow { margin-right: -1px; padding:0px; } /*Why IE10 margin padding problems????!!!!*/
+.vecInputRow { margin: 0px; padding:0px; } /*Why IE10 margin padding problems????!!!!*/
 /*.vectorValue { margin: 0px 10px 0px 5px; }*/
 
 /*POINT - VECTOR - MATRIX BRACKET*/
