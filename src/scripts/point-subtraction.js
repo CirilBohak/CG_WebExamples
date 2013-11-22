@@ -1,77 +1,17 @@
 function exampleInit() {
-    addPointToList(new Point(3, 2));
+    addPointToList(new Point(3, 2, 0));
 }
 
 function addPointToList(point) {
     points.push(point);
-     $("#pointList").append(
-        "<div id=\"point"+ (points.length - 1) +"\" class=\"vectorItem\">"+
-            "<div class=\"floatLeft vectorValue\">"+
-                "Point " + (points.length - 1) + ":"+
-                "<br />"+
-                "<div class=\"squareBracket\">"+
-                    "["+
-                "</div>"+
-                "<div class=\"floatLeft\">"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+point.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-                    "<input class=\"vecInput\" type=\"number\" value=\""+point.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
-                "</div>"+
-                "<div class=\"squareBracket\">"+
-                    "]"+
-                "</div>"+
-            "</div>"+
-        "</div>"+
-        "<br /><br />");
-    $("#point"+ (points.length - 1) +" input").on('change', function () { updatePoints(false); });
-	updateDropDownLists(points.length - 1);
-}
-
-function subtractPoints() {
-	var firstPoint0=$($("#point"+$("#firstpoint").val()+" input")[0]).val();
-	var firstPoint1=$($("#point"+$("#firstpoint").val()+" input")[1]).val();
-	var secondPoint0=$($("#point"+$("#secondpoint").val()+" input")[0]).val();
-	var secondPoint1=$($("#point"+$("#secondpoint").val()+" input")[1]).val();
 	
-	var vector=new Vector((secondPoint0-firstPoint0), (secondPoint1-firstPoint1), firstPoint0, firstPoint1);
-	addVectorToList(vector);	
+    createPointSelection(point, points.length-1);
+
+	updatePointDropDownLists(points.length - 1);
 }
 
-// updating point values
-function updatePoints(values) {
-    if (!values) {
-        for (var i = 0; i < points.length; i++) {
-            var vals = $("#point"+i+" input");
-            var point = points[i];
-            point.x = $(vals[0]).val();
-            point.y = $(vals[1]).val();
-        }
-    } else {
-        for (var i = 0; i < points.length; i++) {
-            var vals = $("#point"+i+" input");
-            var point = points[i];
-            $(vals[0]).val(point.x);
-            $(vals[1]).val(point.y);
-        }
-    }
-    console.log("Bla");
-}
-
-// update drop down lists when adding a new point
-function updateDropDownLists(pointIndex)
-{
-	$("#firstpoint").append('<option value=\"'+pointIndex+'\">Point '+pointIndex+'</option>');	
-	$("#secondpoint").append('<option value=\"'+pointIndex+'\">Point '+pointIndex+'</option>');	
-}
-
-// adding new point to the list 
-function addPoint(x, y) {
-    addPointToList(canvasToGridTransform(new Point(x, y)));
-}
-
-// ------------- VECTORS ------------
-
-// adding new vector to the list
 function addVectorToList(vec) {
+<<<<<<< HEAD
     vectors.push(vec);
     $("#vectorList").append(
         "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
@@ -109,27 +49,31 @@ function addVectorToList(vec) {
       $("#vectorList").prepend("<br /><p style=\"font-family:Verdana;font-size:11px;font-style:normal\"><b>Note:</b> values do not represent vector components but its location!</p><br />");	
 	}
     $("#vec"+ (vectors.length - 1) +" input").on('change', function () { updateVectors(false); });
+=======
+	vectors.push(vec);
+	
+	createVectorSelection(vec, vectors.length-1);
+>>>>>>> origin/dp3698_E-Learning
 }
 
-// updating vector values
-function updateVectors(values) {
-    if (!values) {
-        for (var i = 0; i < vectors.length; i++) {
-            var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
-            vec.x = $(vals[0]).val();
-            vec.y = $(vals[1]).val();
-            vec.locX = $(vals[2]).val();
-            vec.locY = $(vals[3]).val();
-        }
-    } else {
-        for (var i = 0; i < vectors.length; i++) {
-            var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
-            $(vals[0]).val(vec.x);
-            $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.locX);
-            $(vals[3]).val(vec.locY);
-        }
-    }
+/****************
+   CALCULATION
+*****************/
+function subtractPoints() {
+	if(points.length === 1) { 
+		$("#vectorList").prepend("<br /><p style=\"font-family:Verdana;font-size:11px;font-style:normal\"><b>Note:</b> values do not represent vector components but its location!</p><br />");	
+	}else{
+		var pointA = new Point(	$($("#point"+$("#firstpoint").val()+" input")[0]).val(),
+								$($("#point"+$("#firstpoint").val()+" input")[1]).val(),
+								0);
+		
+		var pointB = new Point(	$($("#point"+$("#secondpoint").val()+" input")[0]).val(),
+								$($("#point"+$("#secondpoint").val()+" input")[1]).val(),
+								0);
+		
+		var result = new Vector3((	pointB.x-pointA.x), (pointB.y-pointA.y), (pointB.z-pointA.z), 
+									pointA.x, pointA.y, pointA.z);	
+		
+		addVectorToList(result);
+	}
 }

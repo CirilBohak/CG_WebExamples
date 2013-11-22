@@ -1,11 +1,12 @@
 function exampleInit() {
-    addVectorToList(new Vector(2, 5, 1, 2));
-    addVectorToList(new Vector(6, 3, -2, 2));
+    addVectorToList(new Vector3(2, 5, 0, 1, 2, 0));
+    addVectorToList(new Vector3(6, 3, 0, -2, 2, 0));
 }
 
 // adding new vector to the list
 function addVectorToList(vec) {
     vectors.push(vec);
+<<<<<<< HEAD
     $("#vectorList").append(
         "<div id=\"vec"+ (vectors.length - 1) +"\" class=\"vectorItem\">"+
             "<div class=\"floatLeft vectorValue\">"+
@@ -47,12 +48,23 @@ function addVectorToList(vec) {
 
 function precise_round(num,decimals){
 return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals);
+=======
+	
+    createVectorSelection(vec, vectors.length-1);
+	
+	updateVectorDropDownLists(vectors.length - 1);	
+>>>>>>> origin/dp3698_E-Learning
 }
 
+/****************
+   CALCULATION
+*****************/
 function calculateLength() {
-	var firstVectorX=parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val());
-	var firstVectorY=parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val());	
+	var vector = new Vector3(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+								0);
 	
+<<<<<<< HEAD
 	var length=precise_round(Math.sqrt((firstVectorX*firstVectorX)+(firstVectorY*firstVectorY)),2);
 	$("#result").html("<b>Result:</b> ||Vector "+$("#firstvector").val()+"|| = sqrt("+firstVectorX+"^2 + "+firstVectorY+"^2) = "+length);
 }
@@ -85,3 +97,14 @@ function updateDropDownLists(vectorIndex)
 {
 	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
+=======
+	var length = precise_round(vector.length(),2);
+	
+	//show result
+	$("#result").css({visibility : 'visible', display : 'block'});
+	MathJax.Hub.queue.Push([	"Text",
+								MathJax.Hub.getAllJax("MathOutput")[0],
+								length
+							]);
+}
+>>>>>>> origin/dp3698_E-Learning

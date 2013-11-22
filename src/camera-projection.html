@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/three.js/three.min.js"></script>
+		<script src="./scripts/core/processing-1.4.1.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		<script src="./scripts/algebra/matrix3.js"></script>
+		<script src="./scripts/algebra/vector4.js"></script>
+		<script src="./scripts/algebra/matrix4.js"></script>
+		
+		<script src="./scripts/camera-projection.js"></script>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Projection: <i>(under construction)</i></h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft">
+			<p>
+				In the sketch on the right you can see example, how projection is done.
+			</p><br />	
+			
+			<p><b>DEMO</b>: Drag to spin the cube ... for now &#x263A;</p><br />	
+			
+			<b>DEMO matrix:</b><br /><br />			
+			<table>
+				<tr>
+					<td class="leftM4U"> </td>
+					<td>
+						<div id="X" class="floatLeft marginBetween"><!-- 1. Vector -->
+							<input class="x vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+						<div id="Y" class="floatLeft marginBetween"><!-- 2. Vector -->
+							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="y vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
+							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+						<div id="Z" class="floatLeft marginBetween"><!-- 3. Vector -->
+							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="z vecInputCol" type="number" value="-1" min="-20" max="20" step="1" />
+						</div>
+						<div id="N1" class="floatLeft"><!-- Extended vector -->
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
+							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+						</div>
+					</td>
+					<td class="rightM4U"></td>
+				</tr>
+				<tr>
+					<td class="leftM4D"></td>
+					<td class="N2">
+						<div id="N2" class="floatLeft"> <!-- Last line -->
+							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
+							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
+							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
+							<div class="floatLeft"><input class="n vecInputRow" type="number" value="1" min="-20" max="20" step="1" /></div>
+						</div>
+					</td>
+					<td class="rightM4D"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="contentRight">
+			<div id="surface" name="container"></div>
+		</div>
+	</div>
+</body>
+		<script src="./scripts/html_gui/script3D.js"></script>
+</html>

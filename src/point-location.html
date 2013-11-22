@@ -2,10 +2,15 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<script src="./scripts/jquery.min.js"></script>
-		<script src="./scripts/processing.min.js"></script>
-		<script src="./scripts/point.js"></script>
-		<script src="./scripts/script.js"></script>
+		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/processing-1.4.1.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script2D.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		
 		<script src="./scripts/point-location.js"></script>
 </head>
 <body>
@@ -19,7 +24,9 @@
 			</p>
 			<div id="pointList">
 			</div>
-			<button type="button" onClick="addPointToList(new Point(2, 2))">Add point</button>
+			<br /><br />
+			<div class="floatLeft"><button type="button" onClick="addPointToList(new Point(2, 2,0))">Add point</button></div>
+			<div class="floatLeft"><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>
