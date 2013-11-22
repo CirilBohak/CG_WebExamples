@@ -38,7 +38,7 @@ input { text-align: right; }
 
 #content{
 	margin: auto;
-	/*width: 1280px;*/
+	width: 1280px;
 	text-align: left;
 }
 
