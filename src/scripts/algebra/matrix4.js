@@ -1,6 +1,7 @@
 // auxiliary class for Matrix
 var Matrix4 = function(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44) {
 	this.n = 4; /*dimension*/
+	this.m = this.n;
 	this.MD_Array = [[ ( n11 !== undefined ) ? n11 : 1, n12 || 0, n13 || 0, n14 || 0],  /*set with variables*/
 					 [ n21 || 0, ( n22 !== undefined ) ? n22 : 1, n23 || 0, n24 || 0],  /*if non set, array will be identity*/
 					 [ n31 || 0, n32 || 0, ( n33 !== undefined ) ? n33 : 1, n34 || 0],

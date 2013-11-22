@@ -34,11 +34,11 @@ input { text-align: right; }
 /*OTHER*/
 
 /*Content and drawing surfaces*/
-#surface { outline: none; border-left: 3px solid #336699; }
+#surface { border-left: 3px solid #336699; width:800px; height:600px; }
 
 #content{
 	margin: auto;
-	width: 1280px;
+	/*width: 1280px;*/
 	text-align: left;
 }
 

@@ -3,50 +3,32 @@
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
 		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/three.js/three.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
 		
 		<script src="./scripts/html_gui/visual.js"></script>
 		
 		<script src="./scripts/algebra/math.js"></script>
 		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
 		<script src="./scripts/algebra/vector3.js"></script>
 		<script src="./scripts/algebra/matrix3.js"></script>
 		<script src="./scripts/algebra/vector4.js"></script>
 		<script src="./scripts/algebra/matrix4.js"></script>
 		
 		<script src="./scripts/camera-projection.js"></script>
-			<style type="text/css">
-			.group:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-     }
-.group { display: inline-block; }
-			
-      #doug-neiner-three { 
-			overflow: hidden;
-			
-			background-color: #ccc;  
-		}
-		#doug-neiner-three .col {
-			float: left; padding: 2%;
-		}
-		#doug-neiner-three .col:nth-child(1) { margin-left:  25%; width: 46%; } /* PRIMARY */
-		#doug-neiner-three .col:nth-child(2) { width: 10px; } 
-	</style>
 </head>
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
-	<h2>Projection: Parallel</h2>
+	<h2>Projection: <i>(under construction)</i></h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft">
 			<p>
 				In the sketch on the right you can see example, how projection is done.
-			</p>
+			</p><br />	
+			
+			<p><b>DEMO</b>: Drag to spin the cube ... for now &#x263A;</p><br />	
 			
 			<b>DEMO matrix:</b><br /><br />			
 			<table>
@@ -92,8 +74,9 @@
 		</div>
 		
 		<div id="contentRight">
-			<canvas id="surface" width="800px" height="600px"></canvas>
+			<div id="surface" name="container"></div>
 		</div>
 	</div>
 </body>
+		<script src="./scripts/html_gui/script3D.js"></script>
 </html>

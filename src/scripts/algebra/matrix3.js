@@ -1,6 +1,7 @@
 // auxiliary class for Matrix
 var Matrix3 = function(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
 	this.n = 3; /*dimension*/
+	this.m = this.n;
 	this.MD_Array = [[ ( n11 !== undefined ) ? n11 : 1, n12 || 0, n13 || 0],  /*set with variables*/
 					 [ n21 || 0, ( n22 !== undefined ) ? n22 : 1, n23 || 0],  /*if non set, array will be identity*/
 					 [ n31 || 0, n32 || 0, ( n33 !== undefined ) ? n33 : 1]];
@@ -45,103 +46,18 @@ Matrix3.prototype = {
 	   GET FUNCTIONS
 	******************/
 	
-	get : function (i, j){ /*It can stay, but only if needed*/
-		return this.MD_Array[i][j];
-	},
-	
 	/**********************************
 	   COPY / CLONE itd... FUNCTIONS
 	***********************************/
 	
-	copy : function(array) {
-		if(typeof array !== 'undefined' && array.length === this.n && /*check if array is multi-dimensional*/
-		   typeof array[0] !== 'undefined' && array[0].length === this.n){ /* and size is n × n*/
-			
-			for(var i=0; i<this.n; i++){
-				for(var j=0; j<this.n; j++){
-					this.MD_Array[i][j] = array[i][j];
-				}
-			}
-			
-			return this;
-		}else throw new Error("copy: Array is not 2D or size is not n × n or both!!");
-	},
-	
 	clone : function() {
 		var cloned = new Matrix3();
-		cloned = cloned.copy(this.MD_Array);
-		return cloned;
+		return cloned.copy(this.MD_Array);
 	},
 	
 	/******************
 	   MATH FUNCTIONS
 	*******************/
-	
-	//ADD
-	
-	add : function(matrix) {
-		for(var i=0; i<this.n; i++){
-			for(var j=0; j<this.n; j++){
-				this.MD_Array[i][j] += matrix.MD_Array[i][j];
-			}
-		}
-	},
-	
-	//SUB
-	
-	sub : function(matrix) {
-		for(var i=0; i<this.n; i++){
-			for(var j=0; j<this.n; j++){
-				this.MD_Array[i][j] -= matrix.MD_Array[i][j];
-			}
-		}
-	},
-	
-	//MULTIPLY
-	
-	multiply : function(matrix) {
-		var orig = this.clone();
-		
-		for(var i=0; i<this.n; i++){
-			for(var j=0; j<this.n; j++){
-				this.MD_Array[i][j] = 0;
-				for(var k=0; k<this.n; k++){
-					this.MD_Array[i][j] += orig.MD_Array[i][k]*matrix.MD_Array[k][j];
-				}
-			}
-		}
-		
-		return this;
-	},
-	
-	multiplyMatrices : function (matrixA, matrixB){
-		var result = this.clone();
-		
-		for(var i=0; i<this.n; i++){
-			for(var j=0; j<this.n; j++){
-				result.MD_Array[i][j] = 0;
-				for(var k=0; k<this.n; k++){
-					result.MD_Array[i][j] += matrixA.MD_Array[i][k]*matrixB.MD_Array[k][j];
-				}
-			}
-		}
-		
-		return result;
-	},
-	
-	multiplyScalar : function(number) {
-		for(var i=0; i<this.n; i++){
-			for(var j=0; j<this.n; j++){
-				this.MD_Array[i][j] *= number;
-			}
-		}
-	},
-	
-	//DIVIDE
-	
-	divideScalar : function(number) {
-		return this.multiplyScalar(1/number);
-	},
 	
 	//DETERMINANT
 	
@@ -183,20 +99,7 @@ Matrix3.prototype = {
 		return res;
 	},
 	
-	//TRANSPOSE / INVERSE 
-	
-	transpose : function() {
-		for(var i=0; i<this.n; i++){
-			for(var j=i; j<this.n; j++){
-				if(i!==j){
-					var tmp = this.MD_Array[i][j];
-					this.MD_Array[i][j] = this.MD_Array[j][i];
-					this.MD_Array[j][i] = tmp;
-				}
-			}
-		}
-		return this;
-	},
+	//INVERSE 
 	
 	adjoint : function() {
 		function subArray(M, i, j) {
@@ -252,13 +155,7 @@ Matrix3.prototype = {
 		return this;
 	},
 	
-	// NEGATE / NORMALIZE
-    
-	negate : function(){
-		this.multiplyScalar( -1 );
-		
-		return this;
-	},
+	// NORMALIZE
 	
 	normalize : function () {
 		this.inverse().transpose();
@@ -286,10 +183,4 @@ Matrix3.prototype = {
 }
 
 //Extend "Matrix.prototype"
-Matrix3.prototype.__proto__ = {
-	test : function(){
-		return function () {
-			return "HELLO";
-		}
-	}()
-};
+Matrix3.prototype.__proto__ = Matrix.prototype;
