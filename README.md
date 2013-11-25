@@ -4,6 +4,8 @@ Web examples for Computer Graphics concepts
 
 ## Content ##
 
+## Part 1 ##
+
 ### Points ###
 * Location
 * Subtraction
@@ -26,7 +28,7 @@ Web examples for Computer Graphics concepts
 * Multiplication with Scalar
 * Matrix Multiplication
 
-### Transformations##
+### Transformations ###
 * Translation
  * X-Axis
  * Y-Axis
@@ -53,3 +55,51 @@ Web examples for Computer Graphics concepts
 * Projections
   * Parallel Projection
   * Perspective Projection
+
+## Part 2 ##
+
+### Curves and Patches ###
+* Curves
+  * Bernstein Polynomial
+  * Bezier Curves
+    * Parametic Form
+    * Matrix Form
+    * Standard Draw
+    * De Castejau Adaptive Draw
+  * B-Splines
+  * NURBS
+* Patches
+  * Bezier Patches
+  * NURBS Patches
+
+### Colors ###
+* Color Models
+  * Subractive Models
+  * Additive Models
+* Color Spaces
+  * CIE RGB
+  * CIE XYZ
+  * CIE xyY
+  * CIE LAB
+* Color Range (popravi)
+  * Colorometic Diagram CIE xy
+* Color Systems
+  * RGB
+  * HSV
+  * HSL
+
+### Shading ###
+* Illumination
+  * Lambert Illumination
+  * Phong Illumination
+  * Blinnn Phong Illumination
+    * Halfway Vector
+* Shading
+  * Gouraud Shading
+  * Phong Shading
+* Lights
+  * Directional Light
+  * Point Light
+  * Spot Light
+  * Volumetric Light (later)
+* Shadows (later)
