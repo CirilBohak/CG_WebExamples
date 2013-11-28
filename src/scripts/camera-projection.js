@@ -43,7 +43,7 @@ function exampleInit() {
 	  CAMERA 
 	**********/
 	if(false) camera = new THREE.OrthographicCamera( -10, 10, 10, -10, 150, 250 );
-	else camera = new THREE.PerspectiveCamera( 30, 20/20, 1, 250 );
+	else camera = new THREE.PerspectiveCamera( 30, 10/10, 100, 250 );
 	camera.position.set(-200,250,100);
 	camera.lookAt(object.position);
 	camera.updateProjectionMatrix();

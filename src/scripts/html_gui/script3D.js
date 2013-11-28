@@ -20,7 +20,8 @@ function init() {
 	exampleInit();
 	
 	
-	GRenderer = new THREE.CanvasRenderer();//new THREE.WebGLRenderer( { antialias: true} );
+	if(false) GRenderer = new THREE.WebGLRenderer( { antialias: true} );
+	else GRenderer = new THREE.CanvasRenderer();
 	GRenderer.setSize( $container.width(), $container.height() );
 	GRenderer.setClearColor( 0xffffff, 1 );
 	
