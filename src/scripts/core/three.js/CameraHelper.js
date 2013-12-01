@@ -7,21 +7,20 @@
  *		http://evanw.github.com/lightgl.js/tests/shadowmap.html
  */
 
-CameraHelper = function ( camera ) {
+CameraHelper = function ( camera, flag ) {
 
 	var geometry = new THREE.Geometry();
-	var material = new THREE.LineBasicMaterial( { color: 0xffffff, /*vertexColors: THREE.FaceColors*/vertexColors: THREE.VertexColors } );
+	var material = new THREE.LineBasicMaterial( { color: 0xffffff, vertexColors: THREE.VertexColors } );
 
 	var pointMap = {};
 
 	// colors
 
-	var hexFrustum = 0xffaa00;
-	var hexCone = 0xff0000;
+	var hexFrustum = 0x999999;
+	var hexCone = 0xDDDDDD;
 	var hexUp = 0x00aaff;
 	var hexTarget = 0xffffff;
-	var hexCross = 0x333333;
-
+	
 	// near
 
 	addLine( "n1", "n2", hexFrustum );
@@ -44,30 +43,17 @@ CameraHelper = function ( camera ) {
 	addLine( "n4", "f4", hexFrustum );
 
 	// cone
-
-	addLine( "p", "n1", hexCone );
-	addLine( "p", "n2", hexCone );
-	addLine( "p", "n3", hexCone );
-	addLine( "p", "n4", hexCone );
-
+	if(!flag){
+		addLine( "p", "n1", hexCone );
+		addLine( "p", "n2", hexCone );
+		addLine( "p", "n3", hexCone );
+		addLine( "p", "n4", hexCone );
+	}
 	// up
 
-	addLine( "u1", "u2", hexUp );
+	/*addLine( "u1", "u2", hexUp );
 	addLine( "u2", "u3", hexUp );
-	addLine( "u3", "u1", hexUp );
-
-	// target
-
-	addLine( "c", "t", hexTarget );
-	addLine( "p", "c", hexCross );
-
-	// cross
-
-	addLine( "cn1", "cn2", hexCross );
-	addLine( "cn3", "cn4", hexCross );
-
-	addLine( "cf1", "cf2", hexCross );
-	addLine( "cf3", "cf4", hexCross );
+	addLine( "u3", "u1", hexUp );*/
 
 	function addLine( a, b, hex ) {
 
@@ -121,12 +107,7 @@ CameraHelper.prototype.update = function () {
 		// world matrix must be identity
 
 		camera.projectionMatrix.copy( this.camera.projectionMatrix );
-
-		// center / target
-
-		setPoint( "c", 0, 0, -1 );
-		setPoint( "t", 0, 0,  1 );
-
+		
 		// near
 
 		setPoint( "n1", -w, -h, -1 );
@@ -140,24 +121,7 @@ CameraHelper.prototype.update = function () {
 		setPoint( "f2",  w, -h, 1 );
 		setPoint( "f3", -w,  h, 1 );
 		setPoint( "f4",  w,  h, 1 );
-
-		// up
-
-		setPoint( "u1",  w * 0.7, h * 1.1, -1 );
-		setPoint( "u2", -w * 0.7, h * 1.1, -1 );
-		setPoint( "u3",        0, h * 2,   -1 );
-
-		// cross
-
-		setPoint( "cf1", -w,  0, 1 );
-		setPoint( "cf2",  w,  0, 1 );
-		setPoint( "cf3",  0, -h, 1 );
-		setPoint( "cf4",  0,  h, 1 );
-
-		setPoint( "cn1", -w,  0, -1 );
-		setPoint( "cn2",  w,  0, -1 );
-		setPoint( "cn3",  0, -h, -1 );
-		setPoint( "cn4",  0,  h, -1 );
+		
 
 		function setPoint( point, x, y, z ) {
 
