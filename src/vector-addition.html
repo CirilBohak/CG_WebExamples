@@ -2,6 +2,8 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
 		
@@ -20,9 +22,20 @@
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft">
-			<p>
-				In the sketch on the right you can see several vectors. You can add new vectors to the sketch or negate individual vectors.
-			</p>
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can see several vectors. You can add new vectors to the sketch or negate individual vectors.</p>
+				</div>
+			</div>
+			<br />
+			<div class="ui-widget">
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					<strong>Alert:</strong> Info incomplete!!!</p>
+				</div>
+			</div>
+			<br />	
 			<div id="vectorList">
 			</div>
 			<br /><br />

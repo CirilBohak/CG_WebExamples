@@ -2,6 +2,8 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/three.js/three.min.js"></script>
 		<script src="./scripts/core/three.js/TrackballControls.js"></script>
@@ -27,11 +29,20 @@
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft">
-			<p>
-				In the sketch on the right you can see example, how projection is done.
-			</p><br />	
-			
-			<p><b>DEMO</b>: Work in progress ... can move camera though ... for now &#x263A;</p><br />	
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can see example, how projection is done.</p>
+				</div>
+			</div>
+			<br />	
+			<div class="ui-widget">
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					<strong>Alert:</strong> Work in progress ... can move camera though ... for now &#x263A;</p>
+				</div>
+			</div>
+			<br />	
 			
 			<b>DEMO matrix:</b><br /><br />			
 			<table>

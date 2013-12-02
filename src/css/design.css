@@ -1,3 +1,5 @@
+*:focus { outline: 0; }
+
 body, table, th, td, tr {
 	text-align: center;
 	font-family: Verdana;
@@ -50,7 +52,7 @@ input { text-align: right; }
 	height: 540px;
 }
 
-#contentLeft { width: 31%; float: left; text-align: left; padding: 10px; }
+#contentLeft { width: 31%; float: left; text-align: left; padding: 0px 10px; }
 #contentRight { width: 66%; float: left; }
 
 /*Components*/
