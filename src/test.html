@@ -5,16 +5,19 @@
 		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		
 		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/jquery-migrate-1.2.1.min.js"></script>
+		<script src="./scripts/core/jquery.tools.min.js"></script>
+		<script src="./scripts/core/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
 		
 		<script src="./scripts/html_gui/visual.js"></script>
 		<script src="./scripts/html_gui/script2D.js"></script>
 		
 		<script src="./scripts/algebra/math.js"></script>
-		<script src="./scripts/algebra/vector3.js"></script>
 		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
 		
-		<script src="./scripts/vector-dot-product.js"></script>
+		<script src="./scripts/vector-angle.js"></script>
 </head>
 
 <script type="text/x-mathjax-config">
@@ -31,9 +34,15 @@
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"result"]);
 </script>
 
+<script>
+$(function() {
+	$( "#accordion" ).accordion({ heightStyle: "fill" });
+});
+</script>
+
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
-	<h2>Vectors: Dot product</h2>
+	<h2>Vectors: Angle between vectors</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft" class="border ui-corner-all">
@@ -49,28 +58,39 @@
 					<strong>Alert:</strong> Info incomplete!!!</p>
 				</div>
 			</div>
-			
-			<div class="inner_content border ui-corner-all">
-				<div id="vectorList" class="inner_content vector_list border"></div><br />
-				
-				<div><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button><!--
-				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
-				<p>
-					<b>Vectors dot product:</b><br /><br />
-					<table>
-						<tr>
-							<td>
-								1. vector: <select id="firstvector" class="vecDropDown"></select><br />
-								2. vector: <select id="secondvector" class="vecDropDown"></select>
-							</td>
-							<td class="rightMV"></td>
-							<td><div class="aritmeticItem"><span>*</span></div></td>
-						</tr>
-					</table><br />
-					
-					<button type="button" onClick="calculateDotProduct()">Calculate</button>
-					<div id="result"><br /><b>Result:</b><br /><br /> <span class="scale">${}$</span></div>
-				</p>		
+			<div style="height:400px">
+				<div id="accordion">
+					<h3>Add/Remove vectors</h3>
+					<div>
+						<div class="floatLeft"><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0))">Add vector</button></div>
+						<div class="floatLeft"><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
+						<br /><br />
+						<div id="vectorList">
+						</div>
+					</div>
+					<h3>Calculate vector angle</h3>
+					<div>
+						<table>
+							<tr>
+								<td>
+									1. vector: <select id="firstvector" class="vecDropDown"></select><br />
+									2. vector: <select id="secondvector" class="vecDropDown"></select>
+								</td>
+								<td class="rightMV"></td>
+								<td><div class="aritmeticItem"><span>&Phi;</span></div></td>
+							</tr>
+						</table>
+						
+						<br /><button type="button" onClick="calculateAngle()">Calculate</button><br /><br /><br />
+					</div>
+					<h3>Result</h3>
+					<div>
+						<div id="result">
+						<span class="scale">${}$</span>
+						<br /><br /><span class="scale">${}$</span>
+						<br /><br /><span class="scale">${}$</span></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div id="contentRight">

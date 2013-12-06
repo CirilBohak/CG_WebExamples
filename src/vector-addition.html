@@ -2,7 +2,7 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
@@ -21,41 +21,40 @@
 	<h2>Vectors: Addition</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
-		<div id="contentLeft">
+		<div id="contentLeft" class="border ui-corner-all">
 			<div class="ui-widget">
-				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+				<div class="ui-state-highlight ui-corner-all">
 					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 					<strong>Info:</strong> In the sketch on the right you can see several vectors. You can add new vectors to the sketch or negate individual vectors.</p>
 				</div>
 			</div>
-			<br />
 			<div class="ui-widget">
-				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<div class="ui-state-error ui-corner-all">
 					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 					<strong>Alert:</strong> Info incomplete!!!</p>
 				</div>
 			</div>
-			<br />	
-			<div id="vectorList">
+			
+			<div class="inner_content border ui-corner-all">
+				<div id="vectorList" class="inner_content vector_list border"></div><br />
+				<div><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button><!--
+				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
+				<p>
+					<b>Vectors addition:</b><br /><br />
+					<table>
+						<tr>
+							<td>
+								1. vector: <select id="firstvector" class="vecDropDown"></select><br />
+								2. vector: <select id="secondvector" class="vecDropDown"></select>
+							</td>
+							<td class="rightMV"></td>
+							<td><div class="aritmeticItem"><span>+</span></div></td>
+						</tr>
+					</table>
+					
+					<br /><button type="button" onClick="addAddedVectorToList()">Sum vectors</button>		
+				</p>
 			</div>
-			<br /><br />
-			<div class="floatLeft"><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button></div>
-			<div class="floatLeft"><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
-			<p>
-				<br /><br />Vectors addition:<br /><br />
-				<table>
-					<tr>
-						<td>
-							1. vector: <select id="firstvector" class="vecDropDown"></select><br />
-							2. vector: <select id="secondvector" class="vecDropDown"></select>
-						</td>
-						<td class="rightMV"></td>
-						<td><div class="aritmeticItem"><span>+</span></div></td>
-					</tr>
-				</table>
-				
-				<br /><button type="button" onClick="addAddedVectorToList()">Sum vectors</button>		
-			</p>						
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>

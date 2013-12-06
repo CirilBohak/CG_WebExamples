@@ -2,7 +2,7 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
@@ -20,20 +20,20 @@
 	<h2>Points: Location</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
-		<div id="contentLeft">
+		<div id="contentLeft" class="border ui-corner-all">
 			<div class="ui-widget">
-				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+				<div class="ui-state-highlight ui-corner-all">
 					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 					<strong>Info:</strong> In the sketch on the right you can see several points. You can add new points to the sketch by clicking or by using button below.</p>
 				</div>
 			</div>
-			<br />
 			
-			<div id="pointList">
+			<div class="inner_content border ui-corner-all">
+				<div id="pointList" class="inner_content vector_list border">
+				</div><br />
+				<div><button type="button" onClick="addPointToList(new Point(2, 2,0))">Add point</button><!--
+				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
 			</div>
-			<br /><br />
-			<div class="floatLeft"><button type="button" onClick="addPointToList(new Point(2, 2,0))">Add point</button></div>
-			<div class="floatLeft"><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>

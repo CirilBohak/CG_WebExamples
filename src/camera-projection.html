@@ -2,16 +2,20 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/navigation/navigation.css">
 	
 		<script src="./scripts/core/jquery.min.js"></script>
+		<script src="./scripts/core/jquery-migrate-1.2.1.min.js"></script>
+		<script src="./scripts/core/jquery.tools.min.js"></script>
+		<script src="./scripts/core/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="./scripts/core/navigation.js"></script>
+		
 		<script src="./scripts/core/three.js/three.min.js"></script>
 		<script src="./scripts/core/three.js/TrackballControls.js"></script>
 		<script src="./scripts/core/three.js/CameraHelper.js"></script>
 		<script src="./scripts/core/three.js/BoxObjectHelper.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
-		
-		<script src="./scripts/html_gui/visual.js"></script>
 		
 		<script src="./scripts/algebra/math.js"></script>
 		<script src="./scripts/algebra/point.js"></script>
@@ -21,76 +25,158 @@
 		<script src="./scripts/algebra/vector4.js"></script>
 		<script src="./scripts/algebra/matrix4.js"></script>
 		
+		<script src="./scripts/html_gui/ui_camera-projection.js"></script>
 		<script src="./scripts/camera-projection.js"></script>
 </head>
+
+<script type="text/x-mathjax-config">
+	/*extensions: ["http://cs.jsu.edu/mathjax-ext/github/forminput/forminput.js"],*/
+	MathJax.Hub.Config({
+		showProcessingMessages: false,
+		tex2jax: { inlineMath: [['$','$'],['\\(','\\)']]},
+		styles: { ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+			fill: "#336699",
+			stroke: "#336699"
+			}}
+	});
+	
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"camera_rotation"]);
+</script>
 <body>
+	<!-- tooltip element -->
+
 	<h1>Computer Graphics - Web Examples</h1>
 	<h2>Projection: <i>(under construction)</i></h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
-		<div id="contentLeft">
+		<div id="contentLeft" class="border ui-corner-all">
 			<div class="ui-widget">
-				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+				<div class="ui-state-highlight ui-corner-all">
 					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 					<strong>Info:</strong> In the sketch on the right you can see example, how projection is done.</p>
 				</div>
 			</div>
-			<br />	
 			<div class="ui-widget">
-				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<div class="ui-state-error ui-corner-all">
 					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-					<strong>Alert:</strong> Work in progress ... can move camera though ... for now &#x263A;</p>
+					<strong>Alert:</strong> Work in progress ...</p>
 				</div>
 			</div>
-			<br />	
 			
-			<b>DEMO matrix:</b><br /><br />			
-			<table>
-				<tr>
-					<td class="leftM4U"> </td>
-					<td>
-						<div id="X" class="floatLeft marginBetween"><!-- 1. Vector -->
-							<input class="x vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
-							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="x vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+			<div class="inner_content border ui-corner-all">
+				<strong>Camera settings: </strong><br /><br />
+				
+				<div class="vectorItem">
+					<div class="floatLeft vectorValue">
+						Position[px]:
+						<br />
+						<div class="floatLeft space">
+							<table><tr>
+								<td class="leftMV"></td>
+								<td>
+									<div id="camera_position" class="floatLeft">
+										<span id="pX"><input class="vecInputCol" type="number" value="1" min="-800" max="800" step="1" /><div class="tooltip">\(x\)</div></span>
+										<span id="pY"><input class="vecInputCol" type="number" value="1" min="-800" max="800" step="1" /><div class="tooltip">\(y\)</div></span>
+										<span id="pZ"><input class="vecInputCol" type="number" value="1" min="-800" max="800" step="1" /><div class="tooltip">\(z\)</div></span>
+									</div>
+								</td>
+								<td class="rightMV"></td>
+							</tr></table>
 						</div>
-						<div id="Y" class="floatLeft marginBetween"><!-- 2. Vector -->
-							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="y vecInputCol" type="number" value="-1" min="-20" max="20" step="1" /><br />
-							<input class="y vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
+					</div>
+					<div class="vectorValue">
+						LookAt[&deg;]:
+						<br />
+						<div class="floatLeft space">
+							<table><tr>
+								<td class="leftMV"></td>
+								<td>
+									<div id="camera_rotation" class="floatLeft">
+										<span id="rX"><input class="vecInputCol" type="number" value="0" min="-180" max="180" step="1"/><div class="tooltip">\(x\)</div></span>
+										<span id="rY"><input class="vecInputCol" type="number" value="-90" min="-180" max="180" step="1"/><div class="tooltip">\(y\)</div></span>
+										<span id="rZ"><input class="vecInputCol" type="number" value="0" min="-180" max="180" step="1"/><div class="tooltip">\(z\)</div></span>
+									</div>
+								</td>
+								<td class="rightMV"></td>
+							</tr></table>
 						</div>
-						<div id="Z" class="floatLeft marginBetween"><!-- 3. Vector -->
-							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="z vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="z vecInputCol" type="number" value="-1" min="-20" max="20" step="1" />
-						</div>
-						<div id="N1" class="floatLeft"><!-- Extended vector -->
-							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" /><br />
-							<input class="n vecInputCol" type="number" value="0" min="-20" max="20" step="1" />
-						</div>
-					</td>
-					<td class="rightM4U"></td>
-				</tr>
-				<tr>
-					<td class="leftM4D"></td>
-					<td class="N2">
-						<div id="N2" class="floatLeft"> <!-- Last line -->
-							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
-							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
-							<div class="floatLeft marginBetween"><input class="n vecInputRow" type="number" value="0" min="-20" max="20" step="1" /></div>
-							<div class="floatLeft"><input class="n vecInputRow" type="number" value="1" min="-20" max="20" step="1" /></div>
-						</div>
-					</td>
-					<td class="rightM4D"></td>
-				</tr>
-			</table>
+					</div>
+				</div>
+				<div id="tabs">
+					<ul>
+						<li><a href="#tabs-1">Auto aspect</a></li>
+						<li><a href="#tabs-2">Custom aspect</a></li>
+					</ul>
+					<div id="tabs-1">
+						<table>
+							<tr><th><strong>Width:</strong></th><td><input type="number" id="ui_width_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_width_slider"></div></td></tr>
+							<tr><th><strong>Height:</strong></th><td><input type="number" id="ui_height_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_height_slider"></div></td></tr>
+						</table>
+					</div>
+					<div id="tabs-2">
+						<table>
+							<tr><th><strong>Left:</strong></th><td><input type="number" id="ui_left_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_left_slider"></div></td></tr>
+							<tr><th><strong>Right:</strong></th><td><input type="number" id="ui_right_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_right_slider"></div></td></tr>
+							<tr><th><strong>Top:</strong></th><td><input type="number" id="ui_top_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_top_slider"></div></td></tr>
+							<tr><th><strong>Bottom:</strong></th><td><input type="number" id="ui_bottom_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_bottom_slider"></div></td></tr>
+						</table>
+					</div>
+				</div>
+				<br />
+				<div id="other_settings">
+					<table>
+						<tr><th><strong>Near:</strong></th><td><input type="number" id="ui_near_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_near_slider"></div></td></tr>
+						<tr><th><strong>Far:</strong></th><td><input type="number" id="ui_far_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_far_slider"></div></td></tr>
+					</table>
+				</div>
+				<br />
+				<b>Projection matrix <i>(DEMO)</u>:</b><br /><br />	
+				<div class="vectorValue">
+					<table>
+						<tr>
+							<td class="leftMV"> </td>
+							<td>
+								<div id="matrix4_01" class="floatLeft">
+									<span class="m00"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(\frac{2}{right-left}\)</div></span>
+									<span class="m01"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m02"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m03"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{right+left}{right-left}\)</div></span><br/>
+									<span class="m10"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m11"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(\frac{2}{top-bottom}\)</div></span>
+									<span class="m12"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m13"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{top+bottom}{top-bottom}\)</div></span><br/>
+									<span class="m20"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m21"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m22"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{2}{far-near}\)</div></span>
+									<span class="m23"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{far+near}{far-near}\)</div></span><br/>
+									<span class="m30"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m31"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m32"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
+									<span class="m33"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" disabled/></span><br/>
+								</div>
+							</td>
+							<td class="rightMV"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
 		
 		<div id="contentRight">
-			<div id="surface" name="container"></div>
+				<div id="side_navigation_panel">
+					<table id="icons" class="unselectable">
+						<tr><td><div class="move_nav"><span class="up button"></span><span class="down button"></span><span class="hand button"></span><span class="left button"></span><span class="right button"></span></div></td></tr>
+						<tr><td><div id="zoom_in" class="ui-state-default ui-corner-all icon"><span class="ui-icon ui-icon-triangle-1-n"></span></div></td></tr>
+						<tr><td><div id="zoom_nav"></div></td></tr>
+						<tr><td><div id="zoom_out" class="ui-state-default ui-corner-all icon"><span class="ui-icon ui-icon-triangle-1-s"></span></div></td></tr>
+					</table>
+				</div>
+			<div id="surface" name="container">
+			</div>
 		</div>
 	</div>
 </body>
-		<script src="./scripts/html_gui/script3D.js"></script>
+	<script src="./scripts/html_gui/script3D.js"></script>
+	
+	<script src="./scripts/core/mathjax/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
 </html>

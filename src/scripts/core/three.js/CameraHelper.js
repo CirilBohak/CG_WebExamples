@@ -67,7 +67,7 @@ CameraHelper = function ( camera, w, h) {
 	
 	if( w !== undefined){
 		this.totalW = w;
-		this.paddiH = h;
+		this.totalH = h;
 		
 		this.renderTarget = new THREE.WebGLRenderTarget( 512, 512, { format: THREE.RGBFormat } ); this.renderTarget.offset.set(-4/512,-4/512);
 		geometry = new THREE.Geometry();
@@ -93,7 +93,12 @@ CameraHelper = function ( camera, w, h) {
 		this.plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: hexPlane, opacity: 0.8, transparent: true, side:THREE.DoubleSide } ) ); 
 		this.add(this.plane);
 		
-		this.planeMap = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), new THREE.MeshBasicMaterial( { color: hexPlane, opacity: 0.8, transparent: true, map: this.renderTarget, side:THREE.DoubleSide } ) );
+		this.PlaneGeometry = new THREE.PlaneGeometry( 1, 1 );
+		
+		this.PlaneGeometry.vertices[0] = this.plane.geometry.vertices[7]; this.PlaneGeometry.vertices[1] = this.plane.geometry.vertices[4];
+		this.PlaneGeometry.vertices[2] = this.plane.geometry.vertices[6]; this.PlaneGeometry.vertices[3] = this.plane.geometry.vertices[5];
+		
+		this.planeMap = new THREE.Mesh(this.PlaneGeometry , new THREE.MeshBasicMaterial( { color: hexPlane, opacity: 0.8, transparent: true, map: this.renderTarget, side:THREE.DoubleSide } ) );
 		this.add(this.planeMap);
 	}
 	
@@ -136,39 +141,36 @@ CameraHelper.prototype.update = function () {
 			}
 			var dist = near[1].z/2;
 			
-			setViewPlanePoint("vP1", near[1], directions[1]);
-			setViewPlanePoint("vP2", near[2], directions[2]);
-			setViewPlanePoint("vP3", near[3], directions[3]);
-			var viewPlane = setViewPlanePoint("vP4", near[4], directions[4]);
+			var viewPlane = [];
+			viewPlane.push(setViewPlanePoint("vP1", near[1], directions[1]));
+			viewPlane.push(setViewPlanePoint("vP2", near[2], directions[2]));
+			viewPlane.push(setViewPlanePoint("vP3", near[3], directions[3]));
+			viewPlane.push(setViewPlanePoint("vP4", near[4], directions[4]));
 			
 			/*****************************
 					   VIEW PLANE
 			******************************/
 			
-			var w = viewPlane.x, h = viewPlane.y;
-			if(h>this.paddiH) h = this.paddiH;
-			if(w>this.totalW) w = this.totalW;
-			
 			this.plane.position.set(0,0,dist);
 			/*Left*/
-			this.plane.geometry.vertices[0].set( w,           -this.paddiH, 0 );
-			this.plane.geometry.vertices[1].set( w,           this.paddiH,  0 );
-			this.plane.geometry.vertices[2].set( this.totalW, this.paddiH,  0 );
-			this.plane.geometry.vertices[3].set( this.totalW, -this.paddiH, 0 );
+			this.plane.geometry.vertices[0].set( viewPlane[3].x>this.totalW?this.totalW:viewPlane[3].x, -this.totalH, 0 );
+			this.plane.geometry.vertices[1].set( viewPlane[1].x>this.totalW?this.totalW:viewPlane[1].x, this.totalH,  0 );
+			this.plane.geometry.vertices[2].set( this.totalW,    this.totalH,  0 );
+			this.plane.geometry.vertices[3].set( this.totalW,    -this.totalH, 0 );
 			/*inner box*/
-			this.plane.geometry.vertices[4].set( w,  h,  0 );
-			this.plane.geometry.vertices[5].set( w,  -h, 0 );
-			this.plane.geometry.vertices[6].set( -w, -h, 0 );
-			this.plane.geometry.vertices[7].set( -w, h,  0 );
+			this.plane.geometry.vertices[4].set( viewPlane[3].x>this.totalW?this.totalW:viewPlane[3].x,   viewPlane[3].y>this.totalH?this.totalH:viewPlane[3].y,   0 );
+			this.plane.geometry.vertices[5].set( viewPlane[1].x>this.totalW?this.totalW:viewPlane[1].x,   viewPlane[1].y<-this.totalH?-this.totalH:viewPlane[1].y, 0 );
+			this.plane.geometry.vertices[6].set( viewPlane[0].x<-this.totalW?-this.totalW:viewPlane[0].x, viewPlane[0].y<-this.totalH?-this.totalH:viewPlane[0].y, 0 );
+			this.plane.geometry.vertices[7].set( viewPlane[2].x<-this.totalW?-this.totalW:viewPlane[2].x, viewPlane[2].y>this.totalH?this.totalH:viewPlane[2].y,   0 );
 			/*Right*/
-			this.plane.geometry.vertices[8].set(  -w,           this.paddiH,  0 );
-			this.plane.geometry.vertices[9].set(  -w,           -this.paddiH, 0 );
-			this.plane.geometry.vertices[10].set( -this.totalW, -this.paddiH, 0 );
-			this.plane.geometry.vertices[11].set( -this.totalW, this.paddiH,  0 );
+			this.plane.geometry.vertices[8].set(  viewPlane[0].x<-this.totalW?-this.totalW:viewPlane[0].x, this.totalH,  0 );
+			this.plane.geometry.vertices[9].set(  viewPlane[2].x<-this.totalW?-this.totalW:viewPlane[2].x, -this.totalH, 0 );
+			this.plane.geometry.vertices[10].set( -this.totalW,   -this.totalH, 0 );
+			this.plane.geometry.vertices[11].set( -this.totalW,   this.totalH,  0 );
+			this.plane.geometry.verticesNeedUpdate = true;
 			
+			this.PlaneGeometry.verticesNeedUpdate = true;
 			this.planeMap.position.set(0,0,dist);
-			//this.planeMap.geometry = new THREE.PlaneGeometry( w*2, h*2 );
-			this.planeMap.scale.set(w*2,h*2,1);
 		}
 		
 		function setPoint( point, x, y, z ) {

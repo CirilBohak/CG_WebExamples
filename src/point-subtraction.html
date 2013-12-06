@@ -2,7 +2,7 @@
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
-		<link href="css/flick/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/processing-1.4.1.min.js"></script>
@@ -21,46 +21,43 @@
 	<h2>Points: Subtraction</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
-		<div id="contentLeft">
+		<div id="contentLeft" class="border ui-corner-all">
 			<div class="ui-widget">
-				<div class="ui-state-highlight ui-corner-all" style="/*margin-top: 20px;*/ padding: 0 .7em;">
+				<div class="ui-state-highlight ui-corner-all">
 					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 					<strong>Info:</strong> In the sketch on the right you can see several points. You can add new points to the sketch by clicking or by using button below.</p>
 				</div>
 			</div>
-			<br />
 			<div class="ui-widget">
-				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<div class="ui-state-error ui-corner-all">
 					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 					<strong>Alert:</strong> Info incomplete!!!</p>
 				</div>
 			</div>
-			<br />
-			<div id="pointList">
-			</div>
-			<br /><br />
 			
-			<div class="floatLeft"><button type="button" onClick="addPointToList(new Point(2, 2, 0))">Add point</button></div>
-			<div class="floatLeft"><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
-			
-			<br /><br />
-			<div id="vectorList">
-			</div>			
-			<p>
-				Points subtraction:<br /><br />
-				<table>
-					<tr>
-						<td>
-							1. point: <select id="firstpoint" class="vecDropDown"></select><br />
-							2. point: <select id="secondpoint" class="vecDropDown"></select>
-						</td>
-						<td class="rightMV"></td>
-						<td><div class="aritmeticItem"><span>-</span></div></td>
-					</tr>
-				</table>
+			<div class="inner_content border ui-corner-all">
+				<div id="pointList" class="inner_content vector_list border"></div><br />
 				
-				<br /><button type="button" onClick="subtractPoints()">Subtract points</button>
-			</p>			
+				<div><button type="button" onClick="addPointToList(new Point(2, 2, 0))">Add point</button><!--
+				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div><br />
+				
+				<div id="vectorList" class="inner_content vector_list border"></div>			
+				<p>
+					Points subtraction:<br /><br />
+					<table>
+						<tr>
+							<td>
+								1. point: <select id="firstpoint" class="vecDropDown"></select><br />
+								2. point: <select id="secondpoint" class="vecDropDown"></select>
+							</td>
+							<td class="rightMV"></td>
+							<td><div class="aritmeticItem"><span>-</span></div></td>
+						</tr>
+					</table>
+					
+					<br /><button type="button" onClick="subtractPoints()">Subtract points</button>
+				</p>
+			</div>
 		</div>
 		<div id="contentRight">
 			<canvas id="surface" width="800px" height="600px"></canvas>

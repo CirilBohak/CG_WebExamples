@@ -1,4 +1,5 @@
 *:focus { outline: 0; }
+.clear {clear: both;}
 
 body, table, th, td, tr {
 	text-align: center;
@@ -14,7 +15,6 @@ body h1 {
 	font-size: 42px;
 }
 
-.clear {clear: both;}
 
 button { border: solid 1px #666; color:#666; margin-right:5px; }
 button:hover { border: solid 1px #000; background-color: #888; color:#000; cursor:pointer; cursor: hand; }
@@ -36,13 +36,7 @@ input { text-align: right; }
 /*OTHER*/
 
 /*Content and drawing surfaces*/
-#surface { border-left: 3px solid #336699; width:800px; height:600px; }
-
-#content{
-	margin: auto;
-	width: 1280px;
-	text-align: left;
-}
+#surface { /*border-left: 3px solid #336699;*/ width:800px; height:600px; /*cursor: url(./navigation/images/hand.cur), auto;*/ }
 
 .threeColumns {
 	-moz-column-count:3; /* Firefox */
@@ -52,8 +46,23 @@ input { text-align: right; }
 	height: 540px;
 }
 
-#contentLeft { width: 31%; float: left; text-align: left; padding: 0px 10px; }
-#contentRight { width: 66%; float: left; }
+#content { 
+	overflow: hidden;
+	margin: auto;
+	padding-top: 10px;
+	width: 1280px;
+	text-align: left;
+}
+
+#contentLeft , #contentRight { float: left; }
+#contentRight  { width: 66%; }
+#contentLeft { width:31%; }
+
+#contentLeft.border, #contentLeft .inner_content.border{ border: solid 1px #CCC; }
+#contentLeft{ padding: 3px; background-color: #f3f3f3; }
+#contentLeft .inner_content{ padding: 5px; background-color: #fff;}
+
+#contentLeft .inner_content .vector_list{ height:146px; overflow:auto; padding-bottom: 0px;}
 
 /*Components*/
 #vectorList, #pointList { font-size: 10px; font-style: italic; }
@@ -85,7 +94,7 @@ input { text-align: right; }
 
 .vecInputCol { margin:2px 0px 0px 0px; padding:0px; } /*Why firefox margin padding problems????!!!!*/
 .vecInputRow { margin: 0px; padding:0px; } /*Why IE10 margin padding problems????!!!!*/
-/*.vectorValue { margin: 0px 10px 0px 5px; }*/
+.vectorValue { padding-left: 5px; }
 
 /*POINT - VECTOR - MATRIX BRACKET*/
 table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; padding:0px; margin:0px;}
@@ -101,24 +110,40 @@ table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; paddi
 .leftM4D{ border-bottom: solid 2px; border-left: solid 2px; border-color:#336699;}
 .rightM4D{ border-bottom: solid 2px; border-right: solid 2px; border-color:#336699;}
 
-.x, .y, .z, .N { background-color: #fff; }
-
-#X:hover{ background-color: #c0362c; } /*RED*/
-#X:hover .x{ background-color: #df9a95; color:#fff; font-weight:bold; border-color: #c0362c; }
-#Y:hover{ background-color: #0c3707; } /*GREEN*/
-#Y:hover .y{ background-color: #859b83; color:#fff; font-weight:bold; border-color: #0c3707; }
-#Z:hover{ background-color: #165571; } /*BLUE*/
-#Z:hover .z{ background-color: #2cabe2; color:#fff; font-weight:bold; border-color: #165571; }
-
-.N2 {padding-top:2px;}
-#N2 {margin-bottom:2px;}
-#N1:hover, #N2:hover{ background-color: #AAA; } /*BLUE*/
-#N1:hover .n, #N2:hover .n{ background-color: #CCC; color:#fff; font-weight:bold; border-color: #AAA; }
-
 .margin3 { margin: 0px 0px 2px 0px; padding:0px }
 .marginBetween { margin-right: 3px; }
 
+/*UI Sliders*/
+#ui_width_amount, #ui_height_amount, #ui_near_amount, #ui_far_amount,
+#ui_left_amount, #ui_right_amount, #ui_top_amount, #ui_bottom_amount{ margin-left:5px; margin-right:5px; border:1px solid #CCC; width:80px; text-align: center; font-size: 12px; }
+#ui_width_slider, #ui_height_slider, #ui_near_slider, #ui_far_slider,
+#ui_left_slider, #ui_right_slider, #ui_top_slider, #ui_bottom_slider{ margin-left: 13px; margin-right: 7px; }
+
+#tabs table th strong, #other_settings table th strong{ float:right; width: 50px; text-align: right;}
+#tabs .ui-tabs-nav{ padding:0px 0px 0px 2px; }
+#tabs>.ui-widget-header{ background: none; border-top:0px; border-left: 0px; border-right: 0px; }
+
+.tooltip {
+    background-color:#fff;
+    border:1px solid #888;
+    padding:5px;
+    display:none;
+    color:#000;
+    text-align:left;
+    font-size:12px;
+	z-index:10;
+ 
+    /* outline radius for mozilla/firefox only */
+    -moz-box-shadow:0 0 10px #888;
+    -webkit-box-shadow:0 0 10px #888;
+}
+.tooltip .MathJax_SVG_Display{ padding: 0px; margin: 0px; }
+
+.ui-accordion div.ui-accordion-content{ padding: 5px; margin: 0px; font-size: 11px; }
+
+#contentLeft>.ui-widget>.ui-corner-all{ margin-bottom: 3px; padding: 0 .7em; }
+
 /*MathJax*/
 
-#result{ display: none; visibility: hidden; }
+#result{ display: none; visibility: hidden; overflow:hidden; }
 .scale{ font-size: 15px; }
