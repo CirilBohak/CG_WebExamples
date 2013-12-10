@@ -1,0 +1,145 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" href="./scripts/colorpicker/css/colorpicker.css" type="text/css" />
+		<link rel="stylesheet" media="screen" type="text/css" href="./colorpicker/css/layout.css" />
+		<script src="./scripts/core/mathjax/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
+		<script src="./scripts/core/jquery.min.js"></script>
+	
+		<script src="./scripts/algebra/math.js"></script>
+		
+		<script src="./scripts/color-systems.js"></script>	
+		<script type="text/javascript" src="./scripts/colorpicker/js/colorpicker.js"></script>
+    	<script type="text/javascript" src="./scripts/colorpicker/js/eye.js"></script>
+		<!--<script type="text/javascript" src="./colorpicker/js/utils.js"></script>-->
+    	<script type="text/javascript" src="./scripts/colorpicker/js/layout.js?ver=1.0.2"></script>
+		
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function () {
+  exampleInit();
+});
+</script>		
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		showProcessingMessages: false,
+		tex2jax: { inlineMath: [['$','$'],['\\(','\\)']]},
+		styles: { ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+			fill: "#336699",
+			stroke: "#336699"
+			}}		
+	});
+	
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"result"]);
+</script>		
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Color systems: conversion between RGB to HSL and RGB to HSV</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft">
+			<p>
+				You can pick a color with color picker. This color will be shown on the right in all color systems(RGB, HSV and HSL).
+			</p>
+			<br />
+			<p id="colorpickerHolder">
+            </p>
+			<br /><br />
+			Formulas used to calculate RGB to HSL and RGB to HSV:<br /><br />
+<div id="result"><br />
+				<br />
+				<span class="scale">${}$</span><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br /><br /><br />
+				<span class="scale">${}$</span><br /><br />
+				</div>
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+<script type="text/javascript">
+var can = document.getElementById("surface");
+var ctx = can.getContext("2d"),
+    radius = 300,
+    thickness = 200,
+    p = {
+        x: 400, //can.width
+        y: 400
+    },
+    start = Math.PI,
+    end = start + Math.PI / 2,
+    step = Math.PI / 360,
+    ang = 0,
+    grad,
+    r = 0,
+    g = 0,
+    b = 0,
+    pct = 0;
+
+ctx.translate(p.x, p.y);
+
+function drawDots(rgb)
+{
+		var r=rgb["r"];
+		var g=rgb["g"];
+		var b=rgb["b"];	
+		
+        var hsl=rgbToHsl(r,g,b);
+		var h1=(Math.round(hsl[0]));
+		var s1=(Math.round(hsl[1]));
+		var l1=(Math.round(hsl[2]));
+		
+        var hsv=rgbToHsv(r,g,b);
+		var h2=(Math.round(hsv[0]));
+		var s2=(Math.round(hsv[1]));
+		var v2=(Math.round(hsv[2]));			
+		
+ctx.clearRect ( -300 , -300 , 600 , 600 );	
+
+ctx.fillStyle = "black";
+  ctx.font = "bold 16px Arial";
+  ctx.fillText("RGB COLOR SYSTEM", -200, -330);
+		
+for (ang = start; ang <= end; ang += step) {
+    ctx.save();
+    ctx.rotate(-ang);
+    grad = ctx.createLinearGradient(0, radius - thickness, 0, radius);
+    grad.addColorStop(0, 'black');
+
+    h = 360-(ang-start)/(end-start) * 360;
+    s = '100%';
+    l = '50%';
+    var hsl = 'hsl('+[h,s,l].join()+')';
+	if(Math.round(h)==h1 || Math.round(h)==h1+1 || Math.round(h)==h1-1)
+	{
+	    var rt=radius-thickness;
+		
+		ctx.strokeStyle = "#000000";	
+		ctx.beginPath();
+		ctx.moveTo(0, 0);
+		ctx.lineTo(0, rt);
+		ctx.stroke();		
+	}
+    
+    grad.addColorStop(.5, hsl);
+    grad.addColorStop(1, 'white');
+    ctx.fillStyle = grad;
+
+    ctx.fillRect(0, radius - thickness, radius/10, thickness);
+    ctx.restore();
+}
+  		ctx.fillStyle = "black";
+  		ctx.font = "bold 16px Arial";
+  		ctx.fillText("RGB=("+r+", "+g+", "+b+")", 10, 10);		
+  		ctx.fillText("HSL=("+h1+" degrees, "+s1+"%, "+l1+"%)", 10, 30);		
+  		ctx.fillText("HSV=("+h2+" degrees, "+s2+"%, "+v2+"%)", 10, 50);		
+}
+</script>
+</body>
+</html>
