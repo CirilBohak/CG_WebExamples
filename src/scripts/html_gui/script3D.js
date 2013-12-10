@@ -20,8 +20,8 @@ function init() {
 	exampleInit();
 	
 	// add subtle blue ambient lighting
-	var ambientLight = new THREE.AmbientLight(0x000044);
-	GScene.add(ambientLight);
+	//var ambientLight = new THREE.AmbientLight(0x000044);
+	//GScene.add(ambientLight);
 	
 	if(true) GRenderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true} );
 	else GRenderer = new THREE.CanvasRenderer();

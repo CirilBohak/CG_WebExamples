@@ -65,7 +65,7 @@
 			
 			<div class="inner_content border ui-corner-all">
 				<strong>Camera settings: </strong><br /><br />
-				
+			
 				<div class="vectorItem">
 					<div class="floatLeft vectorValue">
 						Position[px]:
@@ -102,23 +102,27 @@
 						</div>
 					</div>
 				</div>
-				<div id="tabs">
+				
+				<div id="tabs_config">
 					<ul>
-						<li><a href="#tabs-1">Auto aspect</a></li>
-						<li><a href="#tabs-2">Custom aspect</a></li>
+						<li><a href="#tabs-1">Custom aspect</a></li>
+						<li><a href="#tabs-2">Auto aspect</a></li>
 					</ul>
 					<div id="tabs-1">
-						<table>
-							<tr><th><strong>Width:</strong></th><td><input type="number" id="ui_width_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_width_slider"></div></td></tr>
-							<tr><th><strong>Height:</strong></th><td><input type="number" id="ui_height_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_height_slider"></div></td></tr>
-						</table>
-					</div>
-					<div id="tabs-2">
-						<table>
+						<table class="ortho_camera">
 							<tr><th><strong>Left:</strong></th><td><input type="number" id="ui_left_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_left_slider"></div></td></tr>
 							<tr><th><strong>Right:</strong></th><td><input type="number" id="ui_right_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_right_slider"></div></td></tr>
 							<tr><th><strong>Top:</strong></th><td><input type="number" id="ui_top_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_top_slider"></div></td></tr>
 							<tr><th><strong>Bottom:</strong></th><td><input type="number" id="ui_bottom_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_bottom_slider"></div></td></tr>
+						</table>
+						<table class="persp_camera">
+							<tr><th><strong>Aspect:</strong></th><td><input type="number" id="ui_aspect_amount" value="1" step="0.01"></td><td>px</td><td style="width: 100%;"><div id="ui_aspect_slider"></div></td></tr>
+						</table>
+					</div>
+					<div id="tabs-2">
+						<table>
+							<tr><th><strong>Width:</strong></th><td><input type="number" id="ui_width_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_width_slider"></div></td></tr>
+							<tr><th><strong>Height:</strong></th><td><input type="number" id="ui_height_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_height_slider"></div></td></tr>
 						</table>
 					</div>
 				</div>
@@ -128,15 +132,18 @@
 						<tr><th><strong>Near:</strong></th><td><input type="number" id="ui_near_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_near_slider"></div></td></tr>
 						<tr><th><strong>Far:</strong></th><td><input type="number" id="ui_far_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_far_slider"></div></td></tr>
 					</table>
+					<table class="persp_camera">
+						<tr><th><strong>Fov:</strong></th><td><input type="number" id="ui_fov_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_fov_slider"></div></td></tr>
+					</table>
 				</div>
 				<br />
 				<b>Projection matrix <i>(DEMO)</u>:</b><br /><br />	
-				<div class="vectorValue">
-					<table>
+				<div class="vectorValue" style="padding-bottom:10px;">
+					<table class="center">
 						<tr>
 							<td class="leftMV"> </td>
 							<td>
-								<div id="matrix4_01" class="floatLeft">
+								<div id="matrix4_01">
 									<span class="m00"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(\frac{2}{right-left}\)</div></span>
 									<span class="m01"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
 									<span class="m02"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
@@ -159,7 +166,13 @@
 						</tr>
 					</table>
 				</div>
+			
 			</div>
+			
+				<div id="radio_camera">
+					<input type="radio" id="radio3" name="radio"><label for="radio3">Perspective</label>
+					<input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Orthogonal</label>
+				</div>
 		</div>
 		
 		<div id="contentRight">

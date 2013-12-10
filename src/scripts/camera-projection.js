@@ -1,18 +1,14 @@
-var WorldAXES, CameraAXES, ObjectAXES;
-var plane,     camera,     object;
+var WorldAXES,                     ObjectAXES;
+var plane,     c_Orto, c_Pers,     object;
 
-/*****************
-   true ... ORTO 
-  false ... PERSP
-******************/
-var whichCamera = true; 
-var c_auto = true;
+var whichCamera = false; 
+var c_auto = false;
 
 var c_width = 100, c_height = 100;
 var c_left = -50, c_right = 50, c_top = 50, c_bottom = -50;
 var c_near = 300, c_far = 450;
-var c_fov = 20, c_aspect = 1.;
-var CameraFrustum;
+var c_fov = 19, c_aspect = 1.;
+var cf_orto, cf_pers;
 
 function exampleInit() {
 	controls.noZoom = true;
@@ -24,7 +20,6 @@ function exampleInit() {
 	  AXES HELPERS
 	***************/
 		WorldAXES = new THREE.AxisHelper( 100 );
-		CameraAXES = new THREE.AxisHelper( 100 );
 		ObjectAXES = new THREE.AxisHelper( 100 );
 	GScene.add( WorldAXES );
 	
@@ -40,23 +35,25 @@ function exampleInit() {
 	/********
 	  CAMERA 
 	*********/
-	if(whichCamera) camera = new THREE.OrthographicCamera( c_left, c_right, c_top, c_bottom, c_near, c_far );
-	else camera = new THREE.PerspectiveCamera( c_fov, c_aspect, c_near, c_far );
-	CameraFrustum = new CameraHelper(camera, c_width*0.5+70, c_height*0.5+30);
+	c_Orto = new THREE.OrthographicCamera( c_left, c_right, c_top, c_bottom, c_near, c_far );
+	cf_orto = new CameraHelper(c_Orto, c_width*0.5+70, c_height*0.5+30);
+	c_Orto.position.set(-200,250,100); c_Orto.lookAt(object.position); c_Orto.updateProjectionMatrix();
+	c_Orto.add(cf_orto); c_Orto.add(new THREE.AxisHelper( 100 ));
+	GScene.add( c_Orto );
 	
-		camera.position.set(-200,250,100);
-		camera.lookAt(object.position);
-		camera.updateProjectionMatrix();
-		
-		camera.add(CameraFrustum);
-		camera.add(CameraAXES);
+	c_Pers = new THREE.PerspectiveCamera( c_fov, c_aspect, c_near, c_far );
+	cf_pers = new CameraHelper(c_Pers, c_width*0.5+70, c_height*0.5+30);
+	c_Pers.position.set(-200,250,100); c_Pers.lookAt(object.position); c_Pers.updateProjectionMatrix();
+	c_Pers.add(cf_pers); c_Pers.add(new THREE.AxisHelper( 100 ));
+	GScene.add( c_Pers );
 	
-	GScene.add( camera );
+	toogle_camera();
 }
 
 function exampleRender() {
-	//CameraFrustum.update();
-	GRenderer.render( GScene, camera, CameraFrustum.renderTarget, true );
+	//cf_orto.update();
+	if(whichCamera) GRenderer.render( GScene, c_Orto, cf_orto.renderTarget, true );
+	else GRenderer.render( GScene, c_Pers, cf_pers.renderTarget, true );
 }
 
 /****************
@@ -75,18 +72,43 @@ function exampleRender() {
 
 function updateCamera(){		
 	if(whichCamera){ 
-		if(c_auto){ camera.left = c_width / - 2; camera.right = c_width / 2; camera.top = c_height / 2; camera.bottom = c_height / -2; }
-		else{ camera.left = c_left; camera.right = c_right; camera.top = c_top; camera.bottom = c_bottom; }
+		if(c_auto){ 
+			c_Orto.left = c_width / - 2; c_Orto.right = c_width / 2; c_Orto.top = c_height / 2; c_Orto.bottom = c_height / -2; 
+		}else{ 
+			c_Orto.left = c_left; c_Orto.right = c_right; c_Orto.top = c_top; c_Orto.bottom = c_bottom; 
+		}
+		
+		c_Orto.near = c_near; c_Orto.far = c_far;
+		c_Orto.updateProjectionMatrix();
+		
+		cf_orto.totalW = c_width*0.5+70;
+		cf_orto.totalH = c_height*0.5+30;
+		cf_orto.update();
 	}else{ 
-		camera.fov = c_fov;
-		if(c_auto) camera.aspect = c_width/c_height;
-		else camera.aspect = c_aspect;
+		c_Pers.fov = c_fov;
+		if(c_auto){ 
+			c_Pers.aspect = c_width/c_height;
+		}else{ 
+			c_Pers.aspect = c_aspect;
+		}
+		
+		c_Pers.near = c_near; c_Pers.far = c_far;
+		c_Pers.updateProjectionMatrix();
+		
+		cf_pers.totalW = c_width*0.5+70;
+		cf_pers.totalH = c_height*0.5+30;
+		cf_pers.update();
 	}
-	
-	camera.near = c_near; camera.far = c_far;
+}
+
+function resetCamera(camera){
+	camera.matrixWorld.identity().setPosition(camera.position);
+	camera.quaternion.setFromRotationMatrix(camera.matrixWorld);
 	camera.updateProjectionMatrix();
-	
-	CameraFrustum.totalW = c_width*0.5+70;
-	CameraFrustum.totalH = c_height*0.5+30;
-	CameraFrustum.update();
+}
+
+function toogle_camera(){
+	c_Orto.traverse( function ( object ) { object.visible = !whichCamera; } );
+	c_Pers.traverse( function ( object ) { object.visible = whichCamera; } );
+	whichCamera = !whichCamera;
 }

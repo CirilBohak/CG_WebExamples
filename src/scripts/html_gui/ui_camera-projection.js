@@ -4,80 +4,98 @@
 var oldRx = 0, oldRy = 0, oldRz = 0;
 
 $(function() {
-	$( "#pX input" ).val( camera.position.x ); $( "#pY input" ).val( camera.position.y ); $( "#pZ input" ).val( camera.position.z );
-	$( "#pX input" ).change(function() { camera.position.x = $(this).val(); }); $( "#pY input" ).change(function() { camera.position.y = $(this).val(); }); $( "#pZ input" ).change(function() { camera.position.z = $(this).val(); });
+	var persp_camera = $(".persp_camera"), ortho_camera = $(".ortho_camera");
+	persp_camera.hide();
+	
+	
+	$( "#pX input" ).val( c_Orto.position.x ); $( "#pY input" ).val( c_Orto.position.y ); $( "#pZ input" ).val( c_Orto.position.z );
+	$( "#pX input" ).change(function() { c_Pers.position.x = c_Orto.position.x = $(this).val(); }); $( "#pY input" ).change(function() { c_Pers.position.y = c_Orto.position.y = $(this).val(); }); $( "#pZ input" ).change(function() { c_Pers.position.z = c_Orto.position.z = $(this).val(); });
 	$( "#pX input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#pY input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#pZ input" ).tooltip({ offset: [0, 2], effect: 'slide'});
 	
 	$( "#rX input" ).change(function() { 
 		/*MathJax.Hub.queue.Push([	"Text",
 									MathJax.Hub.getAllJax("camera_rotation")[0],
 									"x="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
-		camera.matrixWorld.identity().setPosition(camera.position);
-		camera.quaternion.setFromRotationMatrix(camera.matrixWorld);
-		camera.updateProjectionMatrix();
+		resetCamera(c_Orto);
+		c_Orto.rotateY(degree_to_rad($("#rY input").val()));
+		c_Orto.rotateX(degree_to_rad($(this).val()));
+		c_Orto.rotateZ(degree_to_rad($("#rZ input").val())); 
 		
-		camera.rotateY(degree_to_rad($("#rY input").val()));
-		camera.rotateX(degree_to_rad($(this).val()));
-		camera.rotateZ(degree_to_rad($("#rZ input").val())); 
+		resetCamera(c_Pers);
+		c_Pers.rotateY(degree_to_rad($("#rY input").val()));
+		c_Pers.rotateX(degree_to_rad($(this).val()));
+		c_Pers.rotateZ(degree_to_rad($("#rZ input").val()));
 	});
 	$( "#rY input" ).change(function() { 
 		var tmp = $(this).val();
 		/*MathJax.Hub.queue.Push([	"Text",
 									MathJax.Hub.getAllJax("camera_rotation")[1],
 									"y="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
-		//camera.rotateY(degree_to_rad(tmp-oldRy)); oldRy = tmp; 
-		camera.matrixWorld.identity().setPosition(camera.position);
-		camera.quaternion.setFromRotationMatrix(camera.matrixWorld);
-		camera.updateProjectionMatrix();
+		resetCamera(c_Orto);
+		c_Orto.rotateY(degree_to_rad($(this).val()));
+		c_Orto.rotateX(degree_to_rad($("#rX input").val()));
+		c_Orto.rotateZ(degree_to_rad($("#rZ input").val())); 
 		
-		camera.rotateY(degree_to_rad($(this).val()));
-		camera.rotateX(degree_to_rad($("#rX input").val()));
-		camera.rotateZ(degree_to_rad($("#rZ input").val())); 
+		resetCamera(c_Pers);
+		c_Pers.rotateY(degree_to_rad($(this).val()));
+		c_Pers.rotateX(degree_to_rad($("#rX input").val()));
+		c_Pers.rotateZ(degree_to_rad($("#rZ input").val())); 
 	}); 
 	$( "#rZ input" ).change(function() { 
 		var tmp = $(this).val();
 		/*MathJax.Hub.queue.Push([	"Text",
 									MathJax.Hub.getAllJax("camera_rotation")[2],
 									"z="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
-		//camera.rotateZ(degree_to_rad(tmp-oldRz)); oldRz = tmp; 
-		camera.matrixWorld.identity().setPosition(camera.position);
-		camera.quaternion.setFromRotationMatrix(camera.matrixWorld);
-		camera.updateProjectionMatrix();
-
-		camera.rotateY(degree_to_rad($("#rY input").val()));
-		camera.rotateX(degree_to_rad($("#rX input").val()));
-		camera.rotateZ(degree_to_rad($(this).val()));  
+		resetCamera(c_Orto);
+		c_Orto.rotateY(degree_to_rad($("#rY input").val()));
+		c_Orto.rotateX(degree_to_rad($("#rX input").val()));
+		c_Orto.rotateZ(degree_to_rad($(this).val()));  
+		
+		resetCamera(c_Pers);
+		c_Pers.rotateY(degree_to_rad($("#rY input").val()));
+		c_Pers.rotateX(degree_to_rad($("#rX input").val()));
+		c_Pers.rotateZ(degree_to_rad($(this).val()));  
 	});
 	
 	$( "#rX input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#rY input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#rZ input" ).tooltip({ offset: [0, 2], effect: 'slide'});
 	
-	$( "#tabs" ).tabs({
+	$( "#radio_camera" ).buttonset();
+	$( "#radio_camera :radio" ).click(function(event){
+		switch($(this).index()*0.5){
+			case 0: if(whichCamera){ toogle_camera(); updateCamera(); persp_camera.show(); ortho_camera.hide(); } break;
+			case 1: if(!whichCamera){ toogle_camera(); updateCamera(); persp_camera.hide(); ortho_camera.show(); } break;
+			default: break;
+		}
+	});
+	
+	$( "#tabs_config" ).tabs({
 		activate: function(event, ui) {
 			var index = ui.newTab.index();
 			
 			switch(index){
-				case 0: 
+				case 0: c_auto = false; 
+					var c_w2 = c_width*0.5; c_left=-c_w2; c_right = c_w2, c_h2 = c_height*0.5; c_bottom=-c_h2; c_top = c_h2;
+					
+					$( "#ui_left_slider" ).slider( "value",  c_left); $( "#ui_left_amount" ).val(c_left);
+					$( "#ui_right_slider" ).slider( "value",  c_right); $( "#ui_right_amount" ).val(c_right);
+					$( "#ui_bottom_slider" ).slider( "value",  c_bottom); $( "#ui_bottom_amount" ).val(c_bottom);
+					$( "#ui_top_slider" ).slider( "value",  c_top); $( "#ui_top_amount" ).val(c_top);
+					
+					updateCamera(); 
+					break;
+				case 1: 
 					c_auto = true;
-					c_width = Math.min(-c_left, c_right)*2;
-					c_height = Math.min(-c_bottom, c_top)*2;
+					c_width = Math.abs(Math.min(-c_left, c_right)*2);
+					c_height = Math.abs(Math.min(-c_bottom, c_top)*2);
+					c_aspect = 1;
 					
 					$( "#ui_width_slider" ).slider( "value",  c_width); $( "#ui_width_amount" ).val( c_width );
 					$( "#ui_height_slider" ).slider( "value",  c_height); $( "#ui_height_amount" ).val( c_height );
 					
 					updateCamera(); 
-				break;
-				case 1: 
-					c_auto = false; 
-					var c_w2 = c_width*0.5; c_left=-c_w2; c_right = c_w2, c_h2 = c_height*0.5; c_bottom=-c_h2; c_top = c_h2;
 					
-					$( "#ui_left_slider" ).slider( "value",  c_left); $( "#ui_left_amount" ).val(c_left);
-					$( "#ui_right_slider" ).slider( "value",  c_right); $( "#ui_right_amount" ).val(c_left);
-					$( "#ui_bottom_slider" ).slider( "value",  c_bottom); $( "#ui_bottom_amount" ).val(c_bottom);
-					$( "#ui_top_slider" ).slider( "value",  c_top); $( "#ui_top_amount" ).val(c_top);
-					
-					updateCamera(); 
-				break;
-				default: console.log('you need to update $("#tabs") activate!!!');
+					break;
+				default: console.log('you need to update $("#tabs_config") activate!!!');
 			}
 		}
 	});
@@ -283,5 +301,51 @@ $(function() {
 		}else $(this).val(min_val);
 		
 		c_far = Number($(this).val()); updateCamera();
+	});
+	
+	/************
+		 FOV
+	*************/
+	$( "#ui_fov_slider" ).slider({
+		range: "min", value: c_fov, min: 1, max: 70,
+		slide: function( event, ui ) { 
+			$( "#ui_fov_amount" ).val( ui.value ); c_fov = ui.value; updateCamera(); 
+		}
+	}); $( "#ui_fov_slider > a" ).removeAttr("href");
+	$( "#ui_fov_amount" ).val( $( "#ui_fov_slider" ).slider( "value" ) );
+	
+	$('#ui_fov_amount').bind('input', function(){ 
+		var curr_val = $(this).val();
+		var min_val = $("#ui_fov_slider").slider("option", "min" ), max_val = $("#ui_fov_slider").slider("option", "max" );
+		
+		if(curr_val >= min_val){
+			if(curr_val <= max_val) $("#ui_fov_slider").slider('value',curr_val);
+			else $(this).val(max_val);
+		}else $(this).val(min_val);
+		
+		c_fov = Number($(this).val()); updateCamera();
+	});
+	
+	/************
+		ASPECT
+	*************/
+	$( "#ui_aspect_slider" ).slider({
+		range: "min", value: c_aspect, min: 0.01, max: 3, step: 0.01,
+		slide: function( event, ui ) { 
+			$( "#ui_aspect_amount" ).val( ui.value ); c_aspect = ui.value; updateCamera(); 
+		}
+	}); $( "#ui_aspect_slider > a" ).removeAttr("href");
+	$( "#ui_aspect_amount" ).val( $( "#ui_aspect_slider" ).slider( "value" ) );
+	
+	$('#ui_aspect_amount').bind('input', function(){ 
+		var curr_val = $(this).val();
+		var min_val = $("#ui_aspect_slider").slider("option", "min" ), max_val = $("#ui_aspect_slider").slider("option", "max" );
+		
+		if(curr_val >= min_val){
+			if(curr_val <= max_val) $("#ui_aspect_slider").slider('value',curr_val);
+			else $(this).val(max_val);
+		}else $(this).val(min_val);
+		
+		c_aspect = Number($(this).val()); updateCamera();
 	});
 });

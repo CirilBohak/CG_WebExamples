@@ -69,6 +69,7 @@ input { text-align: right; }
 
 .floatLeft { float:left; }
 .floatRight { float:right; }
+table.center { margin-left:auto; margin-right:auto; }
 
 .paddingLeft, .paddingLeftPoint{ padding-top: 15px; }
 .paddingLeft { padding-left: 200px; }
@@ -115,13 +116,26 @@ table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; paddi
 
 /*UI Sliders*/
 #ui_width_amount, #ui_height_amount, #ui_near_amount, #ui_far_amount,
-#ui_left_amount, #ui_right_amount, #ui_top_amount, #ui_bottom_amount{ margin-left:5px; margin-right:5px; border:1px solid #CCC; width:80px; text-align: center; font-size: 12px; }
+#ui_left_amount, #ui_right_amount, #ui_top_amount, #ui_bottom_amount,
+#ui_aspect_amount, #ui_fov_amount{ margin-left:5px; margin-right:5px; border:1px solid #CCC; width:80px; text-align: center; font-size: 12px; }
 #ui_width_slider, #ui_height_slider, #ui_near_slider, #ui_far_slider,
-#ui_left_slider, #ui_right_slider, #ui_top_slider, #ui_bottom_slider{ margin-left: 13px; margin-right: 7px; }
+#ui_left_slider, #ui_right_slider, #ui_top_slider, #ui_bottom_slider,
+#ui_aspect_slider, #ui_fov_slider{ margin-left: 13px; margin-right: 7px; }
 
-#tabs table th strong, #other_settings table th strong{ float:right; width: 50px; text-align: right;}
-#tabs .ui-tabs-nav{ padding:0px 0px 0px 2px; }
-#tabs>.ui-widget-header{ background: none; border-top:0px; border-left: 0px; border-right: 0px; }
+#tabs_config table th strong, #other_settings table th strong{ float:right; width: 50px; text-align: right;}
+#tabs_config {  padding:0px; font-family: Verdana; color: #336699; font-size: 11px; }
+#tabs_config .ui-tabs-nav{ padding:0px 0px 0px 2px; font-style: normal; }
+#tabs_config>.ui-widget-header{ background: none; border-top:0px; border-left: 0px; border-right: 0px; }
+
+#radio_camera.ui-buttonset{
+	/*border-bottom:1px solid #ddd;*/
+	text-align: right; font-style: normal;
+	padding-left:3px;
+	margin-top: -1px;
+	margin-bottom: 2px;
+}
+#radio_camera label{ margin-left:2px; }
+#radio_camera label.ui-state-active{ border-top-color: #fff; }
 
 .tooltip {
     background-color:#fff;

@@ -69,7 +69,7 @@ CameraHelper = function ( camera, w, h) {
 		this.totalW = w;
 		this.totalH = h;
 		
-		this.renderTarget = new THREE.WebGLRenderTarget( 512, 512, { format: THREE.RGBFormat } ); this.renderTarget.offset.set(-4/512,-4/512);
+		this.renderTarget = new THREE.WebGLRenderTarget( 512, 512, { format: THREE.RGBFormat, magFilter: THREE.NearestFilter, minFilter: THREE.LinearMipMapLinearFilter } ); this.renderTarget.offset.set(-4/256,-4/512);
 		geometry = new THREE.Geometry();
 		
 		for(var i=0; i<12; i++) geometry.vertices.push(new THREE.Vector3());
