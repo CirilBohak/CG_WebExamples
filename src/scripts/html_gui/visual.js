@@ -187,7 +187,7 @@ function updateVectorDropDownLists(vectorIndex) {
 function createMatrix(id, n, m){
 	var matrix = $(id);
 	
-	matrix.append("<table class=\"center\">"+
+	matrix.append("<table>"+
 						"<tr>"+
 							"<td class=\"leftMV\"></td>"+
 							"<td>"+

@@ -11,14 +11,13 @@
 		<script src="./scripts/html_gui/script2D.js"></script>
 		
 		<script src="./scripts/algebra/math.js"></script>
-		<script src="./scripts/algebra/point.js"></script>
-		<script src="./scripts/algebra/vector3.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
 		
-		<script src="./scripts/vector-negation.js"></script>
+		<script src="./scripts/matrix-negation.js"></script>
 </head>
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
-	<h2>Vectors: Negation</h2>
+	<h2>Matrices: Negation</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft" class="border ui-corner-all">
@@ -28,12 +27,15 @@
 					<strong>Info:</strong> In the sketch on the right you can see several vectors. You can add new vectors to the sketch or negate individual vectors.</p>
 				</div>
 			</div>
+			<div class="ui-widget">
+				<div class="ui-state-error ui-corner-all">
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					<strong>Alert:</strong> Work in progress ... <i>(for now random matrix generator)</i></p>
+				</div>
+			</div>
 			
 			<div class="inner_content border ui-corner-all">
-				<div id="vectorList" class="inner_content vector_list border">
-				</div><br />
-				<div><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button><!--
-				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
+				<div id="matrix01" class="vectorValue"></div>
 			</div>
 		</div>
 		<div id="contentRight">
