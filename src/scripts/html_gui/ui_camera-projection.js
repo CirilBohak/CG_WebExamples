@@ -13,9 +13,6 @@ $(function() {
 	$( "#pX input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#pY input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#pZ input" ).tooltip({ offset: [0, 2], effect: 'slide'});
 	
 	$( "#rX input" ).change(function() { 
-		/*MathJax.Hub.queue.Push([	"Text",
-									MathJax.Hub.getAllJax("camera_rotation")[0],
-									"x="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
 		resetCamera(c_Orto);
 		c_Orto.rotateY(degree_to_rad($("#rY input").val()));
 		c_Orto.rotateX(degree_to_rad($(this).val()));
@@ -26,11 +23,7 @@ $(function() {
 		c_Pers.rotateX(degree_to_rad($(this).val()));
 		c_Pers.rotateZ(degree_to_rad($("#rZ input").val()));
 	});
-	$( "#rY input" ).change(function() { 
-		var tmp = $(this).val();
-		/*MathJax.Hub.queue.Push([	"Text",
-									MathJax.Hub.getAllJax("camera_rotation")[1],
-									"y="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
+	$( "#rY input" ).change(function() {
 		resetCamera(c_Orto);
 		c_Orto.rotateY(degree_to_rad($(this).val()));
 		c_Orto.rotateX(degree_to_rad($("#rX input").val()));
@@ -41,11 +34,7 @@ $(function() {
 		c_Pers.rotateX(degree_to_rad($("#rX input").val()));
 		c_Pers.rotateZ(degree_to_rad($("#rZ input").val())); 
 	}); 
-	$( "#rZ input" ).change(function() { 
-		var tmp = $(this).val();
-		/*MathJax.Hub.queue.Push([	"Text",
-									MathJax.Hub.getAllJax("camera_rotation")[2],
-									"z="+precise_round(degree_to_rad(tmp),2)+"\\text\{ rad\}"]); */
+	$( "#rZ input" ).change(function() {
 		resetCamera(c_Orto);
 		c_Orto.rotateY(degree_to_rad($("#rY input").val()));
 		c_Orto.rotateX(degree_to_rad($("#rX input").val()));
@@ -81,6 +70,8 @@ $(function() {
 					$( "#ui_bottom_slider" ).slider( "value",  c_bottom); $( "#ui_bottom_amount" ).val(c_bottom);
 					$( "#ui_top_slider" ).slider( "value",  c_top); $( "#ui_top_amount" ).val(c_top);
 					
+					$( "#ui_aspect_slider" ).slider( "value",  c_aspect); $( "#ui_aspect_amount" ).val(c_aspect);
+					
 					updateCamera(); 
 					break;
 				case 1: 
@@ -100,9 +91,12 @@ $(function() {
 		}
 	});
 	
-	$( "#matrix4_01 .m00 input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#matrix4_01 .m03 input" ).tooltip({ offset: [0, 2], effect: 'slide'});
-	$( "#matrix4_01 .m11 input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#matrix4_01 .m13 input" ).tooltip({ offset: [0, 2], effect: 'slide'});
-	$( "#matrix4_01 .m22 input" ).tooltip({ offset: [0, 2], effect: 'slide'}); $( "#matrix4_01 .m23 input" ).tooltip({ offset: [0, 2], effect: 'slide'});
+	/*Make matrix tool-tip's*/
+	for(var i=0; i<4; i++){
+		for(var j=0; j<4; j++){
+			$( "#matrix1_inner .m"+i+""+j+" input" ).tooltip({ offset: [0, 2], effect: 'slide'});
+		}
+	}
 	
 	/************
 		WIDTH

@@ -25,6 +25,7 @@
 		<script src="./scripts/algebra/vector4.js"></script>
 		<script src="./scripts/algebra/matrix4.js"></script>
 		
+		<script src="./scripts/html_gui/visual.js"></script>
 		<script src="./scripts/html_gui/ui_camera-projection.js"></script>
 		<script src="./scripts/camera-projection.js"></script>
 </head>
@@ -40,7 +41,7 @@
 			}}
 	});
 	
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"camera_rotation"]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"matrix1_inner"]);
 </script>
 <body>
 	<!-- tooltip element -->
@@ -123,6 +124,7 @@
 						<table>
 							<tr><th><strong>Width:</strong></th><td><input type="number" id="ui_width_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_width_slider"></div></td></tr>
 							<tr><th><strong>Height:</strong></th><td><input type="number" id="ui_height_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_height_slider"></div></td></tr>
+							<tr class="persp_camera"><th><strong>Fov:</strong></th><td><input type="number" id="ui_fov_amount" value="1"></td><td style="width: 100px;">%</td><td style="width: 100%;"><div id="ui_fov_slider"></div></td></tr>
 						</table>
 					</div>
 				</div>
@@ -131,33 +133,32 @@
 					<table>
 						<tr><th><strong>Near:</strong></th><td><input type="number" id="ui_near_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_near_slider"></div></td></tr>
 						<tr><th><strong>Far:</strong></th><td><input type="number" id="ui_far_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_far_slider"></div></td></tr>
-						<tr class="persp_camera"><th><strong>Fov:</strong></th><td><input type="number" id="ui_fov_amount" value="1"></td><td style="width: 100px;">%</td><td style="width: 100%;"><div id="ui_fov_slider"></div></td></tr>
 					</table>
 				</div>
 				<br />
-				<b>Projection matrix <i>(DEMO)</u>:</b><br /><br />	
-				<div class="vectorValue" style="padding-bottom:10px;">
+				<b>Camera projection matrix:</b><br /><br />	
+				<div id="matrix1" class="vectorValue" style="padding-bottom:10px;">
 					<table class="center">
 						<tr>
 							<td class="leftMV"> </td>
 							<td>
-								<div id="matrix4_01">
-									<span class="m00"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(\frac{2}{right-left}\)</div></span>
-									<span class="m01"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m02"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m03"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{right+left}{right-left}\)</div></span><br/>
-									<span class="m10"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m11"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(\frac{2}{top-bottom}\)</div></span>
-									<span class="m12"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m13"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{top+bottom}{top-bottom}\)</div></span><br/>
-									<span class="m20"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m21"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m22"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{2}{far-near}\)</div></span>
-									<span class="m23"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /><div class="tooltip">\(-\frac{far+near}{far-near}\)</div></span><br/>
-									<span class="m30"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m31"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m32"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1" disabled/></span>
-									<span class="m33"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" disabled/></span><br/>
+								<div id="matrix1_inner">
+									<span class="m00"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{right-left}}$</div></span>
+									<span class="m01"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m02"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m03"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{right+left}{right-left}}$</div></span><br/>
+									<span class="m10"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m11"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{top-bottom}}$</div></span>
+									<span class="m12"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m13"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{top+bottom}{top-bottom}}$</div></span><br/>
+									<span class="m20"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m21"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m22"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{2}{far-near}}$</div></span>
+									<span class="m23"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{far+near}{far-near}}$</div></span><br/>
+									<span class="m30"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m31"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m32"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m33"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span><br/>
 								</div>
 							</td>
 							<td class="rightMV"></td>

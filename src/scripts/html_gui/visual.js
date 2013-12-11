@@ -179,3 +179,66 @@ function updateVectorDropDownLists(vectorIndex) {
 	$("#firstvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 	$("#secondvector").append('<option value=\"'+vectorIndex+'\">Vector '+vectorIndex+'</option>');	
 }
+
+/*********************
+        MATRICES
+**********************/
+
+function createMatrix(id, n, m){
+	var matrix = $(id);
+	
+	matrix.append("<table class=\"center\">"+
+						"<tr>"+
+							"<td class=\"leftMV\"></td>"+
+							"<td>"+
+								"<div id=\""+id.substring(1)+"_inner\">"+
+								"</div>"+
+							"</td>"+
+							"<td class=\"rightMV\"></td>"+
+						"</tr>"+
+				  "</table>");
+	
+	matrix = matrix.find("#"+id.substring(1)+"_inner");
+	
+	for(var i=0; i<n; i++){
+		for(var j=0; j<m; j++){
+			matrix.append("<span class=\"m"+i+""+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" min=\"-20\" max=\"20\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			if(j<m-1) matrix.append(" ");
+		}
+		matrix.append("<br />");
+	}
+}
+
+function updateMatrix(id, n, m, array){
+	var matrix = $("#"+id.substring(1)+"_inner").children("span");
+	
+	for(var i=0; i<m; i++){
+		for(var j=0; j<n; j++){
+			matrix[(i*n)+j].firstChild.value = precise_round(array[(i*n)+j],2);
+		}
+	}
+	//console.log(matrix[0].children );
+}
+
+function matrixDisableElements(id, n, m, array){
+	var matrix = $("#"+id.substring(1)+"_inner").children("span");
+	
+	for(var i=0; i<m; i++){
+		for(var j=0; j<n; j++){
+			if(array[(i*n)+j]) matrix[(i*n)+j].firstChild.disabled = true;
+			else matrix[(i*n)+j].firstChild.disabled = false;
+		}
+	}
+}
+
+var MathJax;
+
+function matrixUpdateMathJaxTooltips(id, s_array, bool_array){
+	if(MathJax !== undefined){
+		var tooltips = MathJax.Hub.getAllJax(id.substring(1));
+		
+		for(var i=0; i<tooltips.length; i++){ 
+			if(bool_array[i]==false) MathJax.Hub.queue.Push([ "Text", tooltips[i], s_array[i]]);
+		}
+	}
+}

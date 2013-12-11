@@ -32,9 +32,9 @@ function exampleInit() {
 		object.rotateY(Math.PI/4); object.rotateZ(Math.PI/4);
 	GScene.add( object );
 	
-	/********
-	  CAMERA 
-	*********/
+	/**********
+	  CAMERA's 
+	***********/
 	c_Orto = new THREE.OrthographicCamera( c_left, c_right, c_top, c_bottom, c_near, c_far );
 	cf_orto = new CameraHelper(c_Orto, c_width*0.5+70, c_height*0.5+30);
 	c_Orto.position.set(-200,250,100); c_Orto.lookAt(object.position); c_Orto.updateProjectionMatrix();
@@ -48,6 +48,7 @@ function exampleInit() {
 	GScene.add( c_Pers );
 	
 	toogle_camera();
+	updateCamera();
 }
 
 function exampleRender() {
@@ -60,15 +61,30 @@ function exampleRender() {
    CALCULATION
 *****************/
 
-/*function spherical(x,y,z){
-	var r = Math.sqrt(x*x + y*y + z*z);
-	var theta = Math.acos(z/r);
-	var phi = Math.atan(y/x);
-	
-	var z = new THREE.Vector3(Math.sin(theta)*Math.cos(phi),
-								   Math.sin(theta)*Math.sin(phi),
-								   Math.cos(theta));
-}*/
+//TODO: ....
+
+/********************
+   HELPER FUNCTIONS
+*********************/
+
+
+var ortho_eq = ["\\frac{2}{right-left}","","","-\\frac{right+left}{right-left}",
+			    "","\\frac{2}{top-bottom}","","-\\frac{top+bottom}{top-bottom}",
+			    "","","-\\frac{2}{far-near}","-\\frac{far+near}{far-near}",
+			    "","","","1"];
+var ortho_dis = [false,true,true,false,
+				 true,false,true,false,
+				 true,true,false,false,
+				 true,true,true,true];
+				
+var persp_eq = ["2*\\frac{near}{right-left}","","\\frac{right+left}{right-left}","",
+			    "","2*\\frac{near}{top-bottom}","\\frac{top+bottom}{top-bottom}","",
+			    "","","-\\frac{far+near}{far-near}","-2*\\frac{far*near}{far-near}",
+			    "","","-1","0"];
+var persp_dis = [false,true,false,true,
+				 true,false,false,true,
+				 true,true,false,false,
+				 true,true,true,true];
 
 function updateCamera(){		
 	if(whichCamera){ 
@@ -84,20 +100,35 @@ function updateCamera(){
 		cf_orto.totalW = c_width*0.5+70;
 		cf_orto.totalH = c_height*0.5+30;
 		cf_orto.update();
-	}else{ 
-		c_Pers.fov = c_fov;
-		if(c_auto){ 
-			c_Pers.aspect = c_width/c_height;
-		}else{ 
-			c_Pers.aspect = c_aspect;
-		}
 		
+		updateMatrix("#matrix1",4,4,c_Orto.projectionMatrix.clone().transpose().toArray());
+		matrixDisableElements("#matrix1",4,4,ortho_dis);
+		matrixUpdateMathJaxTooltips("#matrix1_inner",ortho_eq, ortho_dis);
+	}else{
 		c_Pers.near = c_near; c_Pers.far = c_far;
-		c_Pers.updateProjectionMatrix();
+		
+		if(c_auto){ 
+			c_aspect = c_width/c_height;
+			c_Pers.aspect = c_aspect;
+			c_Pers.fov = c_fov;
+			
+			c_Pers.updateProjectionMatrix();
+		}else{
+			//c_aspect = Math.abs( c_right - c_left )/Math.abs( c_top - c_bottom );
+			//if(c_aspect==0 || isNaN(c_aspect) || !isFinite(c_aspect)) c_aspect = 0.01;
+			
+			c_Pers.aspect = c_aspect;
+			
+			c_Pers.updateProjectionMatrix();
+		}
 		
 		cf_pers.totalW = c_width*0.5+70;
 		cf_pers.totalH = c_height*0.5+30;
 		cf_pers.update();
+		
+		updateMatrix("#matrix1",4,4,c_Pers.projectionMatrix.clone().transpose().toArray());
+		matrixDisableElements("#matrix1",4,4,persp_dis);
+		matrixUpdateMathJaxTooltips("#matrix1_inner",persp_eq, persp_dis);
 	}
 }
 

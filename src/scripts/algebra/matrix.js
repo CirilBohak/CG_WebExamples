@@ -23,6 +23,16 @@ Matrix.prototype = {
 	   GET FUNCTIONS
 	******************/
 	
+	get1D_array : function(){ //Only because three.js is using 1D array for matrix representation
+		var array = new Array(this.n*this.m);
+		for(var i=0; i<this.m; i++){
+			for(var j=0; j<this.n; j++){
+				array[(i*this.n)+j] = this.MD_Array[i][j];
+			}
+		}
+		return array;
+	},
+	
 	/**********************************
 	   COPY / CLONE itd... FUNCTIONS
 	***********************************/
