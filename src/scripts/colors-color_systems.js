@@ -78,47 +78,45 @@ function rgbToHsv(r, g, b) {
 		var AllJax = MathJax.Hub.getAllJax("result");//MathOutput
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[0],
-								"R' = R/255 = "+r+"/255 = "+Math.round((r/255)*1000)/1000+"\\\\"+
-								"G' = G/255 = "+g+"/255 = "+Math.round((g/255)*1000)/1000+"\\\\"+
-								"B' = B/255 = "+b+"/255 = "+Math.round((b/255)*1000)/1000+"\\\\"
+								"R' = \\frac{R}{255} = \\frac{"+r+"}{255} = "+Math.round((r/255)*1000)/1000+"\\\\"+
+								"G' = \\frac{G}{255} = \\frac{"+g+"}{255} = "+Math.round((g/255)*1000)/1000+"\\\\"+
+								"B' = \\frac{B}{255} = \\frac{"+b+"}{255} = "+Math.round((b/255)*1000)/1000+"\\\\"
 								]);
 								
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[1],
-								"Cmax = max(R', G', B') = "+Math.round((Cmax)*1000)/1000+"\\\\"+
-								"Cmin = min(R', G', B') = "+Math.round((Cmin)*1000)/1000+"\\\\"+
-								"\\Delta = Cmax - Cmin = "+Math.round((Cmax-Cmin)*1000)/1000
+								"C_{max} = \\max(R', G', B') = "+Math.round((Cmax)*1000)/1000+"\\\\"+
+								"C_{min} = \\min(R', G', B') = "+Math.round((Cmin)*1000)/1000+"\\\\"+
+								"\\Delta = C_{max} - C_{min} = "+Math.round((Cmax-Cmin)*1000)/1000
 								]);
 								
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[2],
-								"\\text{RGB TO HSL: }\\\\"+								
-								"\\text{Hue calculation: } \\\\ H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} mod 6) &,Cmax = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,Cmax = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,Cmax = B'\\end{cases}\\\\H = "+h+"^\\circ"
+								"H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\mod{6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+h+"^\\circ"
 								]);																
 
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[3],
-								"\\text{Saturation calculation: } \\\\ S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{1-|2L-1|} &,\\Delta <> 0\\end{cases}\\\\S = "+s+"\\%"
+								"S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{1-|2L-1|} &,\\Delta <> 0\\end{cases}\\\\S = "+s+"\\%"
 								]);																
 
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[4],
-								"\\text{Lightness calculation: } \\\\ L = (Cmax + Cmin) / 2 = "+l+"\\%"
+								"L = (C_{max} + C_{min}) / 2 = "+l+"\\%"
 								]);	
 								
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[5],
-								"\\text{RGB TO HSV: }\\\\"+								
-								"\\text{Hue calculation: } \\\\ H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} mod 6) &,Cmax = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,Cmax = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,Cmax = B'\\end{cases}\\\\H = "+h1+"^\\circ"
+								"H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\mod{6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+h1+"^\\circ"
 								]);																
 
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[6],
-								"\\text{Saturation calculation: } \\\\ S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{Cmax} &,\\Delta <> 0\\end{cases}\\\\S = "+s1+"\\%"
+								"S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{C_{max}} &,\\Delta <> 0\\end{cases}\\\\S = "+s1+"\\%"
 								]);											
 
 		MathJax.Hub.queue.Push([	"Text",
 								AllJax[7],
-								"\\text{Value calculation: } \\\\ V = Cmax = "+v1+"\\%"
+								"V = C_{max} = "+v1+"\\%"
 								]);		
 	}

@@ -4,21 +4,21 @@
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
 		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/colorpicker/colorpicker.css" />
-		<link rel="stylesheet" type="text/css" href="./css/colorpicker/layout.css" /><!--media="screen"-->
 		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/jquery-migrate-1.2.1.min.js"></script>
 		<script src="./scripts/core/jquery.tools.min.js"></script>
 		<script src="./scripts/core/jquery-ui-1.10.3.custom.min.js"></script>
 		
-		<script type="text/javascript" src="./scripts/core/colorpicker/colorpicker.js"></script>
+		<script type="text/javascript" src="./scripts/core/colorpicker/colorpicker_1.4.js"></script>
     	<script type="text/javascript" src="./scripts/core/colorpicker/eye.js"></script>
     	<script type="text/javascript" src="./scripts/core/colorpicker/utils.js"></script>
     	<script type="text/javascript" src="./scripts/core/colorpicker/layout.js?ver=1.0.2"></script>
 	
 		<script src="./scripts/algebra/math.js"></script>
 		
-		<script src="./scripts/colors-color_systems.js"></script>	
+		<script src="./scripts/colors-color_systems.js"></script>
+		<script src="./scripts/html_gui/ui_colors-color_systems.js"></script>
 </head>
 	
 <script type="text/x-mathjax-config">
@@ -58,18 +58,38 @@
 			</div>
 			
 			<div class="inner_content border ui-corner-all">
-				<p id="colorpickerHolder"></p><br /><br />
+				<p id="colorpickerHolder" style="margin:0px;"></p>
 				Formulas used to calculate RGB to HSL and RGB to HSV:<br /><br />
-				<div id="result"><br />
-					<br />
-					<span class="scale">${}$</span><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br /><br /><br />
-					<span class="scale">${}$</span><br /><br />
+				<div id="result">
+					<div id="tabs_config">
+						<ul>
+							<li><a href="#tabs-1">RGB</a></li>
+							<li><a href="#tabs-2">RGB to HSL</a></li>
+							<li><a href="#tabs-3">RGB to HSV</a></li>
+						</ul>
+						<div id="tabs-1" style="overflow:hidden; color: #336699;">
+							<span class="scale">${}$</span><br /><br />
+							<span class="scale">${}$</span>
+						</div>
+						<div id="tabs-2" style="overflow:hidden; color: #336699;">
+							<b>Hue calculation:</b><br />
+							<span class="scale">${}$</span><br /><br /><br />
+							<b>Saturation calculation:</b><br />
+							<span class="scale">${}$</span><br /><br /><br />
+							<b>Lightness calculation:</b><br />
+							<span class="scale">${}$</span><br />
+						</div>
+						<div id="tabs-3" style="overflow:hidden; color: #336699;">
+							<b>Hue calculation:</b><br />
+							<span class="scale">${}$</span><br /><br /><br />
+							<b>Saturation calculation:</b><br />
+							<span class="scale">${}$</span><br /><br /><br />
+							<b>Value calculation:</b><br />
+							<span class="scale">${}$</span>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 		</div>
