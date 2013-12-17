@@ -38,20 +38,27 @@ input { text-align: right; }
 /*Content and drawing surfaces*/
 #surface { /*border-left: 3px solid #336699;*/ width:800px; height:600px; /*cursor: url(./navigation/images/hand.cur), auto;*/ }
 
-.threeColumns {
-	-moz-column-count:3; /* Firefox */
-	-webkit-column-count:3; /* Safari and Chrome */
-	column-count: 3;
-	column-gap: 20px;
-	height: 540px;
+#content, #columns{ width: 85%; margin: auto; text-align: left; }
+#content { 
+	width: 1280px;
+	overflow: hidden;
+	padding-top: 10px;
 }
 
-#content { 
-	overflow: hidden;
-	margin: auto;
-	padding-top: 10px;
-	width: 1280px;
-	text-align: left;
+.col-group > div .sub_title { text-align: center; font-size: 20px; color: #000000; }
+.col-group > div>div{ 
+	margin: 0px 20px 20px 20px;
+	background-color: #fafafa;
+	border: 1px solid #DDD;
+}
+.col-group > div>div>div{ padding: 5px 20px 20px 20px; }
+
+@media screen and (min-width: 50em) {
+	.col-group { overflow: hidden; }
+	.col-group > div {
+		float: left;
+		width: 33.3333333%; /*Column WIDTH  :) */
+	}
 }
 
 #contentLeft , #contentRight { float: left; }
