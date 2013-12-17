@@ -8,7 +8,8 @@ CameraHelper = function ( camera, w, h) {
 	// colors
 	var hexFrustum = 0x999999;
 	var hexCone = 0xDDDDDD;
-	var hexPlane = 0xEEEEEE;
+	var hexPlane = 0xD3D3D3;
+	var hexView = 0xDEDEDE;
 	
 	// near
 	addLine( "n1", "n2", hexFrustum );
@@ -98,7 +99,7 @@ CameraHelper = function ( camera, w, h) {
 		this.PlaneGeometry.vertices[0] = this.plane.geometry.vertices[7]; this.PlaneGeometry.vertices[1] = this.plane.geometry.vertices[4];
 		this.PlaneGeometry.vertices[2] = this.plane.geometry.vertices[6]; this.PlaneGeometry.vertices[3] = this.plane.geometry.vertices[5];
 		
-		this.planeMap = new THREE.Mesh(this.PlaneGeometry , new THREE.MeshBasicMaterial( { color: hexPlane, opacity: 0.8, transparent: true, map: this.renderTarget, side:THREE.DoubleSide } ) );
+		this.planeMap = new THREE.Mesh(this.PlaneGeometry , new THREE.MeshBasicMaterial( { color: hexView, opacity: 0.8, transparent: true, map: this.renderTarget, side:THREE.DoubleSide } ) );
 		this.add(this.planeMap);
 	}
 	
@@ -137,9 +138,9 @@ CameraHelper.prototype.update = function () {
 			var directions = []; //Normalized for multiplication
 			for(var i=1; i<=4; i++){
 				near[i] = scope.LINES.geometry.vertices[scope.pointMap["n"+i][0]];
-				directions[i] = new THREE.Vector3().subVectors(near[i],scope.LINES.geometry.vertices[scope.pointMap["f"+i][0]]).normalize();
+				directions[i] = new THREE.Vector3().subVectors(near[i], scope.LINES.geometry.vertices[scope.pointMap["f"+i][0]]).normalize();
 			}
-			var dist = near[1].z/2;
+			var dist = -near[1].z*0.5;
 			
 			var viewPlane = [];
 			viewPlane.push(setViewPlanePoint("vP1", near[1], directions[1]));
@@ -147,11 +148,13 @@ CameraHelper.prototype.update = function () {
 			viewPlane.push(setViewPlanePoint("vP3", near[3], directions[3]));
 			viewPlane.push(setViewPlanePoint("vP4", near[4], directions[4]));
 			
+			var distZ = -viewPlane[0].clone().projectOnVector({x:0, y:0, z:1}).distanceTo({x:0, y:0, z:0}); //TODO: Better... mathematical calculation error
+			
 			/*****************************
 					   VIEW PLANE
 			******************************/
 			
-			this.plane.position.set(0,0,dist);
+			this.plane.position.set(0,0,distZ);
 			/*Left*/
 			this.plane.geometry.vertices[0].set( viewPlane[3].x>this.totalW?this.totalW:viewPlane[3].x, -this.totalH, 0 );
 			this.plane.geometry.vertices[1].set( viewPlane[1].x>this.totalW?this.totalW:viewPlane[1].x, this.totalH,  0 );
@@ -170,7 +173,9 @@ CameraHelper.prototype.update = function () {
 			this.plane.geometry.verticesNeedUpdate = true;
 			
 			this.PlaneGeometry.verticesNeedUpdate = true;
-			this.planeMap.position.set(0,0,dist);
+			this.planeMap.position.set(0,0,distZ);
+			this.planeMap.material.needsUpdate = true;
+			
 		}
 		
 		function setPoint( point, x, y, z ) {
@@ -189,7 +194,7 @@ CameraHelper.prototype.update = function () {
 		function setViewPlanePoint( point, from, to ){
 			var points = scope.pointMap[point];
 			
-			vector.set(to.x, to.y, to.z); vector.multiplyScalar(-dist); vector.add(from);
+			vector.set(to.x, to.y, to.z); vector.multiplyScalar(dist); vector.add(from);
 			
 			if ( points !== undefined ) {
 				for ( var i = 0, il = points.length; i < il; i ++ ) {

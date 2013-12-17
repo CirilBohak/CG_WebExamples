@@ -7,7 +7,7 @@ var c_auto = false;
 var c_width = 100, c_height = 100;
 var c_left = -50, c_right = 50, c_top = 50, c_bottom = -50;
 var c_near = 300, c_far = 450;
-var c_fov = 19, c_aspect = 1.;
+var c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near)), c_aspect = 1.;
 var cf_orto, cf_pers;
 
 function exampleInit() {
@@ -108,16 +108,18 @@ function updateCamera(){
 		c_Pers.near = c_near; c_Pers.far = c_far;
 		
 		if(c_auto){ 
-			c_aspect = c_width/c_height;
+			c_aspect = Math.abs( c_right - c_left )/Math.abs( c_top - c_bottom );
+			c_fov = THREE.Math.radToDeg(2*Math.atan((c_height*0.5)/c_near));
+			
 			c_Pers.aspect = c_aspect;
 			c_Pers.fov = c_fov;
 			
 			c_Pers.updateProjectionMatrix();
 		}else{
-			//c_aspect = Math.abs( c_right - c_left )/Math.abs( c_top - c_bottom );
-			//if(c_aspect==0 || isNaN(c_aspect) || !isFinite(c_aspect)) c_aspect = 0.01;
+			c_aspect = Math.abs( c_right - c_left )/Math.abs( c_top - c_bottom );
 			
 			c_Pers.aspect = c_aspect;
+			c_Pers.fov = c_fov;
 			
 			c_Pers.updateProjectionMatrix();
 		}

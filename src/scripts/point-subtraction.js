@@ -8,12 +8,18 @@ function addPointToList(point) {
     createPointSelection(point, points.length-1);
 
 	updatePointDropDownLists(points.length - 1);
+	
+	var target = document.getElementById( "point"+(points.length-1) );
+	target.parentNode.scrollTop = target.offsetTop;
 }
 
 function addVectorToList(vec) {
 	vectors.push(vec);
 	
 	createVectorSelection(vec, vectors.length-1);
+	
+	var target = document.getElementById( "vec"+(vectors.length-1) );
+	target.parentNode.scrollTop = target.offsetTop;
 }
 
 /****************

@@ -47,7 +47,7 @@
 	<!-- tooltip element -->
 
 	<h1>Computer Graphics - Web Examples</h1>
-	<h2>Projection: <i>(under construction)</i></h2>
+	<h2>Projection: orthogonal (parallel) and perspective</h2>
 	<strong> <a href="./index.html">&lt;- back </a></strong>
 	<div id="content">
 		<div id="contentLeft" class="border ui-corner-all">
@@ -110,21 +110,22 @@
 						<li><a href="#tabs-2">Auto aspect</a></li>
 					</ul>
 					<div id="tabs-1">
-						<table class="ortho_camera">
+						<table class="persp_camera" style="border-bottom: solid 1px #EEE; margin-bottom: 5px;">
+							<tr><th><strong>Aspect:</strong></th><td><input type="number" id="ui_aspect_amount" value="1" step="0.01"></td><td> </td><td style="width: 100%;"><div id="ui_aspect_slider"></div></td></tr>
+							<tr><th><strong>Fov:</strong></th><td><input type="number" id="ui_fov_amount" value="1" step="0.01"></td><td>&deg;</td><td style="width: 100%;"><div id="ui_fov_slider"></div></td></tr>
+							<tr><th style="height:5px;"></th><td></td><td></td><td></td></tr>
+						</table>
+						<table>
 							<tr><th><strong>Left:</strong></th><td><input type="number" id="ui_left_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_left_slider"></div></td></tr>
 							<tr><th><strong>Right:</strong></th><td><input type="number" id="ui_right_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_right_slider"></div></td></tr>
 							<tr><th><strong>Top:</strong></th><td><input type="number" id="ui_top_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_top_slider"></div></td></tr>
 							<tr><th><strong>Bottom:</strong></th><td><input type="number" id="ui_bottom_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_bottom_slider"></div></td></tr>
-						</table>
-						<table class="persp_camera">
-							<tr><th><strong>Aspect:</strong></th><td><input type="number" id="ui_aspect_amount" value="1" step="0.01"></td><td style="width: 100%;"><div id="ui_aspect_slider"></div></td></tr>
 						</table>
 					</div>
 					<div id="tabs-2">
 						<table>
 							<tr><th><strong>Width:</strong></th><td><input type="number" id="ui_width_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_width_slider"></div></td></tr>
 							<tr><th><strong>Height:</strong></th><td><input type="number" id="ui_height_amount" value="1"></td><td>px</td><td style="width: 100%;"><div id="ui_height_slider"></div></td></tr>
-							<tr class="persp_camera"><th><strong>Fov:</strong></th><td><input type="number" id="ui_fov_amount" value="1"></td><td style="width: 100px;">%</td><td style="width: 100%;"><div id="ui_fov_slider"></div></td></tr>
 						</table>
 					</div>
 				</div>
@@ -143,22 +144,22 @@
 							<td class="leftMV"> </td>
 							<td>
 								<div id="matrix1_inner">
-									<span class="m00"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{right-left}}$</div></span>
-									<span class="m01"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m02"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m03"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{right+left}{right-left}}$</div></span><br/>
-									<span class="m10"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m11"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{top-bottom}}$</div></span>
-									<span class="m12"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m13"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{top+bottom}{top-bottom}}$</div></span><br/>
-									<span class="m20"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m21"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m22"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{2}{far-near}}$</div></span>
-									<span class="m23"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{far+near}{far-near}}$</div></span><br/>
-									<span class="m30"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m31"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m32"><input class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
-									<span class="m33"><input class="vecInputCol" type="number" value="1" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span><br/>
+									<span class="m00"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{right-left}}$</div></span>
+									<span class="m01"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m02"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m03"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{right+left}{right-left}}$</div></span><br/>
+									<span class="m10"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m11"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{top-bottom}}$</div></span>
+									<span class="m12"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m13"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{top+bottom}{top-bottom}}$</div></span><br/>
+									<span class="m20"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m21"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m22"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{2}{far-near}}$</div></span>
+									<span class="m23"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{far+near}{far-near}}$</div></span><br/>
+									<span class="m30"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m31"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m32"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+									<span class="m33"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span><br/>
 								</div>
 							</td>
 							<td class="rightMV"></td>

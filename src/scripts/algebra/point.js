@@ -74,6 +74,19 @@ Point.prototype = {
 		return this;
 	},
 	
+	/******************
+	   MATH FUNCTIONS
+	*******************/
+	
+	//ADD
+	
+	add : function (point) {
+		this.x += point.x;
+		this.y += point.y;
+		this.z += point.z;
+		return this;
+	},
+	
 	/****************************
 	   PROCESSING DRAW FUNCTION
 	*****************************/

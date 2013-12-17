@@ -239,7 +239,7 @@ Vector3.prototype = {
 		if(number !== 0){
 			var invNumber = 1 / number;
 			
-			return this.multiply(invNumber);
+			return this.multiplyScalar(invNumber);
 		}else{
 			return this.setScalar(0);
 			console.warn("Division with zero! Vector xyz -> 0!");
@@ -297,6 +297,15 @@ Vector3.prototype = {
 	
 	dotVectors : function (vectorA, vectorB){
 		return vectorA.x*vectorB.x + vectorA.y*vectorB.y + vectorA.z*vectorB.z;
+	},
+	
+	//ANGLE
+	
+	angleTo: function (vector) {
+		var theta = this.dot( vector ) / ( this.length() * vector.length() );
+
+		// clamp, to handle numerical problems
+		return Math.acos(clamp(theta,-1,1));
 	},
 	
 	//MIN / MAX / CLAMP / LERP
@@ -470,19 +479,28 @@ Vector3.prototype = {
 	/****************************
 	   PROCESSING DRAW FUNCTION
 	*****************************/
-    draw : function() {
-        var c_loc = gridToCanvasTransform(new Point(this.loc.x, this.loc.y));
+	drawArrow : function(headLen, heads) {
+		var c_loc = gridToCanvasTransform(new Point(this.loc.x, this.loc.y));
         var toX = c_loc.x + this.x * unit;
         var toY = c_loc.y - this.y * unit;
 		proc.stroke(this.r, this.g, this.b);
         proc.line(c_loc.x, c_loc.y, toX, toY);
         
-        var headLen = 14;
-        var angle = Math.atan2(toY-c_loc.y,toX-c_loc.x);
-
+        var headLen = (headLen !== undefined) ? headLen:14;
+        var angle = 0;
+		
+		angle = Math.atan2(toY-c_loc.y,toX-c_loc.x);
         proc.line(toX, toY, toX - headLen * Math.cos(angle - Math.PI / 8), toY - headLen * Math.sin(angle - Math.PI / 8));
         proc.line(toX, toY, toX - headLen * Math.cos(angle + Math.PI / 8), toY - headLen * Math.sin(angle + Math.PI / 8));
-    }
+		
+		if(heads !== undefined){
+			angle = Math.atan2(c_loc.y-toY,c_loc.x-toX);
+			proc.line(c_loc.x, c_loc.y, c_loc.x - headLen * Math.cos(angle - Math.PI / 8), c_loc.y - headLen * Math.sin(angle - Math.PI / 8));
+			proc.line(c_loc.x, c_loc.y, c_loc.x - headLen * Math.cos(angle + Math.PI / 8), c_loc.y - headLen * Math.sin(angle + Math.PI / 8));
+		}
+    },
+	
+    draw : function() { this.drawArrow(); }
 }
 
 //Extend "Vector.prototype"

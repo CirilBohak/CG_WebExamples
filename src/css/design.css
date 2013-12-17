@@ -55,14 +55,19 @@ input { text-align: right; }
 }
 
 #contentLeft , #contentRight { float: left; }
+
 #contentRight  { width: 66%; }
 #contentLeft { width:31%; }
+#contentFull { }
 
-#contentLeft.border, #contentLeft .inner_content.border{ border: solid 1px #CCC; }
-#contentLeft{ padding: 3px; background-color: #f3f3f3; }
-#contentLeft .inner_content{ padding: 5px; background-color: #fff;}
+#contentLeft.border, #contentLeft .inner_content.border,
+#contentFull.border, #contentFull .inner_content.border{ border: solid 1px #CCC; }
+#contentLeft, #contentFull{ padding: 3px; background-color: #f3f3f3; }
+#contentLeft .inner_content, #contentFull .inner_content{ padding: 5px; background-color: #fff;}
 
-#contentLeft .inner_content .vector_list{ height:146px; overflow:auto; padding-bottom: 0px;}
+#contentLeft .inner_content .vector_list, #contentFull .inner_content .vector_list{ height:146px; overflow:auto; padding-bottom: 0px;}
+
+#contentLeft>.ui-widget>.ui-corner-all, #contentFull>.ui-widget>.ui-corner-all{ margin-bottom: 3px; padding: 0 .7em; }
 
 /*Components*/
 #vectorList, #pointList { font-size: 10px; font-style: italic; }
@@ -154,8 +159,6 @@ table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; paddi
 .tooltip .MathJax_SVG_Display{ padding: 0px; margin: 0px; }
 
 .ui-accordion div.ui-accordion-content{ padding: 5px; margin: 0px; font-size: 11px; }
-
-#contentLeft>.ui-widget>.ui-corner-all{ margin-bottom: 3px; padding: 0 .7em; }
 
 /*MathJax*/
 

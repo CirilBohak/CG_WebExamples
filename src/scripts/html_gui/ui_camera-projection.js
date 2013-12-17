@@ -51,8 +51,31 @@ $(function() {
 	$( "#radio_camera" ).buttonset();
 	$( "#radio_camera :radio" ).click(function(event){
 		switch($(this).index()*0.5){
-			case 0: if(whichCamera){ toogle_camera(); updateCamera(); persp_camera.show(); ortho_camera.hide(); } break;
-			case 1: if(!whichCamera){ toogle_camera(); updateCamera(); persp_camera.hide(); ortho_camera.show(); } break;
+			case 0: 
+				if(whichCamera){ 
+					toogle_camera();
+					$("#ui_right_slider").slider( "option", "disabled", true );
+					$("#ui_bottom_slider").slider( "option", "disabled", true );
+					$("#ui_right_amount").prop('disabled', true);
+					$("#ui_bottom_amount").prop('disabled', true);
+					
+					c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near));
+					$( "#ui_fov_slider" ).slider( "value",  precise_round(c_fov,2)); $( "#ui_fov_amount" ).val(precise_round(c_fov,2));
+					c_aspect = (c_right-c_left)/(c_top-c_bottom);
+					$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+					
+					updateCamera(); persp_camera.show(); ortho_camera.hide();  
+				} 
+				break;
+			case 1: 
+				if(!whichCamera){ 
+					toogle_camera(); updateCamera(); persp_camera.hide(); ortho_camera.show();
+					$("#ui_right_slider").slider( "option", "disabled", false );
+					$("#ui_bottom_slider").slider( "option", "disabled", false );
+					$("#ui_right_amount").prop('disabled', false);
+					$("#ui_bottom_amount").prop('disabled', false);
+				} 
+				break;
 			default: break;
 		}
 	});
@@ -65,36 +88,39 @@ $(function() {
 				case 0: c_auto = false; 
 					var c_w2 = c_width*0.5; c_left=-c_w2; c_right = c_w2, c_h2 = c_height*0.5; c_bottom=-c_h2; c_top = c_h2;
 					
-					$( "#ui_left_slider" ).slider( "value",  c_left); $( "#ui_left_amount" ).val(c_left);
-					$( "#ui_right_slider" ).slider( "value",  c_right); $( "#ui_right_amount" ).val(c_right);
-					$( "#ui_bottom_slider" ).slider( "value",  c_bottom); $( "#ui_bottom_amount" ).val(c_bottom);
-					$( "#ui_top_slider" ).slider( "value",  c_top); $( "#ui_top_amount" ).val(c_top);
-					
-					$( "#ui_aspect_slider" ).slider( "value",  c_aspect); $( "#ui_aspect_amount" ).val(c_aspect);
-					
 					updateCamera(); 
+					
+					$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+					$( "#ui_fov_slider" ).slider( "value",  precise_round(c_fov,2)); $( "#ui_fov_amount" ).val(precise_round(c_fov,2));
 					break;
 				case 1: 
 					c_auto = true;
 					c_width = Math.abs(Math.min(-c_left, c_right)*2);
 					c_height = Math.abs(Math.min(-c_bottom, c_top)*2);
-					c_aspect = 1;
 					
-					$( "#ui_width_slider" ).slider( "value",  c_width); $( "#ui_width_amount" ).val( c_width );
-					$( "#ui_height_slider" ).slider( "value",  c_height); $( "#ui_height_amount" ).val( c_height );
+					c_top = c_height*0.5; c_bottom = -c_top; c_left = c_width*0.5; c_right = -c_left;
 					
 					updateCamera(); 
 					
+					$( "#ui_width_slider" ).slider( "value",  Math.round(c_width)); $( "#ui_width_amount" ).val( Math.round(c_width) );
+					$( "#ui_height_slider" ).slider( "value",  Math.round(c_height)); $( "#ui_height_amount" ).val( Math.round(c_height) );
 					break;
 				default: console.log('you need to update $("#tabs_config") activate!!!');
 			}
+			
+			$( "#ui_left_slider" ).slider( "value",  Math.round(c_left)); $( "#ui_left_amount" ).val(Math.round(c_left));
+			$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+			$( "#ui_bottom_slider" ).slider( "value",  Math.round(c_bottom)); $( "#ui_bottom_amount" ).val(Math.round(c_bottom));
+			$( "#ui_top_slider" ).slider( "value",  Math.round(c_top)); $( "#ui_top_amount" ).val(Math.round(c_top));
 		}
 	});
 	
 	/*Make matrix tool-tip's*/
 	for(var i=0; i<4; i++){
 		for(var j=0; j<4; j++){
-			$( "#matrix1_inner .m"+i+""+j+" input" ).tooltip({ offset: [0, 2], effect: 'slide'});
+			var tmp=$( "#matrix1_inner .m"+i+""+j+" input" );
+			tmp.tooltip({ offset: [0, 2], effect: 'slide'});
+			tmp.attr('readonly', true);
 		}
 	}
 	
@@ -149,7 +175,19 @@ $(function() {
 	*************/
 	$( "#ui_left_slider" ).slider({
 		range: "min", value: c_left, min: -300, max: 1,
-		slide: function( event, ui ) { $( "#ui_left_amount" ).val( ui.value ); c_left = ui.value; updateCamera(); }
+		slide: function( event, ui ) { 
+			$( "#ui_left_amount" ).val( ui.value ); c_left = ui.value; 
+			
+			if(!whichCamera){ 
+				c_right = -c_left;
+				$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+				
+				c_aspect = (c_right-c_left)/(c_top-c_bottom);
+				$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+			}
+			
+			updateCamera(); 
+		}
 	}); $( "#ui_left_slider > a" ).removeAttr("href");
 	$( "#ui_left_amount" ).val( $( "#ui_left_slider" ).slider( "value" ) );
 	
@@ -162,7 +200,17 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_left = Number($(this).val()); updateCamera();
+		c_left = Number($(this).val()); 
+		
+		if(!whichCamera){ 
+			c_right = -c_left;
+			$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+			
+			c_aspect = (c_right-c_left)/(c_top-c_bottom);
+			$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+		}
+		
+		updateCamera();
 	});
 	
 	/************
@@ -191,7 +239,21 @@ $(function() {
 	*************/
 	$( "#ui_top_slider" ).slider({
 		range: "min", value: c_top, min: 1, max: 300,
-		slide: function( event, ui ) { $( "#ui_top_amount" ).val( ui.value ); c_top = ui.value; updateCamera(); }
+		slide: function( event, ui ) { 
+			$( "#ui_top_amount" ).val( ui.value ); c_top = ui.value; 
+			
+			if(!whichCamera){ 
+				c_bottom = -c_top;
+				$( "#ui_bottom_slider" ).slider( "value",  Math.round(c_bottom)); $( "#ui_bottom_amount" ).val(Math.round(c_bottom));
+				
+				c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near));
+				$( "#ui_fov_slider" ).slider( "value",  precise_round(c_fov,2)); $( "#ui_fov_amount" ).val(precise_round(c_fov,2));
+				c_aspect = (c_right-c_left)/(c_top-c_bottom);
+				$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+			}
+			
+			updateCamera(); 
+		}
 	}); $( "#ui_top_slider > a" ).removeAttr("href");
 	$( "#ui_top_amount" ).val( $( "#ui_top_slider" ).slider( "value" ) );
 	
@@ -204,7 +266,19 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_top = Number($(this).val()); updateCamera();
+		c_top = Number($(this).val()); 
+		
+		if(!whichCamera){ 
+			c_bottom = -c_top;
+			$( "#ui_bottom_slider" ).slider( "value",  Math.round(c_bottom)); $( "#ui_bottom_amount" ).val(Math.round(c_bottom));
+			
+			c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near));
+			$( "#ui_fov_slider" ).slider( "value",  precise_round(c_fov,2)); $( "#ui_fov_amount" ).val(precise_round(c_fov,2));
+			c_aspect = (c_right-c_left)/(c_top-c_bottom);
+			$( "#ui_aspect_slider" ).slider( "value",  precise_round(c_aspect,2)); $( "#ui_aspect_amount" ).val(precise_round(c_aspect,2));
+		}
+		
+		updateCamera();
 	});
 	
 	/************
@@ -301,9 +375,21 @@ $(function() {
 		 FOV
 	*************/
 	$( "#ui_fov_slider" ).slider({
-		range: "min", value: c_fov, min: 1, max: 70,
+		range: "min", value: c_fov, min: 1, max: 70, step: 0.01,
 		slide: function( event, ui ) { 
-			$( "#ui_fov_amount" ).val( ui.value ); c_fov = ui.value; updateCamera(); 
+			$( "#ui_fov_amount" ).val( ui.value ); c_fov = ui.value; 
+			
+			c_top = c_near * Math.tan( THREE.Math.degToRad( c_fov * 0.5 ));
+			c_bottom = -c_top;
+			c_left = c_bottom*c_aspect;
+			c_right = c_top*c_aspect;
+			
+			$( "#ui_top_slider" ).slider( "value",  Math.round(c_top)); $( "#ui_top_amount" ).val(Math.round(c_top));
+			$( "#ui_bottom_slider" ).slider( "value",  Math.round(c_bottom)); $( "#ui_bottom_amount" ).val(Math.round(c_bottom));
+			$( "#ui_left_slider" ).slider( "value",  Math.round(c_left)); $( "#ui_left_amount" ).val(Math.round(c_left));
+			$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+			
+			updateCamera(); 
 		}
 	}); $( "#ui_fov_slider > a" ).removeAttr("href");
 	$( "#ui_fov_amount" ).val( $( "#ui_fov_slider" ).slider( "value" ) );
@@ -317,16 +403,34 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_fov = Number($(this).val()); updateCamera();
+		c_fov = Number($(this).val());
+		c_top = c_near * Math.tan( THREE.Math.degToRad( c_fov * 0.5 ));
+		c_bottom = -c_top;
+		c_left = c_bottom*c_aspect;
+		c_right = c_top*c_aspect;
+		
+		$( "#ui_top_slider" ).slider( "value",  Math.round(c_top)); $( "#ui_top_amount" ).val(Math.round(c_top));
+		$( "#ui_bottom_slider" ).slider( "value",  Math.round(c_bottom)); $( "#ui_bottom_amount" ).val(Math.round(c_bottom));
+		$( "#ui_left_slider" ).slider( "value",  Math.round(c_left)); $( "#ui_left_amount" ).val(Math.round(c_left));
+		$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+					
+		updateCamera();
 	});
 	
 	/************
 		ASPECT
 	*************/
 	$( "#ui_aspect_slider" ).slider({
-		range: "min", value: c_aspect, min: 0.01, max: 3, step: 0.01,
+		range: "min", value: c_aspect, min: 0.01, max: 6, step: 0.01,
 		slide: function( event, ui ) { 
-			$( "#ui_aspect_amount" ).val( ui.value ); c_aspect = ui.value; updateCamera(); 
+			$( "#ui_aspect_amount" ).val( ui.value ); c_aspect = ui.value; 
+			
+			c_left = c_bottom*c_aspect;
+			c_right = c_top*c_aspect;
+			$( "#ui_left_slider" ).slider( "value",  Math.round(c_left)); $( "#ui_left_amount" ).val(Math.round(c_left));
+			$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+			
+			updateCamera(); 
 		}
 	}); $( "#ui_aspect_slider > a" ).removeAttr("href");
 	$( "#ui_aspect_amount" ).val( $( "#ui_aspect_slider" ).slider( "value" ) );
@@ -340,6 +444,13 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_aspect = Number($(this).val()); updateCamera();
+		c_aspect = Number($(this).val());
+		
+		c_left = c_bottom*c_aspect;
+		c_right = c_top*c_aspect;
+		$( "#ui_left_slider" ).slider( "value",  Math.round(c_left)); $( "#ui_left_amount" ).val(Math.round(c_left));
+		$( "#ui_right_slider" ).slider( "value",  Math.round(c_right)); $( "#ui_right_amount" ).val(Math.round(c_right));
+		
+		updateCamera();
 	});
 });

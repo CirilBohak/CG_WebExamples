@@ -20,12 +20,15 @@ function draw() {
 
     // draw grid
     drawGrid();
-
+	
     // draw points
     drawPoints();
 
     // draw vectors
     drawVectors();
+	
+	// draw guides
+	drawGuides();
 }
 
 function mouseMoved() {}
@@ -57,6 +60,9 @@ window.onload = function() {
 
     exampleInit();
 }
+
+
+function drawGuides(){ };
 
 // drawing all the stored points
 function drawPoints() {

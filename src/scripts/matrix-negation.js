@@ -8,3 +8,7 @@ function exampleInit() {
     createMatrix("#matrix01",n,m);
 	updateMatrix("#matrix01",n,m,matrix01.get1D_array());
 }
+
+$( document ).ready(function() {
+	exampleInit();
+});
