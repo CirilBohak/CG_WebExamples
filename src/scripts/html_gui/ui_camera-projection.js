@@ -130,7 +130,12 @@ $(function() {
 	$( "#ui_width_slider" ).slider({
 		range: "min", value: c_width, min: 1, max: 400,
 		slide: function( event, ui ) { 
-			$( "#ui_width_amount" ).val( ui.value ); c_width = ui.value; updateCamera(); 
+			$( "#ui_width_amount" ).val( ui.value ); c_width = ui.value; 
+			
+			c_left = c_width*0.5;
+			c_right = -c_left;
+			
+			updateCamera(); 
 		}
 	}); $( "#ui_width_slider > a" ).removeAttr("href");
 	$( "#ui_width_amount" ).val( $( "#ui_width_slider" ).slider( "value" ) );
@@ -144,7 +149,12 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_width = Number($(this).val()); updateCamera();
+		c_width = Number($(this).val()); 
+		
+		c_left = c_width*0.5;
+		c_right = -c_left;
+		
+		updateCamera();
 	});
 	
 	/************
@@ -153,7 +163,12 @@ $(function() {
 	$( "#ui_height_slider" ).slider({
 		range: "min", value: c_height, min: 1, max: 400,
 		slide: function( event, ui ) { 
-			$( "#ui_height_amount" ).val( ui.value ); c_height = ui.value; updateCamera(); 
+			$( "#ui_height_amount" ).val( ui.value ); c_height = ui.value; 
+			
+			c_top = c_height*0.5;
+			c_bottom = -c_top;
+			
+			updateCamera(); 
 		}
 	}); $( "#ui_height_slider > a" ).removeAttr("href");
 	$( "#ui_height_amount" ).val( $( "#ui_height_slider" ).slider( "value" ) );
@@ -167,7 +182,12 @@ $(function() {
 			else $(this).val(max_val);
 		}else $(this).val(min_val);
 		
-		c_height = Number($(this).val()); updateCamera();
+		c_height = Number($(this).val());
+		
+		c_top = c_height*0.5;
+		c_bottom = -c_top;
+
+		updateCamera();
 	});
 	
 	/************
