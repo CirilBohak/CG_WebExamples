@@ -103,3 +103,43 @@ Web examples for Computer Graphics concepts
   * Spot Light
   * Volumetric Light (later)
 * Shadows (later)
+
+## Part 3 ##
+
+### Texturing ###
+* Mapping Textures
+  * Planar
+  * Cylindrical
+  * Spherical
+  * Cube / Environment mapping
+* Mipmaping and Filtering
+  * Nearest
+  * Bilinear
+  * Trilinear
+
+### Antialiasing ###
+  * Supersampling
+  * FSAA
+
+### Text ###
+* Bitmap Text
+  * Text from texture
+  * Real-time rendering
+  * Polygon text
+  * 3D text
+
+### Head Up Display ###
+
+### Animation ###
+* 12 principles of animation
+* Forward Kinematics
+* Inverse Kinematics
+* Quaternions
+
+### Scene Graph ###
+* Hierarhical model of scene
+* Skeletal representation of characters
+
+### Collision detection ###
+ * AABB
+ * Bruteforce
