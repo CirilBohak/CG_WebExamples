@@ -52,15 +52,17 @@ function calculateAngle() {
 		guideLine1 = new Vector3(	vectorA.loc.x-vectorB.loc.x, vectorA.loc.y-vectorB.loc.y, 0, vectorB.loc.x, vectorB.loc.y, 0, 0, 200, 0);
 		guideLine2 = new Vector3(	vectorA.loc.x-vectorB.loc.x, vectorA.loc.y-vectorB.loc.y, 0, vectorB.x+vectorB.loc.x, vectorB.y+vectorB.loc.y, 0, 0, 200, 0);
 		
-		lablePos = new Vector3().addVectors(vectorA.clone().normalize(),vectorB.clone().normalize());
-		lablePos.normalize().multiplyScalar(arcDia/unit); lablePos.setLocation(vectorA.loc.x, vectorA.loc.y, vectorA.loc.z);
-		
 		var sign = angleDirection(new Vector3(0,0,1),vectorB,new Vector3(1,0,0));
 			angleB = new Vector3(1,0,0).angleTo(vectorB);
 			angleB *= sign;
 		sign = angleDirection(new Vector3(0,0,1),vectorA,new Vector3(1,0,0));
 			angleA = new Vector3(1,0,0).angleTo(vectorA);
 			angleA *= sign;
+		
+		lablePos = new Vector3().addVectors(vectorA.clone().normalize(),vectorB.clone().normalize());
+		if(angleA<angleB) lablePos = new Vector3().crossVectors(vectorA,{x:0,y:0,z:1});
+		else lablePos = new Vector3().crossVectors(vectorB,{x:0,y:0,z:1});
+		lablePos.normalize().multiplyScalar(arcDia/unit); lablePos.setLocation(vectorA.loc.x, vectorA.loc.y, vectorA.loc.z);
 		
 		dashes = Math.round(guideLine1.length())*2;
 		drawGuide = true;
