@@ -140,7 +140,9 @@ CameraHelper.prototype.update = function () {
 				near[i] = scope.LINES.geometry.vertices[scope.pointMap["n"+i][0]];
 				directions[i] = new THREE.Vector3().subVectors(near[i], scope.LINES.geometry.vertices[scope.pointMap["f"+i][0]]).normalize();
 			}
-			var dist = -near[1].z*0.5;
+			var dist = 0;
+			if(directions[1].x==0) dist = -near[1].z*0.5;
+			else dist = near[1].length()*0.5;
 			
 			var viewPlane = [];
 			viewPlane.push(setViewPlanePoint("vP1", near[1], directions[1]));
