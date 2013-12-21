@@ -58,9 +58,9 @@ Vector3.prototype = {
 	//LOCATION
 	
 	setLocationFromVector : function (vector){
-		this.loc.x = vector.loc.x;
-		this.loc.y = vector.loc.y;
-		this.loc.y = vector.loc.y;
+		this.loc.x = vector.x;
+		this.loc.y = vector.y;
+		this.loc.y = vector.y;
 		return this;
 	},
 	

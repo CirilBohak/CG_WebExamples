@@ -33,6 +33,6 @@ function calculateDotProduct() {
 	$("#result").css({visibility : 'visible', display : 'block'});
 	MathJax.Hub.queue.Push([	"Text",
 								MathJax.Hub.getAllJax("result")[0],
-								"("+vectorA.x+")*("+vectorA.y+") + ("+vectorB.x+")*("+vectorB.y+") = "+dotProduct
+								"("+vectorA.x+")*("+vectorB.x+") + ("+vectorA.y+")*("+vectorB.y+") = "+dotProduct
 							]);
 }

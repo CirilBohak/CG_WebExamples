@@ -37,7 +37,7 @@ function addAddedVectorToList() {
 									parseInt($($("#vec"+$("#secondvector").val()+" input")[3]).val()),
 									0);
 		
-		var result = new Vector3().addVectors(vectorA,vectorB).setLocationFromVector(vectorA);	//ADD OPERATION
+		var result = new Vector3().addVectors(vectorA,vectorB).setLocationFromVector(vectorA.loc);	//ADD OPERATION
 		
 		/****************************
 		   Settings for guide lines

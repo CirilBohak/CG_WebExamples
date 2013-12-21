@@ -84,13 +84,13 @@ function calculateAngle() {
 		MathJax.Hub.queue.Push([	"Text",
 									AllJax[0],
 									"\\vec{a}*\\vec{b}=\\left[\\begin{array}{c}"+vectorA.x+"\\\\"+vectorA.y+"\\end{array}\\right]*\\left[\\begin{array}{c}"+vectorB.x+"\\\\"+vectorB.y+"\\end{array}\\right]=\\\\"+
-									"("+vectorA.x+")*("+vectorA.y+") + ("+vectorB.x+")*("+vectorB.y+") = "+dotProduct + "\\\\"
+									"("+vectorA.x+")*("+vectorB.x+") + ("+vectorA.y+")*("+vectorB.y+") = "+dotProduct + "\\\\"
 									]);
 		
 		MathJax.Hub.queue.Push([	"Text",
 									AllJax[1],
 									"\\left\\|\\vec{a}\\right\\| * \\left\\|\\vec{b}\\right\\| = \\\\"+
-									"\\sqrt{"+vectorA.x+"^2+"+vectorA.y+"^2} * \\sqrt{"+vectorB.x+"^2+"+vectorB.y+"^2} = " + precise_round(vectorA_Length*vectorB_Length,2) + "\\\\"
+									"\\sqrt{("+vectorA.x+")^2+("+vectorA.y+")^2} * \\sqrt{("+vectorB.x+")^2+("+vectorB.y+")^2} = " + precise_round(vectorA_Length*vectorB_Length,2) + "\\\\"
 								]);
 		
 		MathJax.Hub.queue.Push([	"Text",
@@ -161,6 +161,7 @@ function drawGuides(){
 		toY = c_loc.y - lablePos.y * unit;
 		
 		var ctx = canvas.getContext("2d");
+		ctx.font="15px Arial";
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'middle';
 		ctx.lineWidth = 5; ctx.strokeStyle = 'white';
