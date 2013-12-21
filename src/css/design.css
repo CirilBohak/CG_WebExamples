@@ -53,7 +53,7 @@ input { text-align: right; }
 }
 .col-group > div>div>div{ padding: 5px 20px 20px 20px; }
 
-@media screen and (min-width: 50em) {
+@media screen and (min-width: 60em) {
 	.col-group { overflow: hidden; }
 	.col-group > div {
 		float: left;

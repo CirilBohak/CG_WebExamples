@@ -4,7 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
 		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/navigation/navigation.css">
-	
+		
 		<script src="./scripts/core/jquery.min.js"></script>
 		<script src="./scripts/core/jquery-migrate-1.2.1.min.js"></script>
 		<script src="./scripts/core/jquery.tools.min.js"></script>
@@ -57,12 +57,12 @@
 					<strong>Info:</strong> In the sketch on the right you can see example, how projection is done.</p>
 				</div>
 			</div>
-			<div class="ui-widget">
+			<!--<div class="ui-widget">
 				<div class="ui-state-error ui-corner-all">
 					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 					<strong>Alert:</strong> Work in progress ...</p>
 				</div>
-			</div>
+			</div>-->
 			
 			<div class="inner_content border ui-corner-all">
 				<strong>Camera settings: </strong><br /><br />
@@ -192,4 +192,13 @@
 	<script src="./scripts/html_gui/script3D.js"></script>
 	
 	<script src="./scripts/core/mathjax/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
+	
+	<script>
+		function getURLParameter(name) { return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)','i').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null; }
+		
+		window.onload = function(){
+			var urlPara = getURLParameter("camera");
+			if(urlPara!=null && urlPara=="1") $("#radio3").click();
+		};
+	</script>
 </html>
