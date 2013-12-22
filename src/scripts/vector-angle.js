@@ -60,7 +60,18 @@ function calculateAngle() {
 			angleA *= sign;
 		
 		lablePos = new Vector3().addVectors(vectorA.clone().normalize(),vectorB.clone().normalize());
-		lablePos.normalize().multiplyScalar(arcDia/unit); lablePos.setLocation(vectorA.loc.x, vectorA.loc.y, vectorA.loc.z);
+
+		if(lablePos.length()==0){
+			if(angleA<angleB){
+				if(precise_round(angleB-angleA,7)==precise_round(angle,7)) lablePos = new Vector3().crossVectors({x:0,y:0,z:1},vectorB); 
+				else lablePos = new Vector3().crossVectors({x:0,y:0,z:1},vectorA); 
+			}else{ 
+				if(precise_round(angleA-angleB,7)==precise_round(angle,7)) lablePos = new Vector3().crossVectors(vectorB,{x:0,y:0,z:1}); 
+				else lablePos = new Vector3().crossVectors(vectorA,{x:0,y:0,z:1}); 
+			}
+		}
+
+		lablePos.normalize().multiplyScalar(arcDia/unit); lablePos.setLocation(vectorA.loc.x, vectorA.loc.y, vectorA.loc.z); 
 		
 		dashes = Math.round(guideLine1.length())*2;
 		drawGuide = true;
