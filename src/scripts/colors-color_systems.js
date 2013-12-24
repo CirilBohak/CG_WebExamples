@@ -1,122 +1,123 @@
+var can, ctx, grad,
+	radius = 280, thickness = 280,
+	start = -Math.PI*0.5, end = start + 2*Math.PI, step = Math.PI / 45,
+	ang,
+	rgb, hsl, hsv;
+
 function exampleInit() {
-	showFormula({"r":0,"g":255,"b":0});
-	drawDots({"r":0,"g":255,"b":0});
+	can = document.getElementById("surface");
+	ctx = can.getContext("2d");
+	ctx.translate(can.width*0.5, can.height*0.5);
+	
+	rgb = {r:0,g:255,b:0};
+	hsl = rgbToHsl(rgb.b, rgb.g, rgb.b);
+	hsv = rgbToHsv(rgb.b, rgb.g, rgb.b);
+	showFormula(rgb,hsl,hsv); drawColorFan(rgb,hsl,hsv);
+	
+	$("#result").css({visibility : 'visible', display : 'block'});
 }
 
 function rgbToHsl(r, g, b){
-    r /= 255, g /= 255, b /= 255;
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, l = (max + min) / 2;
-//alert(max+" "+min);
-    if(max == min){
-        h = s = 0; // achromatic
-    }else{
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch(max){
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-    }
-
-    return [Math.floor(h * 360), Math.floor(s * 100), Math.floor(l * 100)];
+	r /= 255, g /= 255, b /= 255;
+	var max = Math.max(r, g, b), min = Math.min(r, g, b);
+	var h, s, l = (max + min) / 2;
+	
+	if(max == min) h = s = 0; // achromatic
+	else{
+		var d = max - min;
+		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+		switch(max){
+			case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+			case g: h = (b - r) / d + 2; break;
+			case b: h = (r - g) / d + 4; break;
+		}
+		h /= 6;
+	}
+	return {h: Math.floor(h * 360), s: Math.floor(s * 100), l:Math.floor(l * 100)};
 }
 
 function rgbToHsv(r, g, b) {
-    var
-        min = Math.min(r, g, b),
-        max = Math.max(r, g, b),
-        delta = max - min,
-        h, s, v = max;
+	var min = Math.min(r, g, b),
+		max = Math.max(r, g, b),
+		delta = max - min,
+		h, s, v = max;
+	
+	v = Math.floor(max / 255 * 100);
+	if ( max != 0 ) s = Math.floor(delta / max * 100);
+	else return [0, 0, 0]; // black
 
-    v = Math.floor(max / 255 * 100);
-    if ( max != 0 )
-        s = Math.floor(delta / max * 100);
-    else {
-        // black
-        return [0, 0, 0];
-    }
+	if( r == max ) h = ( g - b ) / delta;         		// between yellow & magenta
+	else if( g == max ) h = 2 + ( b - r ) / delta;		// between cyan & yellow
+	else h = 4 + ( r - g ) / delta;						// between magenta & cyan
 
-    if( r == max )
-        h = ( g - b ) / delta;         // between yellow & magenta
-    else if( g == max )
-        h = 2 + ( b - r ) / delta;     // between cyan & yellow
-    else
-        h = 4 + ( r - g ) / delta;     // between magenta & cyan
-
-    h = Math.floor(h * 60);            // degrees
-    if( h < 0 ) h += 360;
-
-    return [h, s, v];
+	h = Math.floor(h * 60);            					// degrees
+	if( h < 0 ) h += 360;
+	
+	return {h:h, s:s, v:v};
 }
-		
-	function showFormula(rgb)
-	{
-	//alert(JSON.stringify(rgb));
-		var r=rgb["r"];
-		var g=rgb["g"];
-		var b=rgb["b"];
-		var myArray = [r/255,g/255,b/255];
-		var Cmax=(Math.max.apply(Math, myArray));
-		var Cmin=(Math.min.apply(Math, myArray));
-		
-        var hsl=rgbToHsl(r,g,b);
-		var h=(Math.round(hsl[0]));
-		var s=(Math.round(hsl[1]));
-		var l=(Math.round(hsl[2]));
-		//alert(h+" "+s+" "+l);		
-		
-        var hsv=rgbToHsv(r,g,b);
-		var h1=(Math.round(hsv[0]));
-		var s1=(Math.round(hsv[1]));
-		var v1=(Math.round(hsv[2]));		
-		//alert(h1+" "+s1+" "+v1);
-		
-		$("#result").css({visibility : 'visible', display : 'block'});
-		var AllJax = MathJax.Hub.getAllJax("result");//MathOutput
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[0],
-								"R' = \\frac{R}{255} = \\frac{"+r+"}{255} = "+Math.round((r/255)*1000)/1000+"\\\\"+
-								"G' = \\frac{G}{255} = \\frac{"+g+"}{255} = "+Math.round((g/255)*1000)/1000+"\\\\"+
-								"B' = \\frac{B}{255} = \\frac{"+b+"}{255} = "+Math.round((b/255)*1000)/1000+"\\\\"
-								]);
-								
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[1],
-								"C_{max} = \\max(R', G', B') = "+Math.round((Cmax)*1000)/1000+"\\\\"+
-								"C_{min} = \\min(R', G', B') = "+Math.round((Cmin)*1000)/1000+"\\\\"+
-								"\\Delta = C_{max} - C_{min} = "+Math.round((Cmax-Cmin)*1000)/1000
-								]);
-								
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[2],
-								"H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\mod{6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+h+"^\\circ"
-								]);																
 
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[3],
-								"S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{1-|2L-1|} &,\\Delta <> 0\\end{cases}\\\\S = "+s+"\\%"
-								]);																
+function showFormula(rgb, hsl, hsv){
+	var myArray = [rgb.r/255,rgb.g/255,rgb.b/255],
+		Cmax = (Math.max.apply(Math, myArray)),
+		Cmin = (Math.min.apply(Math, myArray));
+	
+	var AllJax = MathJax.Hub.getAllJax("result");//MathOutput
+	AllJax[0].Text(	"R' = \\frac{R}{255} = \\frac{"+rgb.r+"}{255} = "+precise_round(myArray[0],2)+"\\\\"+
+					"G' = \\frac{G}{255} = \\frac{"+rgb.g+"}{255} = "+precise_round(myArray[1],2)+"\\\\"+
+					"B' = \\frac{B}{255} = \\frac{"+rgb.b+"}{255} = "+precise_round(myArray[2],2)+"\\\\");
+	AllJax[1].Text(	"C_{max} = \\max(R', G', B') = "+precise_round(Cmax,2)+"\\\\"+
+					"C_{min} = \\min(R', G', B') = "+precise_round(Cmin,2)+"\\\\"+
+					"\\Delta = C_{max} - C_{min} = "+precise_round(Cmax-Cmin,2));
+	AllJax[2].Text("H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\text{mod 6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+hsl.h+"^\\circ");
+	AllJax[3].Text("S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{1-|2L-1|} &,\\Delta <> 0\\end{cases}\\\\S = "+hsl.s+"\\%");
+	AllJax[4].Text("L = (C_{max} + C_{min}) / 2 = "+hsl.l+"\\%");
+	AllJax[5].Text("H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\text{mod 6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+hsv.h+"^\\circ");
+	AllJax[6].Text("S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{C_{max}} &,\\Delta <> 0\\end{cases}\\\\S = "+hsv.s+"\\%");
+	AllJax[7].Text("V = C_{max} = "+hsv.v+"\\%");
+}
 
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[4],
-								"L = (C_{max} + C_{min}) / 2 = "+l+"\\%"
-								]);	
-								
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[5],
-								"H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\mod{6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+h1+"^\\circ"
-								]);																
-
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[6],
-								"S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{C_{max}} &,\\Delta <> 0\\end{cases}\\\\S = "+s1+"\\%"
-								]);											
-
-		MathJax.Hub.queue.Push([	"Text",
-								AllJax[7],
-								"V = C_{max} = "+v1+"\\%"
-								]);		
+function drawColorFan(rgb, hsl, hsv) {
+	ctx.clearRect ( -300 , -300 , 600 , 600 );
+	
+	for (ang = start; ang <= end; ang += step) {
+		ctx.save();
+		ctx.rotate(ang);
+		
+		h = Math.floor(360 - (ang - start)/(end - start) * 360);
+		
+		/*Gradient*/
+		grad = ctx.createLinearGradient(0, radius - thickness, 0, radius);
+		grad.addColorStop(0, 'hsl('+ h +',0%,0%)');
+		grad.addColorStop(.5, 'hsl('+ h +','+hsl.s+'%,50%)');
+		grad.addColorStop(1, 'hsl('+ h +',100%,100%)');
+		
+		/*Trapezoid*/
+		ctx.beginPath();
+			ctx.moveTo(-10,radius);
+			ctx.lineTo(-5,radius-thickness);
+			ctx.lineTo(5,radius-thickness);
+			ctx.lineTo(10,radius);
+		ctx.closePath();
+		ctx.fillStyle = grad; 
+		ctx.fill();
+		ctx.restore();
 	}
+	
+	/*selected color*/
+	ctx.save();
+	ctx.rotate(-degree_to_rad(hsv.h)+start);
+		var rt = radius-(thickness*(1-(hsl.l*0.01)));
+		grad = ctx.createRadialGradient(0, rt, 0,   0, rt, 10);		
+		grad.addColorStop(0, 'rgba(0,0,0,0.5)');
+		grad.addColorStop(0.5, 'rgba(255,255,255,1)');
+		grad.addColorStop(1, 'rgba(255,255,255,0)');
+		
+		ctx.fillStyle = grad;
+		
+		/*circle*/
+		ctx.beginPath();
+			ctx.arc(0, rt, 10, 0, 2 * Math.PI, false);
+		ctx.closePath();
+		ctx.fill();
+	ctx.restore();
+}
