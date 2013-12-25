@@ -1,6 +1,6 @@
 var can, ctx, grad,
 	radius = 280, thickness = 280,
-	start = -Math.PI*0.5, end = start + 2*Math.PI, step = Math.PI / 45,
+	start = -Math.PI*0.5, end = start + 2*Math.PI, step = Math.PI / 90,
 	ang,
 	rgb, hsl, hsv;
 
@@ -62,18 +62,18 @@ function showFormula(rgb, hsl, hsv){
 		Cmin = (Math.min.apply(Math, myArray));
 	
 	var AllJax = MathJax.Hub.getAllJax("result");//MathOutput
-	AllJax[0].Text(	"R' = \\frac{R}{255} = \\frac{"+rgb.r+"}{255} = "+precise_round(myArray[0],2)+"\\\\"+
-					"G' = \\frac{G}{255} = \\frac{"+rgb.g+"}{255} = "+precise_round(myArray[1],2)+"\\\\"+
-					"B' = \\frac{B}{255} = \\frac{"+rgb.b+"}{255} = "+precise_round(myArray[2],2)+"\\\\");
-	AllJax[1].Text(	"C_{max} = \\max(R', G', B') = "+precise_round(Cmax,2)+"\\\\"+
-					"C_{min} = \\min(R', G', B') = "+precise_round(Cmin,2)+"\\\\"+
-					"\\Delta = C_{max} - C_{min} = "+precise_round(Cmax-Cmin,2));
-	AllJax[2].Text("H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\text{mod 6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+hsl.h+"^\\circ");
-	AllJax[3].Text("S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{1-|2L-1|} &,\\Delta <> 0\\end{cases}\\\\S = "+hsl.s+"\\%");
-	AllJax[4].Text("L = (C_{max} + C_{min}) / 2 = "+hsl.l+"\\%");
-	AllJax[5].Text("H = \\begin{cases}60^\\circ * (\\frac{G'-B'}{\\Delta} \\text{mod 6}) &,C_{max} = R'\\\\60^\\circ * (\\frac{B'-R'}{\\Delta} + 2) &,C_{max} = G'\\\\60^\\circ * (\\frac{R'-G'}{\\Delta} + 4) &,C_{max} = B'\\end{cases}\\\\H = "+hsv.h+"^\\circ");
-	AllJax[6].Text("S = \\begin{cases}0 &,\\Delta=0\\\\\\frac{\\Delta}{C_{max}} &,\\Delta <> 0\\end{cases}\\\\S = "+hsv.s+"\\%");
-	AllJax[7].Text("V = C_{max} = "+hsv.v+"\\%");
+	MathJax.Hub.queue.Push(["Text", AllJax[0], "R' = \\frac{R}{255} = \\frac{"+rgb.r+"}{255} = "+precise_round(myArray[0],2)+"\\\\"+
+							"G' = \\frac{G}{255} = \\frac{"+rgb.g+"}{255} = "+precise_round(myArray[1],2)+"\\\\"+
+							"B' = \\frac{B}{255} = \\frac{"+rgb.b+"}{255} = "+precise_round(myArray[2],2)+"\\\\" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[1], "C_{max} = \\max(R', G', B') = "+precise_round(Cmax,2)+"\\\\"+
+							"C_{min} = \\min(R', G', B') = "+precise_round(Cmin,2)+"\\\\"+
+							"\\Delta = C_{max} - C_{min} = "+precise_round(Cmax-Cmin,2)+"\\" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[3], "H = "+hsl.h+"^\\circ" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[5], "S = "+hsl.s+"\\%" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[6], "L = \\frac{(C_{max} + C_{min})}{2} = "+hsl.l+"\\%" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[8], "H = "+hsv.h+"^\\circ" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[10], "S = "+hsv.s+"\\%" ]);
+	MathJax.Hub.queue.Push(["Text", AllJax[11], "V = C_{max} = "+hsv.v+"\\%" ]);
 }
 
 function drawColorFan(rgb, hsl, hsv) {
@@ -93,10 +93,10 @@ function drawColorFan(rgb, hsl, hsv) {
 		
 		/*Trapezoid*/
 		ctx.beginPath();
-			ctx.moveTo(-10,radius);
-			ctx.lineTo(-5,radius-thickness);
-			ctx.lineTo(5,radius-thickness);
-			ctx.lineTo(10,radius);
+			ctx.moveTo(-5,radius);
+			ctx.lineTo(-2,radius-thickness);
+			ctx.lineTo(2,radius-thickness);
+			ctx.lineTo(5,radius);
 		ctx.closePath();
 		ctx.fillStyle = grad; 
 		ctx.fill();

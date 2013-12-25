@@ -67,16 +67,20 @@
 						</div>
 						<div id="tabs-2" style="overflow:hidden; color: #336699;">
 							<b>Hue calculation:</b><br />
+							<span class="scale">\(H = \begin{cases}60^\circ * (\frac{G'-B'}{\Delta} \mod{6}) &,C_{max} = R'\\60^\circ * (\frac{B'-R'}{\Delta} + 2) &,C_{max} = G'\\60^\circ * (\frac{R'-G'}{\Delta} + 4) &,C_{max} = B'\end{cases}\)</span><br />
 							<span class="scale">$ $</span><br /><br /><br />
 							<b>Saturation calculation:</b><br />
+							<span class="scale">\(S = \begin{cases}0 &,\Delta=0\\\frac{\Delta}{1-|2L-1|} &,\Delta <> 0\end{cases}\)</span><br />
 							<span class="scale">$ $</span><br /><br /><br />
 							<b>Lightness calculation:</b><br />
 							<span class="scale">$ $</span><br />
 						</div>
 						<div id="tabs-3" style="overflow:hidden; color: #336699;">
 							<b>Hue calculation:</b><br />
+							<span class="scale">\(H = \begin{cases}60^\circ * (\frac{G'-B'}{\Delta} \mod{6}) &,C_{max} = R'\\60^\circ * (\frac{B'-R'}{\Delta} + 2) &,C_{max} = G'\\60^\circ * (\frac{R'-G'}{\Delta} + 4) &,C_{max} = B'\end{cases}\)</span><br />
 							<span class="scale">$ $</span><br /><br /><br />
 							<b>Saturation calculation:</b><br />
+							<span class="scale">\(S = \begin{cases}0 &,\Delta=0\\\frac{\Delta}{C_{max}} &,\Delta <> 0\end{cases}\)</span><br />
 							<span class="scale">$ $</span><br /><br /><br />
 							<b>Value calculation:</b><br />
 							<span class="scale">$ $</span>
