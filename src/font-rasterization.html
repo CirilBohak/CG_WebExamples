@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		<script src="./scripts/fonts-rasterization.js"></script>
+		
+<script type="text/javascript">
+$( document ).ready(function() {
+  writeToCanvas("Arial","Hello!");
+});
+</script>		
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Fonts: Rasterization </h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> Choose a font and write a text to canvas.</p>
+				</div>
+			</div>
+			
+			<div class="inner_content border ui-corner-all">
+				<div id="vectorList" class="inner_content vector_list border">
+				<div style="float:left; width:100px;">Choose a font:<br /><br />Write a text:</div>
+<div style="float:left;">
+<select id="fonts">
+    <option value="Arial" selected="selected">Arial</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Trebuchet MS">Trebuchet MS</option>
+</select><br /><textarea id="text" style="width:200px; height:50px;">Hello!</textarea>
+</div>
+				</div><br />
+				<div><button type="button" onClick="writeToCanvas()">Write</button><!--
+				<button id="remove" type="button" onClick="clearCanvas()">Clear</button>--></div>
+			</div>
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>
