@@ -28,7 +28,7 @@
 #side_navigation_panel .move_nav span.left.button, #side_navigation_panel .move_nav span.right.button{ width: 9px; height: 16px; }
 
 #side_navigation_panel .move_nav span.hand{ left: 16px; top: 16px; width: 18px; height: 18px; background:url('images/hand.png'); background-repeat: no-repeat; }
-#side_navigation_panel .move_nav span.hand:hover{ background-position: -18px 0px; }
+#side_navigation_panel .move_nav span.hand:hover, #side_navigation_panel .move_nav span.hand.selected{ background-position: -18px 0px; }
 
 #side_navigation_panel .move_nav span.up{ top: 3px; left: 17px; background:url('images/up.png');background-repeat: no-repeat; }
 #side_navigation_panel .move_nav span.up:hover{ background-position: -16px 0px; }

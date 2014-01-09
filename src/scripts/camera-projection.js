@@ -10,10 +10,13 @@ var c_near = 300, c_far = 450;
 var c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near)), c_aspect = 1.;
 var cf_orto, cf_pers;
 
+//function navigation_move(button){}
+function set_hand_control(flag){ controls.enabled = flag; controls.noPan = controls.noRoll = !flag; }
+
 function exampleInit() {
-	controls.noZoom = true;
-	controls.noPan = controls.noRoll = true;
 	controls.target.set(100,230,100);
+	controls.enabled = false;
+	controls.noZoom = controls.noPan = controls.noRoll = true;
 	GCamera.position.set(250,350,330);
 	
 	/**************
