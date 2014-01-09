@@ -2,19 +2,22 @@ var hand_button_flag = false;
 
 function navigation_move(button){ console.log("Moving to: " + button); return false; }
 function set_hand_control(flag){ console.log(flag); return false; }
+function set_zoom_control(value){ console.log("Zoom is set: "+value); return false; }
+
+var _tmpZoom = 0;
 
 $(function() {
 	$( "#zoom_nav" ).slider({
 		orientation: "vertical",
 		min: -100, max: 100, value: 0,
 		slide: function( event, ui ) {
-			/*if(ui.value > 90){ 
-				$(this).slider( "value", 90 );
-				return false;
-			}else if(ui.value < -91){
-				$(this).slider( "value", -91 );
-				return false;
-			}*/
+			var power = Math.abs(_tmpZoom - ui.value);
+			set_zoom_control(Math.pow(1.0 + (ui.value==_tmpZoom?0:(ui.value>_tmpZoom?-1:1))*0.01, power));
+			_tmpZoom = ui.value;
+		},
+		change: function( event, ui ) {
+			if(event.button == null) set_zoom_control(1.0 + (_tmpZoom - ui.value)*0.01);
+			_tmpZoom = ui.value;
 		}
 	}); $( "#zoom_nav > a" ).removeAttr("href");
 	

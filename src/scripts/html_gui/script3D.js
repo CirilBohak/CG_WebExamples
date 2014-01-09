@@ -8,7 +8,7 @@ animate();
 function init() {
 	$container = $("#surface");
 	
-	GCamera = new THREE.PerspectiveCamera( 70, $container.width() / $container.height(), 1, 1000 );
+	GCamera = new THREE.PerspectiveCamera( 70, $container.width() / $container.height(), 1, 10000 );
 	GCamera.position.set(0,0,300);
 	
 	controls = new THREE.TrackballControls(GCamera, $container[0]);

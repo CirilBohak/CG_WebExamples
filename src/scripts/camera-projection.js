@@ -10,13 +10,33 @@ var c_near = 300, c_far = 450;
 var c_fov = THREE.Math.radToDeg(2*Math.atan(c_top/c_near)), c_aspect = 1.;
 var cf_orto, cf_pers;
 
-//function navigation_move(button){}
-function set_hand_control(flag){ controls.enabled = flag; controls.noPan = controls.noRoll = !flag; }
+function navigation_move(button){
+	var objectUp = new THREE.Vector3(),
+		pan = new THREE.Vector3(),
+		eye = new THREE.Vector3().subVectors( GCamera.position, controls.target );
+	
+	switch(button){
+		case 0: pan.add(objectUp.copy( GCamera.up ).setLength( 4 )); break;
+		case 1: pan.add(objectUp.copy( GCamera.up ).setLength( -4 )); break;
+		case 2: pan.copy( eye ).cross( GCamera.up ).setLength( -4 ); break;
+		case 3: pan.copy( eye ).cross( GCamera.up ).setLength( 4 ); break;
+		default: break;
+	}
+	GCamera.position.add( pan );
+    controls.target.add( pan );
+}
+
+function set_hand_control(flag){ controls.enabled = flag; controls.noRotate = !flag; }
+
+function set_zoom_control(value){
+	var eye = new THREE.Vector3().subVectors( GCamera.position, controls.target );
+	GCamera.position.addVectors( controls.target, eye.multiplyScalar( value ) );
+}
 
 function exampleInit() {
 	controls.target.set(100,230,100);
 	controls.enabled = false;
-	controls.noZoom = controls.noPan = controls.noRoll = true;
+	controls.noZoom = controls.noPan = controls.noRoll = controls.noRotate = true;
 	GCamera.position.set(250,350,330);
 	
 	/**************
