@@ -1,0 +1,109 @@
+﻿<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		<script src="./scripts/core/processing.js/processing-1.4.1.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script2D.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/movingBall.js"></script>
+		<script src="./scripts/aabbCollissionDetection.js"></script>
+</head>
+<body>
+	<h2>Collision detection algorithm: AABB and Brute Force</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can add points and set 
+                        them to motion. 
+                        You can add new moving balls to the sketch by clicking or by using button below.</p>
+				</div>
+			</div>
+			
+			<div class="inner_content border ui-corner-all">
+				<div id="movingBallsList" class="inner_content vector_list border" style="height: auto; max-height: 250px;">
+                     No ball in movement
+				</div>
+                <br />
+				<div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th>position</th>
+                                <th>direction</th>
+                                <th>radius</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td class="leftMV">
+                                
+                                </td>
+                                <td >
+                                    <div class="floatLeft">
+                                        <input id="inputx" class="vecInputCol" type="number" value="0" min="-20" max="20" step="1"><br>
+                                        <input  id="inputy" class="vecInputCol" type="number" value="0" min="-20" max="20" step="1">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="floatLeft">
+                                        <input id="inputdx" class="vecInputCol" type="number" value="0.1" min="-20" max="20" step="0.1"><br>
+                                        <input id="inputdy" class="vecInputCol" type="number" value="0.1" min="-20" max="20" step="0.1">
+                                    </div>
+                                </td>
+                                <td>
+                                        <input id="inputsize" class="vecInputCol" type="number" value="1" min="-20" max="20" step="1">
+                                </td>
+                                <td>
+                                   
+                                </td>
+                                <td class="rightMV"></td>
+                                <td align="center">
+                                      <button type="button" onClick="addMovingBallToList();" >Add moving ball</button>
+                                      <br />
+                                     <button id="remove" type="button" onClick="clearAllMovingBalls();" >Remove balls</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>   
+                        <table>
+                            <tr>
+                                <td colspan="3" > <button type="button" onClick="generateRandomMovingBalls();">Add Random</button></td>
+                                <td colspan="3"><input id="randomBallsNr" class="vecInputCol" type="number" value="1" min="-20" max="20" step="1" /> balls</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Algorithm of collision:</td>
+                                <td colspan="4" align="left">    
+                                    <select id="alg">
+                                        <option value="1">AABB</option>
+                                        <option value="2">Brute Force</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                    <td colspan="6">
+                                              <button id="stop" type="button" onClick="stopBalls();" >Stop</button>
+                                              &nbsp;
+                                            <button type="button" onClick="resumeBalls();" >Resume</button>
+                                    </td>
+                            </tr>
+                        </table>     				   
+				</div>
+			</div>
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>
