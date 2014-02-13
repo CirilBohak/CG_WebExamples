@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My first Three.js app</title>
+    <style>
+      * 
+      {
+        padding: 0;
+        margin: 0;
+      }
+      .content
+      {
+        width: 970px;
+        margin: 0 auto;
+      }
+
+       #red, #green, #blue, #setx, #sety, #setVec1, #setVec2, #setVec3, #setVec4{
+        float: left;
+        width: 300px;
+        margin: 15px;
+      }
+
+      #label {
+        margin-left : 30px;
+      }
+
+      #clear{
+        clear:both;
+      }
+
+      #red .ui-slider-range { background: #ef2929; }
+      #red .ui-slider-handle { border-color: #ef2929; }
+      #green .ui-slider-range { background: #8ae234; }
+      #green .ui-slider-handle { border-color: #8ae234; }
+      #blue .ui-slider-range { background: #729fcf; }
+      #blue .ui-slider-handle { border-color: #729fcf; }
+            </style>
+    <script src="./scripts/core/three.js/three.min.js"></script>
+    <script src="./scripts/textures-planar.js" ></script>
+    <script src="./scripts/core/jquery.js/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script>
+      // Init cube
+      $(function(){
+        init(1,1);
+        animate();
+      });
+
+      // Sliders
+      function hexFromRGB(r, g, b) {
+          var hex = [
+              r.toString(16),
+              g.toString(16),
+              b.toString(16)
+          ];
+          $.each(hex, function (nr, val) {
+              if (val.length === 1) {
+                  hex[nr] = "0" + val;
+              }
+          });
+          return hex.join("").toUpperCase();
+      }
+
+
+      function refreshSwatch() {
+          var red = $("#red").slider("value"),
+              green = $("#green").slider("value"),
+              blue = $("#blue").slider("value"),
+              hex = hexFromRGB(red, green, blue);
+
+	            var v1 = $("#setVec1").slider("values"),
+              v2 = $("#setVec2").slider("values"),
+              v3 = $("#setVec3").slider("values"),
+              v4 = $("#setVec4").slider("values");
+              prvi.set(v1[0], v1[1]);
+              drugi.set(v2[0], v2[1]);
+              tretji.set(v3[0], v3[1]);
+              cetrti.set(v4[0], v4[1]);
+             geometry.uvsNeedUpdate=true;
+       
+	      	
+
+          material.ambient.setRGB(red/256,green/256,blue/256);
+
+      }
+
+      $(function () {
+          $("#red, #green, #blue").slider({
+              orientation: "horizontal",
+              range: "min",
+              max: 255,
+              value: 255,
+              slide: refreshSwatch,
+              change: refreshSwatch
+          });
+
+	  $("#setVec1").slider({     		
+               orientation: "horizontal",
+               range: "true",
+               min: -2,
+	             max: 2,
+               step: 0.01,
+	             values: [ 0, 1 ],
+               slide: refreshSwatch,
+               change: refreshSwatch });
+        $("#setVec2").slider({        
+               orientation: "horizontal",
+               range: "true",
+               min: -2,
+               max: 2,
+               step: 0.01,
+               values: [ 0, 0 ],
+               slide: refreshSwatch,
+               change: refreshSwatch });
+
+    $("#setVec3").slider({        
+               orientation: "horizontal",
+               range: "true",
+               min: -2,
+               max: 2,
+               step: 0.01,
+               values: [ 1, 0 ],
+               slide: refreshSwatch,
+               change: refreshSwatch });
+
+    $("#setVec4").slider({        
+               orientation: "horizontal",
+               range: "true",
+               min: -2,
+               max: 2,
+               step: 0.01,
+               values: [ 1, 1 ],
+               slide: refreshSwatch,
+               change: refreshSwatch });
+
+
+     });
+
+    </script>
+  </head>
+  <body>
+  <div>
+    <div class="content">
+      <div id="canvas">      
+      </div>
+      <div id="sliders">
+        <div id="label">Dolocanje rdece:</div>
+        <div id="red"></div>	
+        <div id="clear"></div>
+
+        <div id="label">Dolocanje zelene:</div>
+        <div id="green"></div>
+        <div id="clear"></div>     
+
+        <div id="label">Dolocanje modre:</div>
+	      <div id="blue"></div>
+        <div id="clear"></div>
+
+        <div id="label">1. TextCoord:</div>
+      	<div id="setVec1"></div>
+        <div id="clear"></div>
+
+        <div id="label">2. TextCoord:</div>
+      	<div id="setVec2"></div>
+        <div id="clear"></div>
+
+        <div id="label">3. TextCoord:</div>
+      	<div id="setVec3"></div>
+        <div id="clear"></div>
+
+        <div id="label">4. TextCoord:</div>
+      	<div id="setVec4"></div>
+        <div id="clear"></div>
+    </div>
+  </script>
+  </body>
+</html>
