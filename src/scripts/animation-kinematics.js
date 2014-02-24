@@ -22,14 +22,15 @@ var r = 50,
 var alpha = Math.atan((r-rr)/l),
 	angle = 0;
 
-
 function drawArc(x,y,w,h,from,to){ //from < to
-	for(var i=from; i<to; i+=0.2)
+	var prec = 2*(to-from)/Math.max(w,h); //Automatic precision calculation
+	for(var i=from; i<=to; i+=prec)
 		proc.vertex(x+w*Math.cos(i),y+h*Math.sin(i));
 }
 
 function update(){
-	/*TODO*/
+	angle -= 0.01;
+	if(angle>2.0*Math.PI) angle=0;
 }
 
 function draw() {
@@ -38,11 +39,9 @@ function draw() {
 	
 	proc.pushMatrix();
 		proc.translate(proc.width*0.5,proc.height*0.5);
-		proc.rotate(angle-=0.01);
+		proc.rotate(angle);
 		
-		if(angle>2.0*Math.PI) angle=0;
-		
-		proc.fill(255,138,0,200);
+		proc.fill(255,138,0,180);
 		proc.strokeWeight(2);
 		proc.stroke(166,89,0);
 		proc.smooth();
