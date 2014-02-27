@@ -7,10 +7,12 @@
 		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
 		<script src="./scripts/core/processing.js/processing-1.4.1.min.js"></script>
 		
+		<script src="./scripts/html_gui/processing_helpers.js"></script>
 		<script src="./scripts/html_gui/visual.js"></script>
 		<script src="./scripts/html_gui/script2D.js"></script>
 		
 		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/color.js"></script>
 		<script src="./scripts/algebra/point.js"></script>
 		<script src="./scripts/algebra/vector3.js"></script>
 		
@@ -37,7 +39,7 @@
 			
 			<div class="inner_content border ui-corner-all">
 				<div id="vectorList" class="inner_content vector_list border"></div><br />
-				<div><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button><!--
+				<div><button type="button" onClick="addVectorToList(new Point(0,0,0), new Vector3(2, 2, 0))">Add vector</button><!--
 				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
 				<p>
 					<b>Vectors addition:</b><br /><br />

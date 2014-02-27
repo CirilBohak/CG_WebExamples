@@ -29,19 +29,13 @@ function draw() {
 	
 	// draw guides
     drawGuides();
-
-    if (typeof (drawMovingBall) == "function") {
-        drawMovingBall();
-    }
 }
 
 function mouseMoved() {}
 
 var enabledAddingPoints = true;
 function mouseClicked() {
-    if (enabledAddingPoints) {
-        addPoint(proc.mouseX, proc.mouseY);
-    }
+	//if (enabledAddingPoints) addPoint(proc.mouseX, proc.mouseY);
 }
 function mousePressed() {}
 function mouseDragged() {}
@@ -53,64 +47,41 @@ var proc = null;
 
 // End of processing init functions
 
-// lists of points and vectors
-var points = Array();
-var vectors = Array();
-
 window.onload = function() {
 	canvas = document.getElementById("surface");
 	// attaching the sketchProc function to the canvas
 	proc = new Processing(canvas, initProcessing);
-	if (typeof (moveMovingBalls) == "function")
-	{
-	    setTimeout(moveMovingBalls, 1000);
-	    $('#alg').val(window.location.hash == "#AB" ? "1" : "2");
-	}
+	
     exampleInit();
 }
 
-
-function drawGuides(){ };
+function drawGuides() { };
 
 // drawing all the stored points
-function drawPoints() {
-    for (var i = 0; i < points.length; i++) {
-        points[i].draw();
-    }
-}
+function drawPoints() { };
 
 // drawing all the stored vectors
-function drawVectors() {
-    for (var i = 0; i < vectors.length; i++) {
-        vectors[i].draw();
-    }
-}
+function drawVectors() { };
 
 
 // conversion from canvas to grid coordinate system
 function canvasToGridTransform(point) {
-    if (! (point instanceof Point) )
-        return point;
+    if (! (point instanceof Point) ) return point;
 
     var x = (point.x - proc.width / 2) / unit;
     var y = (proc.height / 2 - point.y) / unit;
 
-    var p = new Point(x, y);
-
-    return p;
+    return new Point(x, y);
 }
 
 // conversion from grid to canvas coordinate system
 function gridToCanvasTransform(point) {
-    if (! (point instanceof Point) )
-        return point;
+    if (! (point instanceof Point) ) return point;
 
     var x = proc.width / 2 + point.x * unit;
     var y = proc.height / 2 - point.y * unit;
 
-    var p = new Point(x, y);
-
-    return p;
+    return new Point(x, y);
 }
 
 // function for drawing the coordinate system grid

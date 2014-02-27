@@ -1,15 +1,15 @@
 // auxiliary class for vector
-var Vector3 = function(x, y, z, lx, ly, lz, r, g, b) {
+var Vector3 = function(x, y, z/*, lx, ly, lz, r, g, b*/) {
     this.x = x || 0;
     this.y = y || 0;
 	this.z = z || 0;
 	
-    this.loc = new Point(lx || 0, ly || 0, lz || 0);
+    /*this.loc = new Point(lx || 0, ly || 0, lz || 0);
 	
 	//Maybe we can find a better solution for colours??? 
 	this.r = r || 0;
 	this.g = g || 0;
-	this.b = b || 0;
+	this.b = b || 0;*/
 }
 
 Vector3.prototype = {
@@ -57,7 +57,7 @@ Vector3.prototype = {
 	
 	//LOCATION
 	
-	setLocationFromVector : function (vector){
+	/*setLocationFromVector : function (vector){
 		this.loc.x = vector.x;
 		this.loc.y = vector.y;
 		this.loc.y = vector.y;
@@ -84,11 +84,11 @@ Vector3.prototype = {
 	setLocationZ : function (z){
 		this.loc.z = z;
 		return this;
-	},
+	},*/
 	
 	//COLOUR
 	
-	setColor : function (vector){ //try to fix with color.js
+	/*setColor : function (vector){ //try to fix with color.js
 		this.r = vector.x;
 		this.g = vector.y;
 		this.b = vector.y;
@@ -115,7 +115,7 @@ Vector3.prototype = {
 	setColorB : function (b){
 		this.b = b;
 		return this;
-	},
+	},*/
 	
 	/*****************
 	   GET FUNCTIONS
@@ -142,7 +142,7 @@ Vector3.prototype = {
 	},
 	
 	clone : function (){
-		return new Vector3(this.x, this.y, this.z, this.loc.x, this.loc.y, this.loc.z, this.r, this.g, this.b);
+		return new Vector3(this.x, this.y, this.z);
 	},
 	
 	equals : function (vector){
@@ -479,7 +479,7 @@ Vector3.prototype = {
 	/****************************
 	   PROCESSING DRAW FUNCTION
 	*****************************/
-	drawArrow : function(headLen, heads) {
+	/*drawArrow : function(headLen, heads) {
 		var c_loc = gridToCanvasTransform(new Point(this.loc.x, this.loc.y));
         var toX = c_loc.x + this.x * unit;
         var toY = c_loc.y - this.y * unit;
@@ -500,7 +500,7 @@ Vector3.prototype = {
 		}
     },
 	
-    draw : function() { this.drawArrow(); }
+    draw : function() { this.drawArrow(); }*/
 }
 
 //Extend "Vector.prototype"

@@ -19,7 +19,7 @@ function clear_all_elements(){
 
 function createPointSelection(point, index) {
     $("#pointList").append(
-        "<div onmouseover='points[" + index + "].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='points[" + index + "].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"point" + index + "\" class=\"vectorItem\" >" +
+        "<div onmouseover='points[" + index + "].color.setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='points[" + index + "].color.setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"point" + index + "\" class=\"vectorItem\" >" +
             "<div class=\"vectorValue\">" +
                 "Point " + index + ":" +
                 "<br />" +
@@ -52,7 +52,7 @@ function removedPointUpdate(index){
 	$("#secondpoint").html("");
 	
 	for(var i=0; i < points.length; i++){
-		createPointSelection(points[i], i);
+		createPointSelection(points[i].point, i);
 		updatePointDropDownLists(i);
 	}
 	
@@ -64,14 +64,14 @@ function updatePoints(values) {
     if (!values) {
         for (var i = 0; i < points.length; i++) {
             var vals = $("#point"+i+" input");
-            var point = points[i];
+            var point = points[i].point;
             point.x = $(vals[0]).val();
             point.y = $(vals[1]).val();
         }
     } else {
         for (var i = 0; i < points.length; i++) {
             var vals = $("#point"+i+" input");
-            var point = points[i];
+            var point = points[i].point;
             $(vals[0]).val(point.x);
             $(vals[1]).val(point.y);
         }
@@ -94,9 +94,9 @@ function addPoint(x, y, z) {
         VECTORS
 **********************/
 
-function createVectorSelection(vec, index){
+function createVectorSelection(point, vec, index){
 	$("#vectorList").append(
-	"<div onmouseover='vectors["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='vectors["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"vec"+ index +"\" class=\"vectorItem\">"+
+	"<div onmouseover='vectors["+index+"].color.setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='vectors["+index+"].color.setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"vec"+ index +"\" class=\"vectorItem\">"+
 		"<div class=\"floatLeft vectorValue\">"+
 			"Vector " + index + ":"+
 			"<br />"+
@@ -121,8 +121,8 @@ function createVectorSelection(vec, index){
 					"<td class=\"leftMV\"></td>"+
 					"<td>"+
 						"<div class=\"floatLeft\">"+
-							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
-							"<input class=\"vecInputCol\" type=\"number\" value=\""+vec.loc.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+point.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+							"<input class=\"vecInputCol\" type=\"number\" value=\""+point.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
 						"</div>"+
 					"</td>"+
 					"<td class=\"rightMV\"></td>"+
@@ -130,7 +130,7 @@ function createVectorSelection(vec, index){
 			"</div>"+
 		"</div>"+
 		"<div class=\"paddingLeft\">"+
-			"<button type=\"button\" onClick=\"vectors["+index+"].negate(),updateVectors(true)\">Negate</button>"+
+			"<button type=\"button\" onClick=\"vectors["+index+"].vector.negate(),updateVectors(true)\">Negate</button>"+
 			"<button id=\"remove\" type=\"button\" onClick=\"removedVectorUpdate("+index+")\">Remove</button>"+
 		"</div>"+
 	"</div>");
@@ -145,7 +145,7 @@ function removedVectorUpdate(index){
 	$("#secondvector").html("");
 	
 	for(var i=0; i < vectors.length; i++){
-		createVectorSelection(vectors[i], i);
+		createVectorSelection(vectors[i].point, vectors[i].vector, i);
 		updateVectorDropDownLists(i);
 	}
 	
@@ -157,20 +157,22 @@ function updateVectors(values) {
     if (!values) {
         for (var i = 0; i < vectors.length; i++) {
             var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
+            var vec = vectors[i].vector;
             vec.x = $(vals[0]).val();
             vec.y = $(vals[1]).val();
-            vec.loc.x = $(vals[2]).val();
-            vec.loc.y = $(vals[3]).val();
+			var point = vectors[i].point;
+            point.x = $(vals[2]).val();
+            point.y = $(vals[3]).val();
         }
     } else {
         for (var i = 0; i < vectors.length; i++) {
             var vals = $("#vec"+i+" input");
-            var vec = vectors[i];
+            var vec = vectors[i].vector;
             $(vals[0]).val(vec.x);
             $(vals[1]).val(vec.y);
-            $(vals[2]).val(vec.loc.x);
-            $(vals[3]).val(vec.loc.y);
+			var point = vectors[i].point;
+            $(vals[2]).val(point.x);
+            $(vals[3]).val(point.y);
         }
     }
 }
