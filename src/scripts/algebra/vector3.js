@@ -1,15 +1,8 @@
 // auxiliary class for vector
-var Vector3 = function(x, y, z/*, lx, ly, lz, r, g, b*/) {
+var Vector3 = function(x, y, z) {
     this.x = x || 0;
     this.y = y || 0;
 	this.z = z || 0;
-	
-    /*this.loc = new Point(lx || 0, ly || 0, lz || 0);
-	
-	//Maybe we can find a better solution for colours??? 
-	this.r = r || 0;
-	this.g = g || 0;
-	this.b = b || 0;*/
 }
 
 Vector3.prototype = {
@@ -54,68 +47,6 @@ Vector3.prototype = {
 			default: throw new Error("Index 0 = x, 1 = y, 2 = z, you tried: " + index);
 		}
 	},
-	
-	//LOCATION
-	
-	/*setLocationFromVector : function (vector){
-		this.loc.x = vector.x;
-		this.loc.y = vector.y;
-		this.loc.y = vector.y;
-		return this;
-	},
-	
-	setLocation : function (x,y,z){
-		this.loc.x = x;
-		this.loc.y = y;
-		this.loc.y = y;
-		return this;
-	},
-	
-	setLocationX : function (x){
-		this.loc.x = x;
-		return this;
-	},
-	
-	setLocationY : function (y){
-		this.loc.y = y;
-		return this;
-	},
-	
-	setLocationZ : function (z){
-		this.loc.z = z;
-		return this;
-	},*/
-	
-	//COLOUR
-	
-	/*setColor : function (vector){ //try to fix with color.js
-		this.r = vector.x;
-		this.g = vector.y;
-		this.b = vector.y;
-		return this;
-	},
-	
-	setColor : function (r,g,b){
-		this.r = r;
-		this.g = g;
-		this.b = b;
-		return this;
-	},
-	
-	setColorR : function (r){
-		this.r = r;
-		return this;
-	},
-	
-	setColorG : function (g){
-		this.g = g;
-		return this;
-	},
-	
-	setColorB : function (b){
-		this.b = b;
-		return this;
-	},*/
 	
 	/*****************
 	   GET FUNCTIONS
@@ -474,33 +405,7 @@ Vector3.prototype = {
 		return this;
 	},
 	
-	transformDirection: function ( matrix ) { return this.applyMatrix( matrix ).normalize(); },
-	
-	/****************************
-	   PROCESSING DRAW FUNCTION
-	*****************************/
-	/*drawArrow : function(headLen, heads) {
-		var c_loc = gridToCanvasTransform(new Point(this.loc.x, this.loc.y));
-        var toX = c_loc.x + this.x * unit;
-        var toY = c_loc.y - this.y * unit;
-		proc.stroke(this.r, this.g, this.b);
-        proc.line(c_loc.x, c_loc.y, toX, toY);
-        
-        var headLen = (headLen !== undefined) ? headLen:14;
-        var angle = 0;
-		
-		angle = Math.atan2(toY-c_loc.y,toX-c_loc.x);
-        proc.line(toX, toY, toX - headLen * Math.cos(angle - Math.PI / 8), toY - headLen * Math.sin(angle - Math.PI / 8));
-        proc.line(toX, toY, toX - headLen * Math.cos(angle + Math.PI / 8), toY - headLen * Math.sin(angle + Math.PI / 8));
-		
-		if(heads !== undefined){
-			angle = Math.atan2(c_loc.y-toY,c_loc.x-toX);
-			proc.line(c_loc.x, c_loc.y, c_loc.x - headLen * Math.cos(angle - Math.PI / 8), c_loc.y - headLen * Math.sin(angle - Math.PI / 8));
-			proc.line(c_loc.x, c_loc.y, c_loc.x - headLen * Math.cos(angle + Math.PI / 8), c_loc.y - headLen * Math.sin(angle + Math.PI / 8));
-		}
-    },
-	
-    draw : function() { this.drawArrow(); }*/
+	transformDirection: function ( matrix ) { return this.applyMatrix( matrix ).normalize(); }
 }
 
 //Extend "Vector.prototype"

@@ -75,7 +75,7 @@ Vector4.prototype = {
 	
 	//ADD
 	
-	add : function (vector) {
+	/*add : function (vector) {
 		Vector3.prototype.add.call(this, vector);
 		
 		this.w += vector.w;
@@ -227,7 +227,7 @@ Vector4.prototype = {
 		var Dw = this.w - vector.w;
 		
 		return Vector3.prototype.distanceToSqrt.call(this, vector) + Dw*Dw;
-	},
+	},*/
 	
 	/************************
 	   QUATERNION FUNCTIONS
