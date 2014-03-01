@@ -1,4 +1,6 @@
-function drawPoint(point, size, color){
+function drawPoint(point, size, color, width){
+	proc.smooth();
+	proc.strokeWeight(width || 2);
 	proc.stroke(color.r, color.g, color.b, color.a);
 	proc.ellipse(point.x, point.y, size, size);
 }
@@ -12,7 +14,7 @@ function drawLine(point, vector, length, color, dashes, dot_size){
 	var toX = point.x + vector.x * length;
 	var toY = point.y - vector.y * length;
 	
-	proc.stroke(color.r, color.g, color.b);
+	proc.stroke(color.r, color.g, color.b, color.a);
 	
 	if(dashes !== undefined){
 		for(var i=0; i<=dashes; i++) {
@@ -93,7 +95,7 @@ function drawLineLength(point, vector, length, size, color){
 	ctx.lineWidth = 5; ctx.strokeStyle = 'white';
 	ctx.strokeText(len, toX, toY);
 	
-	ctx.fillStyle = 'rgb('+color.r+","+ color.g+","+ color.b+")";
+	ctx.fillStyle = 'rgba('+color.r+","+ color.g+","+ color.b+","+ color.a+")";
 	ctx.fillText(len, toX, toY);
 }
 
@@ -115,7 +117,7 @@ function drawAngleArc(pointA, vectorA, pointB, vectorB, length, arc_size, color,
 	
 	//Angle arc
 	proc.strokeWeight(1);
-	proc.stroke(color.r, color.g, color.b);
+	proc.stroke(color.r, color.g, color.b, color.a);
 	proc.noFill();
 	
 	if(angleA<angleB){
@@ -153,6 +155,6 @@ function drawAngleArc(pointA, vectorA, pointB, vectorB, length, arc_size, color,
 	ctx.lineWidth = 5; ctx.strokeStyle = 'white';
 	ctx.strokeText(precise_round(rad_to_degree(angle),2)+"\u00B0", toX, toY);
 	
-	ctx.fillStyle = 'rgb('+color.r+","+ color.g+","+ color.b+")";
+	ctx.fillStyle = 'rgba('+color.r+","+ color.g+","+ color.b+","+ color.a+")";
 	ctx.fillText(precise_round(rad_to_degree(angle),2)+"\u00B0", toX, toY);
 }
