@@ -1,19 +1,41 @@
 ﻿var movingBalls = Array();
-var stop = false;
 
+var startTime = Date.now(),
+	nowTimw = 0,
+	elapsed_time = 0;
+	
 function exampleInit() {
-	movingBalls.push(new MovingBall(200, 200, 0, 50, 0, 100, 0));
+	for(var i=0; i< 4; i++){
+		var ball = new MovingBall((i*50)+40, (i*30)+40, 0, (i*4)+10, randomIntFromInterval(1,100), randomIntFromInterval(1,100), 0);
+		movingBalls.push(ball);
+	}
 }
 
 function draw() {
+	nowTimw = Date.now();
+	elapsed_time = (nowTimw - startTime) * 0.001;
+	startTime = nowTimw;
+	
+	for(var i=0; i< movingBalls.length; i++){
+		movingBalls[i].update(elapsed_time);
+		movingBalls[i].resolveBoxCollision(proc.width, proc.height);
+		
+		for(var j=0; j< movingBalls.length; j++){ //Brute-force  ->  for-for checking (everyone with everyone)
+			if(i!=j){
+				if(movingBalls[i].collision(movingBalls[j])) movingBalls[i].resolveMovingBallCollision(movingBalls[j], elapsed_time);
+			}
+		}
+	}
     // clear background
     proc.background(255);
 	
-	movingBalls[0].draw();
+	for(var i=0; i<movingBalls.length; i++) movingBalls[i].draw();
 }
 
+/*
+var stop = false;
 // conversion from grid to canvas coordinate sytem
-/*function gridToCanvasTransformMovingBall(movingBall) {
+function gridToCanvasTransformMovingBall(movingBall) {
     
     var x = proc.width / 2 + movingBall.x * unit;
     var y = proc.height / 2 - movingBall.y * unit;

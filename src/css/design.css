@@ -16,6 +16,8 @@ body h1 {
 }
 
 
+.crossout { color: red; text-decoration:line-through;}
+
 button { border: solid 1px #666; color:#666; margin-right:5px; }
 button:hover { border: solid 1px #000; background-color: #888; color:#000; cursor:pointer; cursor: hand; }
 

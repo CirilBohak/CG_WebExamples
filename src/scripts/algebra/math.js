@@ -5,8 +5,14 @@ function rad_to_degree(rad){ return rad*180/Math.PI; }
 
 function clamp( x, a, b ) { return ( x < a ) ? a : ( ( x > b ) ? b : x ); }
 
+function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min); }
+
 /*Vector functions*/
 /*TODO: move to vector*/
+function interpolate(alpha, x0, x1){
+	return x0.clone().add(x1.clone().sub(x0).multiplyScalar(alpha));
+}
+
 function rotate2D(vector, theta, result){
 	result.x = vector.x * Math.cos(theta) - vector.y * Math.sin(theta);
 	result.y = vector.x * Math.sin(theta) + vector.y * Math.cos(theta);
