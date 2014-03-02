@@ -17,6 +17,13 @@ Vector3.prototype = {
 		return this;
 	},
 	
+	setVector : function (vector){
+		this.x = vector.x;
+		this.y = vector.y;
+		this.z = vector.z;
+		return this;
+	},
+	
 	set : function (x,y,z){
 		this.x = x;
 		this.y = y;

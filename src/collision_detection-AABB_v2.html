@@ -1,0 +1,100 @@
+﻿<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		
+		<script src="./scripts/core/javascript_helpers.js"></script>
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		
+		<script src="./scripts/core/processing.js/processing-1.4.1.min.js"></script>
+		<script src="./scripts/core/processing_helpers.js"></script>
+		<script src="./scripts/core/visual.js"></script>
+		<script src="./scripts/core/script2D.js"></script>
+		
+		<!-- PHYSICS -->
+		<script src="./scripts/express/math/half_plane.js"></script>
+		<script src="./scripts/express/math/AA_half_plane.js"></script>
+		<script src="./scripts/express/math/convex_polygon.js"></script>
+		
+		<script src="./scripts/express/scene/objects/physical_properties/I_angular_mass.js"></script>
+		<script src="./scripts/express/scene/objects/physical_properties/I_coefficient_of_friction.js"></script>
+		<script src="./scripts/express/scene/objects/physical_properties/I_coefficient_of_restitution.js"></script>
+		<script src="./scripts/express/scene/objects/physical_properties/I_mass.js"></script>
+		
+		<script src="./scripts/express/scene/objects/rotation/I_angular_velocity.js"></script>
+		<script src="./scripts/express/scene/objects/rotation/I_rotation.js"></script>
+		<script src="./scripts/express/scene/objects/rotation/I_rotatable.js"></script>
+		
+		<script src="./scripts/express/scene/objects/shapes/I_radius.js"></script>
+		<script src="./scripts/express/scene/objects/shapes/I_rectangle_size.js"></script>
+		
+		<script src="./scripts/express/scene/objects/movement/I_position.js"></script>
+		<script src="./scripts/express/scene/objects/movement/I_velocity.js"></script>
+		<script src="./scripts/express/scene/objects/movement/I_movable.js"></script>
+		
+		<script src="./scripts/express/scene/objects/colliders/I_AA_half_plane_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_AA_rectangle_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_convex_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_custom_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_half_plane_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_particle_collider.js"></script>
+		<script src="./scripts/express/scene/objects/colliders/I_rectangle_collider.js"></script>
+		
+		<script src="./scripts/express/scene/objects/movement/composites/I_AA_rectangle.js"></script>
+		<script src="./scripts/express/scene/objects/movement/composites/I_particle.js"></script>
+		<script src="./scripts/express/scene/objects/movement/composites/I_circle.js"></script>
+		
+		<script src="./scripts/express/physics/movement_physics.js"></script>
+		<script src="./scripts/express/physics/collision/I_collision_algorithm.js"></script>
+		<script src="./scripts/express/physics/collision/collision.js"></script>
+		<script src="./scripts/express/physics/collision/collision_algorithm.js"></script>
+		<script src="./scripts/express/physics/collision/particle_particle_collision.js"></script>
+		
+		<!-- PHYSICS -->
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/color.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		<script src="./scripts/algebra/matrix3.js"></script>
+		<script src="./scripts/algebra/vector4.js"></script>
+		<script src="./scripts/algebra/matrix4.js"></script>
+		
+		
+		<script src="./scripts/objects/moving_ball_DEMO.js"></script>
+		<script src="./scripts/collision_detection-AABB_DEMO.js"></script>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Collision detection: <span class="crossout">AABB</span>Particle collision and Brute Force</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can add points and set 
+                        them to motion. 
+                        You can add new moving balls to the sketch by clicking or by using button below.</p>
+				</div>
+			</div>
+			<div class="ui-widget">
+				<div class="ui-state-error ui-corner-all">
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					<strong>Alert:</strong> Work in progress ... Still much more to do!!</p>
+				</div>
+			</div>
+			
+			<div class="inner_content border ui-corner-all">
+				<div id="time">DEMO</div>
+			</div>
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>

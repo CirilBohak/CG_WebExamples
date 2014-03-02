@@ -55,6 +55,8 @@ window.onload = function() {
     exampleInit();
 }
 
+function exampleInit() { };
+
 function drawGuides() { };
 
 // drawing all the stored points
