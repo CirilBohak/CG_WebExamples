@@ -6,6 +6,6 @@ IVelocity.prototype = {
 	constructor: IVelocity,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IVelocity ? true : false);
+		return 	obj === IVelocity;
 	}
 }

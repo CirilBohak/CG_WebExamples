@@ -19,7 +19,7 @@ CollisionAlgorithm.prototype = {
 	
 	isInstanceOf : function(obj){
 		return 	obj === CollisionAlgorithm ||
-				(obj === ICollisionAlgorithm ? true: ICollisionAlgorithm.prototype.isInstanceOf.call(this, obj));
+				ICollisionAlgorithm.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

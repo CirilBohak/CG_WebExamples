@@ -158,3 +158,66 @@ function drawAngleArc(pointA, vectorA, pointB, vectorB, length, arc_size, color,
 	ctx.fillStyle = 'rgba('+color.r+","+ color.g+","+ color.b+","+ color.a+")";
 	ctx.fillText(precise_round(rad_to_degree(angle),2)+"\u00B0", toX, toY);
 }
+
+/*Draw AAHalfPlane*/
+
+function drawAAHalfPlane(direction, distance, color, width){
+	proc.stroke(color.r, color.g, color.b, color.a);
+	proc.strokeWeight(width || 2);
+	
+	//TODO: transformable
+	var topLeft = {x: 0, y: 0};
+	var bottomRight = {x: proc.width, y: proc.height};
+	
+	switch(direction){
+		case 0: proc.line(distance, topLeft.y, distance, bottomRight.y); break; //AxisDirectionPositiveX
+		case 1: proc.line(-distance, topLeft.y, -distance, bottomRight.y); break; //AxisDirectionNegativeX
+		case 2: proc.line(topLeft.x, distance, bottomRight.x, distance); break; //AxisDirectionPositiveY
+		case 3: proc.line(topLeft.x, -distance, bottomRight.x, -distance); break; //AxisDirectionNegativeY
+		default: break;
+	}
+}
+
+/*Draw HalfPlane*/
+
+function drawHalfPlane(normal, distance, color, width){
+	proc.stroke(color.r, color.g, color.b, color.a);
+	proc.strokeWeight(width || 2);
+	
+	//TODO: transformable
+	var topLeft = {x: 0, y: 0};
+	var bottomRight = {x: proc.width, y: proc.height};
+	
+	var k = -normal.x/normal.y;
+	var point = normal.clone().multiplyScalar(distance);
+	var n = point.y - k * point.x;
+	
+	var y0 = k * topLeft.x + n;
+	var y1 = k * bottomRight.x + n;
+	
+	proc.line(topLeft.x, y0, bottomRight.x, y1);
+}
+
+/*Draw convex*/
+
+function drawConvex(vertices, color, position, rotationAngle, width){
+	var offset;
+	if(position != undefined){
+		drawPoint(position, 5, color, 2);
+		offset = position;
+	}else offset = new Vector3();
+	var angle = rotationAngle != undefined ? rotationAngle : 0;
+	var transform = new Matrix4().makeTranslation(offset.x, offset.y, 0).multiply(new Matrix4().makeRotationZ(angle));
+	
+	//proc.stroke(color.r, color.g, color.b, color.a);
+	proc.strokeWeight(width || 2);
+	
+	for (var i = 0; i < vertices.length; i++) {
+		var j = (i+1) % vertices.length;
+		
+		var start = vertices[i].clone().applyMatrix(transform);
+		var end = vertices[j].clone().applyMatrix(transform);
+		
+		proc.line(start.x, start.y, end.x, end.y);
+	}
+}

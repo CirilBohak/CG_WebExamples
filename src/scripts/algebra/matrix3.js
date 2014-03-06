@@ -102,15 +102,17 @@ Matrix3.prototype = {
 	//INVERSE 
 	
 	adjoint : function() {
+		var self = this;
+		
 		function subArray(M, i, j) {
-			var tmp = new Array(this.n - 1);
+			var tmp = new Array(self.n - 1);
 			
-			for(var ii=0; ii<this.n; ii++){
+			for(var ii=0; ii<self.n; ii++){
 				if(ii == i) continue;
 				
-				tmp[ii > i ? ii-1 : ii] = new Array(this.n - 1);
+				tmp[ii > i ? ii-1 : ii] = new Array(self.n - 1);
 				
-				for(var jj = 0; jj<this.n; jj++){
+				for(var jj = 0; jj<self.n; jj++){
 					if(jj == j) continue;
 					
 					tmp[ii > i ? ii-1 : ii][jj > j ? jj - 1: jj] = M[ii][jj];

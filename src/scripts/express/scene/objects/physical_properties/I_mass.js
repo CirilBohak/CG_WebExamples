@@ -6,6 +6,6 @@ IMass.prototype = {
 	constructor: IMass,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IMass ? true : false);
+		return 	obj === IMass;
 	}
 }

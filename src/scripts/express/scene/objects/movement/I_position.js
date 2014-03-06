@@ -6,6 +6,6 @@ IPosition.prototype = {
 	constructor: IPosition,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IPosition ? true : false);
+		return 	obj === IPosition;
 	}
 }

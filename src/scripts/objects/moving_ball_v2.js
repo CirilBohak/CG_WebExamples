@@ -12,18 +12,19 @@ MovingBall.prototype = {
 		this.velocity = velocity;
 		this.mass = mass;
 		this.radius = radius;
-		this.coefficientOfRestitution = 0.5; 
+		this.coefficientOfRestitution = 1.0; 
 	},
 	
 	draw : function(){
+		proc.noFill();
 		drawPoint(this.position, this.radius * 2, {r: 0, g: 0, b: 0, a: 255}, 2); //Same as for circle drawing
 		drawArrow(this.position, {x: this.velocity.x, y: -this.velocity.y}, 1, {r: 255, g: 0, b: 0, a: 255}, 8);
 	},
 	
 	isInstanceOf : function(obj){
 		return 	obj === MovingBall ||
-				(obj === IParticle ? true : IParticle.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === ICoefficientOfRestitution ? true : ICoefficientOfRestitution.prototype.isInstanceOf.call(this, obj));
+				IParticle.prototype.isInstanceOf.call(this, obj) ||
+				ICoefficientOfRestitution.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

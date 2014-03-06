@@ -6,6 +6,6 @@ IAngularMass.prototype = {
 	constructor: IAngularMass,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IAngularMass ? true : false);
+		return 	obj === IAngularMass;
 	}
 }

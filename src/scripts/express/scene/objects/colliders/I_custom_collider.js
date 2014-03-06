@@ -8,7 +8,7 @@ ICustomCollider.prototype = {
 	collidedWithItem: function(item){ console.error("Undefined"); },
 
 	isInstanceOf : function(obj){
-		return 	(obj === ICustomCollider ? true : false);
+		return 	obj === ICustomCollider;
 	}
 }
 

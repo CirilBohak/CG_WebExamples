@@ -8,10 +8,10 @@ IParticle.prototype = {
 	constructor: IParticle,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IParticle ? true : false) ||
-				(obj === IMovable ? true : IMovable.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IMass ? true : IMass.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IParticleCollider ? true : IParticleCollider.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IParticle ||
+				IMovable.prototype.isInstanceOf.call(this, obj) ||
+				IMass.prototype.isInstanceOf.call(this, obj) ||
+				IParticleCollider.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

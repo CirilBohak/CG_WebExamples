@@ -7,9 +7,9 @@ IParticleCollider.prototype = {
 	constructor: IParticleCollider,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IParticleCollider ? true : false) ||
-				(obj === IRadius ? true : IRadius.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IPosition ? true : IPosition.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IParticleCollider ||
+				IRadius.prototype.isInstanceOf.call(this, obj) ||
+				IPosition.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

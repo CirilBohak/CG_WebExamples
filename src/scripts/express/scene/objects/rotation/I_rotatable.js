@@ -7,9 +7,9 @@ IRotatable.prototype = {
 	constructor: IRotatable,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IRotatable ? true : false) ||
-				(obj === IRotation ? true : IRotation.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IAngularVelocity ? true : IAngularVelocity.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IRotatable ||
+				IRotation.prototype.isInstanceOf.call(this, obj) ||
+				IAngularVelocity.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

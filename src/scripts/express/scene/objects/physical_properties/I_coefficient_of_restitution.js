@@ -6,6 +6,6 @@ ICoefficientOfRestitution.prototype = {
 	constructor: ICoefficientOfRestitution,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === ICoefficientOfRestitution ? true : false);
+		return 	obj === ICoefficientOfRestitution;
 	}
 }

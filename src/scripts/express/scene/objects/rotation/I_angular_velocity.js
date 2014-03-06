@@ -6,6 +6,6 @@ IAngularVelocity.prototype = {
 	constructor: IAngularVelocity,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IAngularVelocity ? true : false);
+		return 	obj === IAngularVelocity;
 	}
 }

@@ -7,9 +7,9 @@ IMovable.prototype = {
 	constructor: IMovable,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IMovable ? true : false) ||
-				(obj === IPosition ? true : IPosition.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IVelocity ? true : IVelocity.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IMovable ||
+				IPosition.prototype.isInstanceOf.call(this, obj) ||
+				IVelocity.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

@@ -7,9 +7,9 @@ IAARectangleCollider.prototype = {
 	constructor: IAARectangleCollider,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IAARectangleCollider ? true : false) ||
-				(obj === IPosition ? true : IPosition.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IRectangleSize ? true : IRectangleSize.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IAARectangleCollider ||
+				IPosition.prototype.isInstanceOf.call(this, obj) ||
+				IRectangleSize.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

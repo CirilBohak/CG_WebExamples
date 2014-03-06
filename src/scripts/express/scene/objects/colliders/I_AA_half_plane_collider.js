@@ -6,6 +6,6 @@ IAAHalfPlaneCollider.prototype = {
 	constructor: IAAHalfPlaneCollider,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IAAHalfPlaneCollider ? true : false);
+		return 	obj === IAAHalfPlaneCollider;
 	}
 }

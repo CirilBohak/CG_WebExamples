@@ -1,7 +1,5 @@
 var ParticleParticleCollision = function () {
 	CollisionAlgorithm.call( this );
-	
-	this.name = "PPC";
 };
 
 ParticleParticleCollision.prototype = {
@@ -41,7 +39,7 @@ ParticleParticleCollision.prototype = {
 	
 	isInstanceOf : function(obj){
 		return 	obj === ParticleParticleCollision ||
-				(obj === CollisionAlgorithm ? true: CollisionAlgorithm.prototype.isInstanceOf.call(this, obj));
+				CollisionAlgorithm.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

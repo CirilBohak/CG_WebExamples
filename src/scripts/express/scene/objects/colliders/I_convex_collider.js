@@ -6,6 +6,6 @@ IConvexCollider.prototype = {
 	constructor: IConvexCollider,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IConvexCollider ? true : false);
+		return 	obj === IConvexCollider;
 	}
 }

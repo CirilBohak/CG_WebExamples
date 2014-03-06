@@ -8,6 +8,10 @@ var Vector3 = function(x, y, z) {
 Vector3.prototype = {
 	constructor: Vector3,
 	
+	isZero: function(){
+		return this.x==0 && this.y==0 && this.z==0;
+	},
+	
 	/*****************
 	   SET FUNCTIONS
 	******************/
@@ -390,9 +394,9 @@ Vector3.prototype = {
 		var x = this.x, y = this.y, z = this.z;
 		var m = matrix.MD_Array;
 		
-		this.x = m[0][0] * x + m[1][0] * y + m[2][0] * z;
-		this.y = m[0][1] * x + m[1][1] * y + m[2][1] * z;
-		this.z = m[0][2] * x + m[1][2] * y + m[2][2] * z;
+		this.x = m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3];
+		this.y = m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3];
+		this.z = m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3];
 		
 		return this;
 	},
@@ -405,14 +409,26 @@ Vector3.prototype = {
 		
 		var d = 1 / ( m[0][3] * x + m[1][3] * y + m[2][3] * z + m[3][3] ); // perspective divide
 		
-		this.x = ( m[0][0] * x + m[1][0] * y + m[2][0] * z + m[3][0] ) * d;
-		this.y = ( m[0][1] * x + m[1][1] * y + m[2][1] * z + m[3][1] ) * d;
-		this.z = ( m[0][2] * x + m[1][2] * y + m[2][2] * z + m[3][2] ) * d;
+		this.x = ( m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3] ) * d;
+		this.y = ( m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3] ) * d;
+		this.z = ( m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3] ) * d;
 		
 		return this;
 	},
 	
-	transformDirection: function ( matrix ) { return this.applyMatrix( matrix ).normalize(); }
+	transformDirection: function ( matrix ) {
+		// input: THREE.Matrix4 affine matrix
+		// vector interpreted as a direction
+		
+		var x = this.x, y = this.y, z = this.z;
+		var m = matrix.MD_Array;
+		
+		this.x = m[0][0] * x + m[0][1] * y + m[0][2] * z;
+		this.y = m[1][0] * x + m[1][1] * y + m[1][2] * z;
+		this.z = m[2][0] * x + m[2][1] * y + m[2][2] * z;
+		
+		return this.normalize(); 
+	}
 }
 
 //Extend "Vector.prototype"

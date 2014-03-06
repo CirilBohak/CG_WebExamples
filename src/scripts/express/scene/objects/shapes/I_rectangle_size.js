@@ -7,6 +7,6 @@ IRectangleSize.prototype = {
 	constructor: IRectangleSize,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IRectangleSize ? true : false);
+		return 	obj === IRectangleSize;
 	}
 }

@@ -10,6 +10,6 @@ ICollisionAlgorithm.prototype = {
 	resolveCollisionBetween : function (item1, item2){ console.error("Undefined"); },
 
 	isInstanceOf : function(obj){
-		return 	(obj === ICollisionAlgorithm ? true : false);
+		return 	obj === ICollisionAlgorithm;
 	}
 }

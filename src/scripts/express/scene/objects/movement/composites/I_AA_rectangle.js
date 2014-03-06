@@ -8,10 +8,10 @@ IAARectangle.prototype = {
 	constructor: IAARectangle,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IAARectangle ? true : false) ||
-				(obj === IMovable ? true : IMovable.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IMass ? true : IMass.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IAARectangleCollider ? true : IAARectangleCollider.prototype.isInstanceOf.call(this, obj));
+		return  obj === IAARectangle ||
+				IMovable.prototype.isInstanceOf.call(this, obj) ||
+				IMass.prototype.isInstanceOf.call(this, obj) ||
+				IAARectangleCollider.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

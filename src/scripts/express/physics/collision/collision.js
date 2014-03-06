@@ -1,6 +1,6 @@
 var Collision = function () { };
 
-/*Collision.collisionBetween = function(item1, item2, recurse){
+Collision.collisionBetween = function(item1, item2, recurse){
 	var item1Particle = item1.isInstanceOf(IParticleCollider) ? item1 : false;
 	var item1AARectangle = item1.isInstanceOf(IAARectangleCollider) ? item1 : false;
 	
@@ -12,30 +12,30 @@ var Collision = function () { };
 	var item2Convex = item2.isInstanceOf(IConvexCollider) ? item2 : false;
 	
 	if (item1Particle && item2Particle) {
-		ParticleParticleCollision.collisionBetween(item1Particle, item2Particle);
+		ParticleParticleCollision.prototype.collisionBetween(item1Particle, item2Particle);
 		return;
 	}else if(item1Particle && item2AAHalfPlane) {
-		ParticleAAHalfPlaneCollision.collisionBetween(item1Particle, item2AAHalfPlane);
+		ParticleAAHalfPlaneCollision.prototype.collisionBetween(item1Particle, item2AAHalfPlane);
 		return;
 	}else if (item1Particle && item2AARectangle) {
-		ParticleAARectangleCollision.collisionBetween(item1Particle, item2AARectangle);
+		ParticleAARectangleCollision.prototype.collisionBetween(item1Particle, item2AARectangle);
 		return;
 	}else if (item1AARectangle && item2AAHalfPlane) {
-		AARectangleAAHalfPlaneCollision.collisionBetween(item1AARectangle, item2AAHalfPlane);
+		AARectangleAAHalfPlaneCollision.prototype.collisionBetween(item1AARectangle, item2AAHalfPlane);
 		return;
 	}else if (item1AARectangle && item2AARectangle) {
-		AARectangleAARectangleCollision.collisionBetween(item1AARectangle, item2AARectangle);
+		AARectangleAARectangleCollision.prototype.collisionBetween(item1AARectangle, item2AARectangle);
 		return;
 	}else if (item1Particle && item2HalfPlane) {
-		ParticleHalfPlaneCollision.collisionBetween(item1Particle, item2HalfPlane);
+		ParticleHalfPlaneCollision.prototype.collisionBetween(item1Particle, item2HalfPlane);
 		return;
 	}else if (item1Particle && item2Convex) {
-		ParticleConvexCollision.collisionBetween(item1Particle, item2Convex);
+		ParticleConvexCollision.prototype.collisionBetween(item1Particle, item2Convex);
 		return;
 	}
 	
 	if(recurse == true) this.collisionBetween(item1, item2, false);
-}*/
+}
 
 Collision.collisionBetweenSelf = function(item1, item2, collisionAlgorithm){
 	if(collisionAlgorithm.detectCollisionBetween(item1, item2)){
@@ -135,8 +135,8 @@ Collision.exchangeEnergyBetween = function(item1, item2, collisionNormal, pointO
 	var rotatableItem2 = item2.isInstanceOf(IRotatable) ? item2 : false;
 	
 	// Velocity due to translation.
-	var velocity1 = movableItem1 ? movableItem1.velocity.clone() : false; //new Vector()
-	var velocity2 = movableItem2 ? movableItem2.velocity.clone() : false; //new Vector()
+	var velocity1 = movableItem1 ? movableItem1.velocity.clone() : new Vector3();
+	var velocity2 = movableItem2 ? movableItem2.velocity.clone() : new Vector3();
 	
 	//Velocity due to rotation.
 	var lever1 = null;
@@ -163,8 +163,8 @@ Collision.exchangeEnergyBetween = function(item1, item2, collisionNormal, pointO
 
 	// In a collision, energy is exchanged only along the collision normal, so we take into account only
 	// the speed in the direction of the normal.
-	var speed1 = velocity1 ? velocity1.dot(collisionNormal) : 0;
-	var speed2 = velocity2 ? velocity2.dot(collisionNormal) : 0;
+	var speed1 = !velocity1.isZero() ? velocity1.dot(collisionNormal) : 0;
+	var speed2 = !velocity2.isZero() ? velocity2.dot(collisionNormal) : 0;
 	var speedDifference = speed1 - speed2
 	
 	// Make sure the objects are coming towards each other. If they are coming together the collision has already been delt with.
@@ -187,9 +187,9 @@ Collision.exchangeEnergyBetween = function(item1, item2, collisionNormal, pointO
 	var item1WithAngularMass = item1.isInstanceOf(IAngularMass) ? item1 : false;
 	var item2WithAngularMass = item2.isInstanceOf(IAngularMass) ? item2 : false;
 	
-	var angularMass1Inverse = item1WithAngularMass && tangentialDirection1 ?
+	var angularMass1Inverse = (item1WithAngularMass && tangentialDirection1) ?
 		Math.pow(tangentialDirection1.clone().dot(collisionNormal) * lever1.length(), 2) / item1WithAngularMass.angularMass : 0;
-	var angularMass2Inverse = item2WithAngularMass && tangentialDirection2 ?
+	var angularMass2Inverse = (item2WithAngularMass && tangentialDirection2) ?
 		Math.pow(tangentialDirection2.clone().dot(collisionNormal) * lever2.length(), 2) / item2WithAngularMass.angularMass : 0;
 	
 	// We derive the formula for the impact as the change of momentum.
@@ -212,25 +212,17 @@ Collision.exchangeEnergyBetween = function(item1, item2, collisionNormal, pointO
 	
 	if (item1WithAngularMass && tangentialDirection1) {
 		var tangentialForce = tangentialDirection1.clone().dot(collisionNormal) * impact;
-		var change = tangentialForce * lever1.length() /  item1WithAngularMass.angularMass;
-		rotatableItem1.angularVelocity += change;
+		var change = tangentialForce * lever1.length() / item1WithAngularMass.angularMass;
+		rotatableItem1.angularVelocity -= change;
 	}
 	
 	if (item2WithAngularMass && tangentialDirection2) {
 		var tangentialForce = tangentialDirection2.clone().dot(collisionNormal) * impact;
-		var change = tangentialForce * lever2.length() /  item2WithAngularMass.angularMass;
-		rotatableItem2.angularVelocity += change;
+		var change = tangentialForce * lever2.length() / item2WithAngularMass.angularMass;
+		rotatableItem2.angularVelocity -= change;
 	}
 }
 
 Collision.applyFrictionOn = function(item, frictionSpeedChange, collisionTangent){
 
 }
-	
-/*Collision.prototype = {
-	constructor: Collision,
-	
-	isInstanceOf : function(obj){
-		return 	obj === Collision;
-	}
-}*/

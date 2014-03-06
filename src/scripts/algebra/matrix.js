@@ -96,10 +96,10 @@ Matrix.prototype = {
 			for(var i=0; i<this.m; i++) this.MD_Array[i].length = this.n;
 		}
 		
-		for(var i=0; i<this.m; i++){
-			for(var j=0; j<this.n; j++){
+		for(var i=0; i<orig.m; i++){
+			for(var j=0; j<matrix.n; j++){
 				this.MD_Array[i][j] = 0;
-				for(var k=0; k<this.m; k++){
+				for(var k=0; k<orig.n; k++){
 					this.MD_Array[i][j] += orig.MD_Array[i][k]*matrix.MD_Array[k][j];
 				}
 			}
@@ -117,10 +117,10 @@ Matrix.prototype = {
 			for(var i=0; i<this.m; i++) this.MD_Array[i] = new Array(this.n);
 		}
 		
-		for(var i=0; i<this.m; i++){
-			for(var j=0; j<this.n; j++){
+		for(var i=0; i<matrixA.m; i++){
+			for(var j=0; j<matrixB.n; j++){
 				this.MD_Array[i][j] = 0;
-				for(var k=0; k<this.m; k++){
+				for(var k=0; k<matrixA.n; k++){
 					this.MD_Array[i][j] += matrixA.MD_Array[i][k]*matrixB.MD_Array[k][j];
 				}
 			}

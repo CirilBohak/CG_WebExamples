@@ -24,12 +24,12 @@ ConvexPolygon.prototype = {
 			this.edges.push(edge);
 			
 			var normal = new Vector3(edge.y, -edge.x, 0).normalize();
-			var distance = new Vector3().dotVectors(this.verteces[i],this.verteces[j]);
+			var distance = new Vector3().dotVectors(this.verteces[i],normal);
 			this.halfPlanes.push(HalfPlane.halfPlaneWithNormal(normal, distance));
 		}
 		
-		this.edges = edges.concat(); //allocate new array
-		this.halfPlanes = halfPlanes.concat(); //allocate new array
+		//this.edges = edges.concat(); //allocate new array
+		//this.halfPlanes = halfPlanes.concat(); //allocate new array
 		
 		return this;
 	},

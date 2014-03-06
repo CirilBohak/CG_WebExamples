@@ -6,6 +6,6 @@ IRadius.prototype = {
 	constructor: IRadius,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IRadius ? true : false);
+		return 	obj === IRadius;
 	}
 }

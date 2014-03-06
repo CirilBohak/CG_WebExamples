@@ -6,6 +6,6 @@ ICoefficientOfFriction.prototype = {
 	constructor: ICoefficientOfFriction,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === ICoefficientOfFriction ? true : false);
+		return 	obj === ICoefficientOfFriction;
 	}
 }

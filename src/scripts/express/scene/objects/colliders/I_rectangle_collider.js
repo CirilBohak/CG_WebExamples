@@ -8,10 +8,10 @@ IRectangleCollider.prototype = {
 	constructor: IRectangleCollider,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IRectangleCollider ? true : false) ||
-				(obj === IPosition ? true : IPosition.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IRotation ? true : IRotation.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IRectangleSize ? true : IRectangleSize.prototype.isInstanceOf.call(this, obj));
+		return 	obj === IRectangleCollider ||
+				IPosition.prototype.isInstanceOf.call(this, obj) ||
+				IRotation.prototype.isInstanceOf.call(this, obj) ||
+				IRectangleSize.prototype.isInstanceOf.call(this, obj);
 	}
 }
 

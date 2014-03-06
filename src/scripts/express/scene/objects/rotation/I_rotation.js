@@ -6,6 +6,6 @@ IRotation.prototype = {
 	constructor: IRotation,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === IRotation ? true : false);
+		return 	obj === IRotation;
 	}
 }

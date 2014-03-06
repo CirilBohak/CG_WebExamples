@@ -68,9 +68,10 @@ input { text-align: right; }
 	}
 }
 
+#controller{ position: relative; }
 #contentLeft , #contentRight { float: left; }
 
-#contentRight  { width: 66%; }
+#contentRight  { width: 66%; position: relative; }
 #contentLeft { width:31%; }
 #contentFull { }
 

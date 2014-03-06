@@ -8,10 +8,10 @@ ICircle.prototype = {
 	constructor: ICircle,
 	
 	isInstanceOf : function(obj){
-		return 	(obj === ICircle ? true : false) ||
-				(obj === IParticle ? true : IParticle.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IRotatable ? true : IRotatable.prototype.isInstanceOf.call(this, obj)) ||
-				(obj === IAngularMass ? true : IAngularMass.prototype.isInstanceOf.call(this, obj));
+		return 	obj === ICircle ||
+				IParticle.prototype.isInstanceOf.call(this, obj) ||
+				IRotatable.prototype.isInstanceOf.call(this, obj) ||
+				IAngularMass.prototype.isInstanceOf.call(this, obj);
 	}
 }
 
