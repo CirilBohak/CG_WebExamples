@@ -110,7 +110,7 @@ BoxObjectHelper = function ( ) {
 	geometry.faces.push( tmpF );
 	
 	geometry.computeFaceNormals(); 
-	geometry.computeCentroids();
+	//geometry.computeCentroids();
 	
 	this.MashBox = new THREE.Mesh( geometry, material);
 	this.add(this.MashBox);

@@ -89,7 +89,7 @@ CameraHelper = function ( camera, w, h) {
 		geometry.faces.push( new THREE.Face3(6,5,9) );
 		
 		geometry.computeFaceNormals(); 
-		geometry.computeCentroids();
+		//geometry.computeCentroids();
 		
 		this.plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: hexPlane, opacity: 0.8, transparent: true, side:THREE.DoubleSide } ) ); 
 		this.add(this.plane);
