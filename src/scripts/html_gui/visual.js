@@ -210,6 +210,31 @@ function createMatrix(id, n, m){
 	}
 }
 
+function createMatrixStatic(id, n, m, matrixInput){
+	var matrix = $(id);
+
+	matrix.append("<table>"+
+	"<tr>"+
+	"<td class=\"leftMV\"></td>"+
+	"<td>"+
+	"<div id=\""+id.substring(1)+"_inner\">"+
+	"</div>"+
+	"</td>"+
+	"<td class=\"rightMV\"></td>"+
+	"</tr>"+
+	"</table>");
+
+	matrix = matrix.find("#"+id.substring(1)+"_inner");
+
+	for(var i=0; i<n; i++){
+		for(var j=0; j<m; j++){
+			matrix.append("<span class=\"m"+i+""+j+"\"><input class=\"vecInputCol\" disabled='disabled' value='"+matrixInput[(i*m)+j]+"'/><div class=\"tooltip\"></div></span>");
+			if(j<m-1) matrix.append(" ");
+		}
+		matrix.append("<br />");
+	}
+}
+
 function updateMatrix(id, n, m, array){
 	var matrix = $("#"+id.substring(1)+"_inner").children("span");
 	

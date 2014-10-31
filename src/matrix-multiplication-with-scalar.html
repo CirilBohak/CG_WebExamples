@@ -16,6 +16,18 @@
 		input.error{
 			border:solid thin red;
 		}
+		.scalarNumber{
+			float: left;
+			margin-top:30px;
+			margin-left: 5px;
+			margin-right: 10px;
+		}
+		.menu a:hover{
+			cursor: pointer;
+		}
+		.menu .selected {
+			text-decoration: underline;
+		}
 	</style>
 </head>
 <body>
@@ -30,13 +42,29 @@
 					<strong>Info:</strong> In the sketch you can create multiplication with scalar.</p>
 				</div>
 			</div>
+			<div  class="inner_content border ui-corner-all menu">
+				<div style="float:left;margin-right: 10px;" class="selected first"><a>Standard logic</a></div>
+				<div class="second" data-id="2"><a>MathJax logic</a></div>
+			</div>
 			<div class="inner_content border ui-corner-all multiplicationWIthScalar">
 				<div>
 					Scalar: <input type="text" size="2" class="scalarInput">
+					Rows: <input class="vecInputCol rows" type="number" value="0" min="-20" max="20" step="1">
+					Cols: <input class="vecInputCol cols" type="number" value="0" min="-20" max="20" step="1">
 				</div>
-				<div id="matrix01" class="vectorValue"></div>
-				<div style="margin-top:10px;">Result:</div><br>
-				<div id="matrix02" class="vectorValue" style="margin-top:10px;"></div>
+				<div>
+					<div style="margin-top:10px;">Matrix:</div><br>
+					<div class="scalarNumber">5 *</div>
+					<div id="matrix01" class="vectorValue"></div>
+					<div style="margin-top:10px;">Calculating:</div><br>
+					<div id="matrix02" class="vectorValue"></div>
+					<div style="margin-top:10px;">Result:</div><br>
+					<div id="matrix03" class="vectorValue" style="margin-top:10px;"></div>
+				</div>
+
+			</div>
+			<div class="inner_content border ui-corner-all MathJaxStuff" style="display: none;">
+				Druga logikaaa:
 			</div>
 		</div>
 	</div>
