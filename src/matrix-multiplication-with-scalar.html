@@ -12,6 +12,11 @@
 		<script src="./scripts/algebra/matrix.js"></script>
 		
 		<script src="./scripts/matrix-multiplication-with-scalar.js"></script>
+	<style>
+		input.error{
+			border:solid thin red;
+		}
+	</style>
 </head>
 <body>
 	<h1>Computer Graphics - Web Examples</h1>
@@ -25,13 +30,6 @@
 					<strong>Info:</strong> In the sketch you can create multiplication with scalar.</p>
 				</div>
 			</div>
-			<div class="ui-widget">
-				<div class="ui-state-error ui-corner-all">
-					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-					<strong>Alert:</strong> Work in progress ... </p>
-				</div>
-			</div>
-			
 			<div class="inner_content border ui-corner-all multiplicationWIthScalar">
 				<div>
 					Scalar: <input type="text" size="2" class="scalarInput">
@@ -40,12 +38,6 @@
 				<div style="margin-top:10px;">Result:</div><br>
 				<div id="matrix02" class="vectorValue" style="margin-top:10px;"></div>
 			</div>
-		</div>
-		<div>
-			TODO:<br>
-			<ul>
-				<li>Append onchange event on every input.</li>
-			</ul>
 		</div>
 	</div>
 </body>

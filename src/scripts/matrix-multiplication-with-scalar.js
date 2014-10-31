@@ -11,12 +11,49 @@ $(function(){
 		updateMatrix("#matrix01",n,m,matrix01Array);
 		$(".scalarInput",container).val(incNumber);
 		createMatrix("#matrix02",n,m);
-		var matrix02 = [];
-		for(var i=0;i<matrix01Array.length;i++){
-			matrix02.push(matrix01Array[i]*incNumber);
-		}
-		updateMatrix("#matrix02",n,m,matrix02);
+		updateMatrix("#matrix02",n,m,increaseMatrix(matrix01Array, incNumber));
 	}
+
+	function initInputChanges(){
+		container.on('change keyup','input',function(e){
+			if(!checkInputs())
+				return;
+			var matrix1 = getMatrixFromTable($("#matrix01",container));
+			var inc = $(".scalarInput",container).val();
+			updateMatrix("#matrix02",n,m,increaseMatrix(matrix1, inc));
+		});
+	}
+
+	function increaseMatrix(matrix, val){
+		var matrix02 = [];
+		for(var i=0;i<matrix.length;i++){
+			matrix02.push(matrix[i]*val);
+		}
+		return matrix02;
+	}
+
+	function getMatrixFromTable(ele){
+		var matrix = [];
+		$("input",ele).each(function(){
+			matrix.push($(this).val());
+		});
+		return matrix;
+	}
+
+	function checkInputs(){
+		var returnStatus = true;
+		$('input',container).each(function(){
+			if(isNaN($(this).val()) || $(this).val()===""){
+				$(this).addClass("error");
+				returnStatus = false;
+			}
+			else{
+				$(this).removeClass("error");
+			}
+		});
+		return returnStatus;
+	}
+
 	exampleInit();
-	//todo: change event trigger on all inputs
+	initInputChanges();
 });
