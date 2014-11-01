@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 	<title>Computer Graphics - Web Examples</title>
 		<link rel="stylesheet" type="text/css" href="./css/design.css" />
@@ -10,8 +10,15 @@
 		
 		<script src="./scripts/algebra/math.js"></script>
 		<script src="./scripts/algebra/matrix.js"></script>
-		
+		<script src="./scripts/core/mathjax.js/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
 		<script src="./scripts/matrix-multiplication-with-scalar.js"></script>
+		<script type="text/x-mathjax-config">
+
+		MathJax.Hub.Config({
+			tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+		});
+
+		</script>
 	<style>
 		input.error{
 			border:solid thin red;
@@ -61,12 +68,28 @@
 					<div style="margin-top:10px;">Result:</div><br>
 					<div id="matrix03" class="vectorValue" style="margin-top:10px;"></div>
 				</div>
-
 			</div>
 			<div class="inner_content border ui-corner-all MathJaxStuff" style="display: none;">
-				Druga logikaaa:
+				<div>
+					Scalar: <input type="text" size="2" class="scalarInput">
+					Rows: <input class="vecInputCol rows" type="number" value="0" min="-20" max="20" step="1">
+					Cols: <input class="vecInputCol cols" type="number" value="0" min="-20" max="20" step="1">
+				</div>
+				Input matrix:<br><br>
+				<div class="scalarNumber">5 *</div>
+				<div id="matrix1" class="vectorValue"></div><br><br>
+				Show new matrix: <input type="button" value="Show matrix" class="showMatrix"><br><br>
+				Progress:<br><br>
+				<script type="math/tex" id="matrix2"></script>
+
+				<br><br>Results:<br><br>
+				<script type="math/tex" id="matrix3"></script>
+
+
 			</div>
 		</div>
 	</div>
+	<script src="./scripts/matrix-multiplication-with-scalar-mathjax.js"></script>
 </body>
+
 </html>
