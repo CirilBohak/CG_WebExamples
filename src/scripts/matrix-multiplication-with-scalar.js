@@ -34,6 +34,15 @@ $(function(){
 			var inc = $(".scalarInput",container).val();
 			$(".scalarNumber",container).html(inc+" *");
 			updateMatrix("#matrix03",n,m,increaseMatrix(matrix1, inc));
+
+			var tmpMatrix = [];
+			for(var i=0;i<matrix1.length;i++){
+				tmpMatrix.push(inc+"*"+matrix1[i]);
+			}
+			$("#matrix02").html("");
+			createMatrixStatic("#matrix02",n,m,tmpMatrix);
+
+
 		});
 	}
 
@@ -56,6 +65,8 @@ $(function(){
 	function checkInputs(){
 		var returnStatus = true;
 		$('input',container).each(function(){
+			if($(this).closest("#matrix02").length!=0)
+			return true;
 			if(isNaN($(this).val()) || $(this).val()===""){
 				$(this).addClass("error");
 				returnStatus = false;
@@ -82,6 +93,14 @@ $(function(){
 			createMatrix("#matrix03",n,m);
 			updateMatrix("#matrix03",n,m,increaseMatrix(matrix01Array, incNumber));
 
+
+			var tmpMatrix = [];
+			for(var i=0;i<matrix01Array.length;i++){
+				tmpMatrix.push(incNumber+"*"+matrix01Array[i]);
+			}
+			$("#matrix02").html("");
+			createMatrixStatic("#matrix02",n,m,tmpMatrix);
+
 		});
 
 	}
@@ -102,8 +121,11 @@ $(function(){
 			}
 		});
 	}
+
+
 	exampleInit();
 	initInputChanges();
 	sizeInputChanges();
 	changeStyle();
+
 });
