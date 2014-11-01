@@ -5,36 +5,6 @@ $( document ).ready(function() {
 	var incNumber = Math.floor((Math.random() * 20) - 10);
 	var n = Math.floor(Math.random() * 5) + 2, m = Math.floor(Math.random() * 5) + 2;
 
-	function InitMathJaxExample(){
-
-		var matrix = MathJax.Hub.getAllJax("matrix1")[0];
-
-		var text = "\\left[\\begin{array}{";
-		text+=m*"r";
-		text+="}";
-		/*\left[\begin{array}{rrr}
-		1 & 2 & 4 & 8 \\
-				16 & 32 & 64 & 128 \\
-				256 & 512 & 1024 & 2048
-				\end{array}\right]*/
-		var first;
-		for(var i=0;i<n;i++){
-			first = true;
-			for(var j=0;j<m;j++){
-				if(!first){
-					text+="&";
-				}
-				var input = Math.floor((Math.random()*100)-50);
-				//text
-				text+=input;
-				first = false;
-			}
-			text+="\\\\";
-		}
-		text+="\\end{array}\\right]";
-		MathJax.Hub.Queue(["Text",matrix,text]);
-	}
-
 	function sizeInputChanges(){
 		container.on('change','.rows, .cols, .scalarInput',function(){
 
@@ -67,6 +37,9 @@ $( document ).ready(function() {
 		$(".scalarInput",container).val(incNumber);
 		$(".rows",container).val(n);
 		$(".cols",container).val(m);
+
+		var inc = $('.scalarInput', container).val();
+		$(".scalarNumber",container).html(inc+" *");
 	}
 
 	function onButtonPress(){
