@@ -36,15 +36,15 @@ $( document ).ready(function() {
 	}
 
 	function sizeInputChanges(){
-		container.on('change','.rows, .cols',function(){
+		container.on('change','.rows, .cols, .scalarInput',function(){
 			n = $(".rows",container).val();
 			m = $(".cols",container).val();
 			var matrix01 = new Matrix(n,m);
 			$("#matrix1").html("");
 			createMatrix("#matrix1",n,m);
 			updateMatrix("#matrix1",n,m,matrix01.get1D_array());
-
-
+			var inc = $('.scalarInput', container).val();
+			$(".scalarNumber",container).html(inc+" *");
 		});
 
 	}
