@@ -7,7 +7,7 @@ var Matrix = function(n,m) {
 	for(var i=0; i<m; i++){ 
 		this.MD_Array[i] = new Array(n);
 		for(var j=0; j<n; j++){
-			this.MD_Array[i][j] = Math.floor((Math.random()*100)-50); //Random between -50 and +50
+			this.MD_Array[i][j] = Math.floor((Math.random()*40)-20); //Random between -20 and +20
 		}
 	}
 }

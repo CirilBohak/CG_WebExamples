@@ -185,7 +185,8 @@ function updateVectorDropDownLists(vectorIndex) {
         MATRICES
 **********************/
 
-function createMatrix(id, n, m){
+function createMatrix(id, n, m, limit) {
+	limit = limit===undefined?true:limit;
 	var matrix = $(id);
 	
 	matrix.append("<table>"+
@@ -203,7 +204,13 @@ function createMatrix(id, n, m){
 	
 	for(var i=0; i<n; i++){
 		for(var j=0; j<m; j++){
-			matrix.append("<span class=\"m"+i+""+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" min=\"-20\" max=\"20\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			if(!limit){
+				matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			}
+			else{
+				matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" min=\"-20\" max=\"20\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			}
+
 			if(j<m-1) matrix.append(" ");
 		}
 		matrix.append("<br />");
@@ -228,7 +235,7 @@ function createMatrixStatic(id, n, m, matrixInput){
 
 	for(var i=0; i<n; i++){
 		for(var j=0; j<m; j++){
-			matrix.append("<span class=\"m"+i+""+j+"\"><input class=\"vecInputCol\" disabled='disabled' value='"+matrixInput[(i*m)+j]+"'/><div class=\"tooltip\"></div></span>");
+			matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" disabled='disabled' value='"+matrixInput[(i*m)+j]+"'/><div class=\"tooltip\"></div></span>");
 			if(j<m-1) matrix.append(" ");
 		}
 		matrix.append("<br />");

@@ -6,17 +6,16 @@ $( document ).ready(function() {
 	var n = Math.floor(Math.random() * 5) + 2, m = Math.floor(Math.random() * 5) + 2;
 
 	function sizeInputChanges(){
-		container.on('change','.rows, .cols, .scalarInput',function(){
+		container.on('change','.rows, .cols',function(){
 
 			n = $(".rows",container).val();
 			m = $(".cols",container).val();
 			var matrix01 = new Matrix(n,m);
 			$("#matrix1").html("");
-			createMatrix("#matrix1",n,m);
+			createMatrix("#matrix1",n,m, false);
 			updateMatrix("#matrix1",n,m,matrix01.get1D_array());
 
-			var inc = $('.scalarInput', container).val();
-			$(".scalarNumber",container).html(inc+" *");
+
 
 		});
 
@@ -32,14 +31,12 @@ $( document ).ready(function() {
 
 	function Init(){
 		var matrix01 = new Matrix(n,m);
-		createMatrix("#matrix1",n,m);
+		createMatrix("#matrix1",n,m,false);
 		updateMatrix("#matrix1",n,m,matrix01.get1D_array());
 		$(".scalarInput",container).val(incNumber);
 		$(".rows",container).val(n);
 		$(".cols",container).val(m);
 
-		var inc = $('.scalarInput', container).val();
-		$(".scalarNumber",container).html(inc+" *");
 	}
 
 	function onButtonPress(){
@@ -90,10 +87,7 @@ $( document ).ready(function() {
 		return matrix02;
 	}
 
-
 	Init();
 	sizeInputChanges();
 	onButtonPress();
-	//InitMathJaxExample();
-
 });

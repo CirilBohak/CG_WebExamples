@@ -20,12 +20,16 @@
 
 		</script>
 	<style>
+		.changes {
+			background-color:  orange;
+			color:black;
+		}
 		input.error{
 			border:solid thin red;
 		}
 		.scalarNumber{
 			float: left;
-			margin-top:30px;
+			margin-top:0px;
 			margin-left: 5px;
 			margin-right: 10px;
 		}
@@ -34,6 +38,14 @@
 		}
 		.menu .selected {
 			text-decoration: underline;
+		}
+		.inputs{
+			margin: 2px 0px 0px 0px;
+			padding: 0px;
+			height: 23px;
+			border: solid 1px #DDD;
+			text-align: center;
+			width: 50px;
 		}
 	</style>
 </head>
@@ -55,13 +67,12 @@
 			</div>
 			<div class="inner_content border ui-corner-all multiplicationWIthScalar">
 				<div>
-					Scalar: <input type="text" size="2" class="scalarInput">
-					Rows: <input class="vecInputCol rows" type="number" value="0" min="-20" max="20" step="1">
-					Cols: <input class="vecInputCol cols" type="number" value="0" min="-20" max="20" step="1">
+					Rows: <input class="inputs rows" type="number" value="0" min="-20" max="20" step="1">
+					Cols: <input class="inputs cols" type="number" value="0" min="-20" max="20" step="1">
 				</div>
 				<div>
 					<div style="margin-top:10px;">Matrix:</div><br>
-					<div class="scalarNumber">5 *</div>
+					<div class="scalarNumber"> Scalar: <br><input type="text" size="2" class="scalarInput "> </div>
 					<div id="matrix01" class="vectorValue"></div>
 					<div style="margin-top:10px;">Calculating:</div><br>
 					<div id="matrix02" class="vectorValue"></div>
@@ -71,12 +82,12 @@
 			</div>
 			<div class="inner_content border ui-corner-all MathJaxStuff" style="display: none;">
 				<div>
-					Scalar: <input type="text" size="2" class="scalarInput">
 					Rows: <input class="vecInputCol rows" type="number" value="0" min="-20" max="20" step="1">
 					Cols: <input class="vecInputCol cols" type="number" value="0" min="-20" max="20" step="1">
 				</div>
 				Input matrix:<br><br>
-				<div class="scalarNumber"></div>
+				<div class="scalarNumber"> Scalar: <br><input type="text" size="2" class="scalarInput "> </div>
+
 				<div id="matrix1" class="vectorValue"></div><br><br>
 				Show new matrix: <input type="button" value="Show matrix" class="showMatrix"><br><br>
 				Progress:<br><br>

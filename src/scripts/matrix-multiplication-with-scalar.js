@@ -7,22 +7,20 @@ $(function(){
 		var matrix01 = new Matrix(n,m);
 		var incNumber = Math.floor((Math.random() * 20) - 10);
 		var matrix01Array = matrix01.get1D_array();
-		createMatrix("#matrix01",n,m);
+		createMatrix("#matrix01",n,m, false);
 		updateMatrix("#matrix01",n,m,matrix01Array);
 		$(".scalarInput",container).val(incNumber);
-		$(".scalarNumber",container).html(incNumber+" *");
 
 		$(".rows",container).val(n);
 		$(".cols",container).val(m);
-		createMatrix("#matrix03",n,m);
-		updateMatrix("#matrix03",n,m,increaseMatrix(matrix01Array, incNumber));
+		$("#matrix03").html("");
+		createMatrixStatic("#matrix03",n,m,increaseMatrix(matrix01Array, incNumber));
 
 		var tmpMatrix = [];
 		for(var i=0;i<matrix01Array.length;i++){
 			tmpMatrix.push(incNumber+"*"+matrix01Array[i]);
 		}
 		createMatrixStatic("#matrix02",n,m,tmpMatrix);
-		//updateMatrix("#matrix02",n,m,tmpMatrix);
 
 	}
 
@@ -31,9 +29,11 @@ $(function(){
 			if(!checkInputs())
 				return;
 			var matrix1 = getMatrixFromTable($("#matrix01",container));
+			$("#matrix01 input.changes").removeClass("changes");
+
 			var inc = $(".scalarInput",container).val();
-			$(".scalarNumber",container).html(inc+" *");
-			updateMatrix("#matrix03",n,m,increaseMatrix(matrix1, inc));
+			$("#matrix03").html("");
+				createMatrixStatic("#matrix03",n,m,increaseMatrix(matrix1, inc));
 
 			var tmpMatrix = [];
 			for(var i=0;i<matrix1.length;i++){
@@ -42,7 +42,12 @@ $(function(){
 			$("#matrix02").html("");
 			createMatrixStatic("#matrix02",n,m,tmpMatrix);
 
-
+			if($(this).hasClass("vecInputCol") ){
+				$(this).addClass("changes");
+				var data = $(this).parent().attr('class');
+				$("#matrix03").find("."+data+" input").addClass("changes");
+				$("#matrix02").find("."+data+" input").addClass("changes");
+			}
 		});
 	}
 
@@ -85,13 +90,12 @@ $(function(){
 			var matrix01 = new Matrix(n,m);
 			var matrix01Array = matrix01.get1D_array();
 			$("#matrix01").html("");
-			createMatrix("#matrix01",n,m);
+			createMatrix("#matrix01",n,m, false);
 			updateMatrix("#matrix01",n,m,matrix01Array);
 
 			var incNumber = $(".scalarInput",container).val();
 			$("#matrix03").html("");
-			createMatrix("#matrix03",n,m);
-			updateMatrix("#matrix03",n,m,increaseMatrix(matrix01Array, incNumber));
+			createMatrixStatic("#matrix03",n,m,increaseMatrix(matrix01Array, incNumber));
 
 
 			var tmpMatrix = [];
