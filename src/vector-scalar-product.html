@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		<script src="./scripts/core/processing.js/processing-1.4.1.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/html_gui/script2D.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/point.js"></script>
+		<script src="./scripts/algebra/vector3.js"></script>
+		
+		<script src="./scripts/vector-scalar-product.js"></script>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Vectors: scalar multiplication</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can see several vectors. You can add new vectors to the sketch or multiply individual vectors with a specified scalar.</p>
+				</div>
+			</div>
+			
+			<div class="inner_content border ui-corner-all">
+				<div id="vectorList" class="inner_content vector_list border">
+				</div><br />
+				<div><button type="button" onClick="addVectorToList(new Vector3(2, 2, 0, 0, 0, 0))">Add vector</button><!--
+				--><button id="remove" type="button" onClick="clear_all_elements()">Clear</button></div>
+				<br /><br />
+				Multiply vector: <select id="firstvector" class="vecDropDown"></select>
+				by scalar: <input type="number" class="vecInputCol" id="scalarValue" value="2">
+				<button type="button" onclick="scalarMultiplication()">Multiply</button>
+			</div>
+		</div>
+		<div id="contentRight">
+			<canvas id="surface" width="800px" height="600px"></canvas>
+		</div>
+	</div>
+</body>
+</html>
