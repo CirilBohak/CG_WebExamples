@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
+		<script src="./scripts/core/mathjax.js/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
+		<script src="./scripts/matrix-addition.js"></script>
+
+	<style>
+		.changes {
+			background-color:  orange;
+			color:black;
+		}
+		.matrix{
+			float:left;
+			margin-left: 10px;
+
+		}
+		.inputs{
+			margin: 2px 0px 0px 0px;
+			padding: 0px;
+			height: 23px;
+			border: solid 1px #DDD;
+			text-align: center;
+			width: 50px;
+		}
+		.wrapper>div{
+			vertical-align: middle;
+			display:inline-block;}
+
+	</style>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Matrices: Addition</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentFull" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch you can create multiplication with scalar.</p>
+				</div>
+			</div>
+			<div class="inner_content border ui-corner-all matrixAddition" >
+				<div>
+					Rows: <input class="inputs rows" type="number" value="0" min="1" max="20" step="1">
+					Cols: <input class="inputs cols" type="number" value="0" min="1" max="20" step="1">
+				</div>
+				<br>
+				<div class="wrapper">
+					<div><div class="matrix">First matrix:<br><br> <div id="matrix01" class=""></div></div></div>
+					<div><div class="matrix">+</div></div>
+					<div><div class="matrix">Second matrix:<br> <br><div id="matrix02" class=""></div></div></div>
+					<div><div class="matrix">=</div></div>
+					<div><div class="matrix">Final matrix:<br><br> <div id="matrix03" class=""></div></div></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
