@@ -213,12 +213,15 @@ function createMatrix(id, n, m){
 function updateMatrix(id, n, m, array){
 	var matrix = $("#"+id.substring(1)+"_inner").children("span");
 	
-	for(var i=0; i<m; i++){
-		for(var j=0; j<n; j++){
-			matrix[(i*n)+j].firstChild.value = precise_round(array[(i*n)+j],2);
+	for(var i=0; i<n; i++){
+		for(var j=0; j<m; j++){
+			matrix[(i*m)+j].firstChild.value = precise_round(array[(i*m)+j],2);	
 		}
 	}
-	//console.log(matrix[0].children );
+}
+
+function updateMatrixVariable(n, m, value) {
+	matrix01.MD_Array[n][m] = value;
 }
 
 function matrixDisableElements(id, n, m, array){
@@ -243,5 +246,3 @@ function matrixUpdateMathJaxTooltips(id, s_array, bool_array){
 		}
 	}
 }
-
-
