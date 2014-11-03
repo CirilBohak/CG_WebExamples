@@ -17,6 +17,7 @@ function clear_all_elements(){
         POINTS
 **********************/
 
+<<<<<<< HEAD
 function createPointSelection(point, index) {
     $("#pointList").append(
         "<div onmouseover='points[" + index + "].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='points[" + index + "].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"point" + index + "\" class=\"vectorItem\" >" +
@@ -41,8 +42,33 @@ function createPointSelection(point, index) {
             "</div>" +
         "</div>");
     $("#point" + index + " input").on('change', function () { updatePoints(false); });
+=======
+function createPointSelection(point, index){
+	$("#pointList").append(
+        "<div onmouseover='points["+index+"].setColor(255,0,0), $(this).css(\"background\",\"#EEE\")' onmouseout='points["+index+"].setColor(0,0,0), $(this).css(\"background\",\"#fff\")' id=\"point"+ index +"\" class=\"vectorItem\" >"+
+            "<div class=\"vectorValue\">"+
+                "Point " + index + ":"+
+                "<br />"+
+				"<div class=\"floatLeft space\">"+
+					"<table><tr>"+
+						"<td class=\"leftMV\"></td>"+
+						"<td>"+
+							"<div class=\"floatLeft\">"+
+								"<input class=\"vecInputCol\" type=\"number\" value=\""+point.x+"\" min=\"-20\" max=\"20\" step=\"1\" /><br />"+
+								"<input class=\"vecInputCol\" type=\"number\" value=\""+point.y+"\" min=\"-20\" max=\"20\" step=\"1\" />"+
+							"</div>"+
+						"</td>"+
+						"<td class=\"rightMV\"></td>"+
+					"</tr></table>"+
+				"</div>"+
+				"<div class=\"paddingLeftPoint\">"+
+					"<button  id=\"remove\" type=\"button\" onClick=\"removedPointUpdate("+index+")\">Remove</button>"+
+                "</div>"+
+            "</div>"+
+        "</div>");
+    $("#point"+ index +" input").on('change', function () { updatePoints(false); });
+>>>>>>> parent of 1ad3814... AABB detection
 }
-
 
 function removedPointUpdate(index){
 	points.splice(index,1);
@@ -75,9 +101,9 @@ function updatePoints(values) {
             $(vals[0]).val(point.x);
             $(vals[1]).val(point.y);
         }
-    }  
+    }
+   //console.log("Bla");
 }
-
 
 // update drop down lists when adding a new point
 function updatePointDropDownLists(pointIndex) {

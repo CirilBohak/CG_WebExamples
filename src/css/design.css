@@ -22,11 +22,6 @@ button:hover { border: solid 1px #000; background-color: #888; color:#000; curso
 #remove { border: solid 1px #B55D63; background-color: #EC888F; color:#B55D63; margin-left:5px; }
 #remove:hover { border: solid 1px #8D1A21; background-color: #EB2B36; color:#8D1A21; cursor:pointer; cursor: hand; }
 
-#stop { border: solid 1px #B55D63; background-color: #EC888F; color:#B55D63; margin-left:5px; }
-#stop:hover { border: solid 1px #8D1A21; background-color: #EB2B36; color:#8D1A21; cursor:pointer; cursor: hand; }
-
-
-
 /*INDEX.html*/
 
 .done{ color: green; }

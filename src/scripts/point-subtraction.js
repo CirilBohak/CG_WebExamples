@@ -9,11 +9,8 @@ function addPointToList(point) {
 
 	updatePointDropDownLists(points.length - 1);
 	
-	var target = document.getElementById("point" + (points.length - 1));
-
-	if (target) {
-	    target.parentNode.scrollTop = target.offsetTop;
-	}
+	var target = document.getElementById( "point"+(points.length-1) );
+	target.parentNode.scrollTop = target.offsetTop;
 }
 
 function addVectorToList(vec) {

@@ -28,11 +28,7 @@ function draw() {
     drawVectors();
 	
 	// draw guides
-    drawGuides();
-
-    if (typeof (drawMovingBall) == "function") {
-        drawMovingBall();
-    }
+	drawGuides();
 }
 
 function mouseMoved() {}
@@ -61,11 +57,7 @@ window.onload = function() {
 	canvas = document.getElementById("surface");
 	// attaching the sketchProc function to the canvas
 	proc = new Processing(canvas, initProcessing);
-	if (typeof (moveMovingBalls) == "function")
-	{
-	    setTimeout(moveMovingBalls, 1000);
-	    $('#alg').val(window.location.hash == "#AB" ? "1" : "2");
-	}
+
     exampleInit();
 }
 
@@ -85,7 +77,6 @@ function drawVectors() {
         vectors[i].draw();
     }
 }
-
 
 // conversion from canvas to grid coordinate system
 function canvasToGridTransform(point) {
