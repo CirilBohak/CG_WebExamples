@@ -185,7 +185,8 @@ function updateVectorDropDownLists(vectorIndex) {
         MATRICES
 **********************/
 
-function createMatrix(id, n, m){
+function createMatrix(id, n, m, limit) {
+	limit = limit===undefined?true:limit;
 	var matrix = $(id);
 	
 	matrix.append("<table>"+
@@ -203,7 +204,38 @@ function createMatrix(id, n, m){
 	
 	for(var i=0; i<n; i++){
 		for(var j=0; j<m; j++){
-			matrix.append("<span class=\"m"+i+""+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" min=\"-20\" max=\"20\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			if(!limit){
+				matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			}
+			else{
+				matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" type=\"number\" value=\"0\" min=\"-20\" max=\"20\" step=\"1\"/><div class=\"tooltip\"></div></span>");
+			}
+
+			if(j<m-1) matrix.append(" ");
+		}
+		matrix.append("<br />");
+	}
+}
+
+function createMatrixStatic(id, n, m, matrixInput){
+	var matrix = $(id);
+
+	matrix.append("<table>"+
+	"<tr>"+
+	"<td class=\"leftMV\"></td>"+
+	"<td>"+
+	"<div id=\""+id.substring(1)+"_inner\">"+
+	"</div>"+
+	"</td>"+
+	"<td class=\"rightMV\"></td>"+
+	"</tr>"+
+	"</table>");
+
+	matrix = matrix.find("#"+id.substring(1)+"_inner");
+
+	for(var i=0; i<n; i++){
+		for(var j=0; j<m; j++){
+			matrix.append("<span class=\"m_"+i+"_"+j+"\"><input class=\"vecInputCol\" disabled='disabled' value='"+matrixInput[(i*m)+j]+"'/><div class=\"tooltip\"></div></span>");
 			if(j<m-1) matrix.append(" ");
 		}
 		matrix.append("<br />");

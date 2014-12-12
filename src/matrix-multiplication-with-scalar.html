@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css">
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		
+		<script src="./scripts/html_gui/visual.js"></script>
+		
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/algebra/matrix.js"></script>
+		<script src="./scripts/core/mathjax.js/MathJax.js?config=TeX-AMS-MML_SVG-full"></script>
+		<script src="./scripts/matrix-multiplication-with-scalar.js"></script>
+		<script type="text/x-mathjax-config">
+
+		MathJax.Hub.Config({
+			tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+		});
+
+		</script>
+	<style>
+		.changes {
+			background-color:  orange;
+			color:black;
+		}
+		input.error{
+			border:solid thin red;
+		}
+		.scalarNumber{
+			float: left;
+			margin-top:0px;
+			margin-left: 5px;
+			margin-right: 10px;
+		}
+		.menu a:hover{
+			cursor: pointer;
+		}
+		.menu .selected {
+			text-decoration: underline;
+		}
+		.inputs{
+			margin: 2px 0px 0px 0px;
+			padding: 0px;
+			height: 23px;
+			border: solid 1px #DDD;
+			text-align: center;
+			width: 50px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Matrices: Multiplication with Scalar</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentFull" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch you can create multiplication with scalar.</p>
+				</div>
+			</div>
+			<div  class="inner_content border ui-corner-all menu">
+				<div style="float:left;margin-right: 10px;" class="selected first"><a>Standard logic</a></div>
+				<div class="second" data-id="2"><a>MathJax logic</a></div>
+			</div>
+			<div class="inner_content border ui-corner-all multiplicationWIthScalar">
+				<div>
+					Rows: <input class="inputs rows" type="number" value="0" min="1" max="20" step="1">
+					Cols: <input class="inputs cols" type="number" value="0" min="1" max="20" step="1">
+				</div>
+				<div>
+					<div style="margin-top:10px;">Matrix:</div><br>
+					<div class="scalarNumber"> Scalar: <br><input type="text" size="2" class="scalarInput "> </div>
+					<div id="matrix01" class="vectorValue"></div>
+					<div style="margin-top:10px;">Calculating:</div><br>
+					<div id="matrix02" class="vectorValue"></div>
+					<div style="margin-top:10px;">Result:</div><br>
+					<div id="matrix03" class="vectorValue" style="margin-top:10px;"></div>
+				</div>
+			</div>
+			<div class="inner_content border ui-corner-all MathJaxStuff" style="display: none;">
+				<div>
+					Rows: <input class="vecInputCol rows" type="number" value="0" min="-20" max="20" step="1">
+					Cols: <input class="vecInputCol cols" type="number" value="0" min="-20" max="20" step="1">
+				</div>
+				Input matrix:<br><br>
+				<div class="scalarNumber"> Scalar: <br><input type="text" size="2" class="scalarInput "> </div>
+
+				<div id="matrix1" class="vectorValue"></div><br><br>
+				Show new matrix: <input type="button" value="Show matrix" class="showMatrix"><br><br>
+				Progress:<br><br>
+				<script type="math/tex" id="matrix2"></script>
+
+				<br><br>Results:<br><br>
+				<script type="math/tex" id="matrix3"></script>
+
+
+			</div>
+		</div>
+	</div>
+	<script src="./scripts/matrix-multiplication-with-scalar-mathjax.js"></script>
+</body>
+
+</html>
