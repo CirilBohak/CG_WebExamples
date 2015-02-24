@@ -1,0 +1,155 @@
+<html>
+<head>
+	<title>Computer Graphics - Web Examples</title>
+		<link rel="stylesheet" type="text/css" href="./css/design.css" />
+		<link rel="stylesheet" type="text/css" href="./css/flick/jquery-ui-1.10.3.custom.min.css"/>
+		
+		<script src="./scripts/core/jquery.js/jquery.min.js"></script>
+		<script src="./scripts/core/jquery.js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="./scripts/core/jquery.js/jquery.tools.min.js"></script>
+		<script src="./scripts/core/jquery.js/jquery-ui-1.10.3.custom.min.js"></script>
+		
+		<script src="./scripts/core/three.js/three.min.js"></script>
+		<script src="./scripts/algebra/math.js"></script>
+		<script src="./scripts/html_gui/visual.js"></script>
+		<script src="./scripts/core/three.js/three.min.js"></script>
+		<script src="./scripts/core/three.js/TrackballControls.js"></script>
+		<script src="./scripts/transformations/transformations_helper.js"></script>
+		<script src="./scripts/transformations/transformations.js"></script>
+		
+</head>
+<script type="text/x-mathjax-config">
+	/*extensions: ["http://cs.jsu.edu/mathjax-ext/github/forminput/forminput.js"],*/
+	MathJax.Hub.Config({
+		showProcessingMessages: false,
+		tex2jax: { inlineMath: [['$','$'],['\\(','\\)']]},
+		styles: { ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+			fill: "#336699",
+			stroke: "#336699"
+			}}
+	});
+	
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"matrix1_inner"]);
+</script>
+<body>
+	<h1>Computer Graphics - Web Examples</h1>
+	<h2>Transformations</h2>
+	<strong> <a href="./index.html">&lt;- back </a></strong>
+	<div id="content">
+		<div id="contentLeft" class="border ui-corner-all">
+			<div class="ui-widget">
+				<div class="ui-state-highlight ui-corner-all">
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<strong>Info:</strong> In the sketch on the right you can see example, how transformations are done.</p>
+				</div>
+			</div>
+				<div class="inner_content border ui-corner-all">
+					<div>
+						<div id="tabs_config">
+							<ul>
+								<li><a href="#tabs-1">X-Axis</a></li>
+								<li><a href="#tabs-2">Y-Axis</a></li>
+								<li><a href="#tabs-3">Z-Axis</a></li>
+								<li><a href="#tabs-4">Multiple-Axes</a></li>
+							</ul>
+							<div id="tabs-1">
+								<table class="tabi" style="display: none;" >
+									<tr><th><strong>X-Axis:</strong></th><td><input type="number" id="ui_xx_amount" value="0" step="1"></td><td>px</td><td style="width: 100%;"><div id="ui_xx_slider"></div></td></tr>
+									<tr><th><strong>Y-Axis:</strong></th><td><input type="number" id="ui_xy_amount" value="0" step="1"></td><td>py</td><td style="width: 100%;"><div id="ui_xy_slider"></div></td></tr>
+									<tr><th><strong>Z-Axis:</strong></th><td><input type="number" id="ui_xz_amount" value="0" step="1"></td><td>pz</td><td style="width: 100%;"><div id="ui_xz_slider"></div></td></tr>
+								</table>
+							</div>
+							<div id="tabs-2">
+								<table class="tabi" style="display: none;">
+									<tr><th><strong>X-Axis:</strong></th><td><input type="number" id="ui_yx_amount" value="0" step="1"></td><td>px</td><td style="width: 100%;"><div id="ui_yx_slider"></div></td></tr>
+									<tr><th><strong>Y-Axis:</strong></th><td><input type="number" id="ui_yy_amount" value="0" step="1"></td><td>py</td><td style="width: 100%;"><div id="ui_yy_slider"></div></td></tr>
+									<tr><th><strong>Z-Axis:</strong></th><td><input type="number" id="ui_yz_amount" value="0" step="1"></td><td>pz</td><td style="width: 100%;"><div id="ui_yz_slider"></div></td></tr>
+								</table>
+							</div>
+							<div id="tabs-3">
+								<table class="tabi" style="display: none;">
+									<tr><th><strong>X-Axis:</strong></th><td><input type="number" id="ui_zx_amount" value="0" step="1"></td><td>px</td><td style="width: 100%;"><div id="ui_zx_slider"></div></td></tr>
+									<tr><th><strong>Y-Axis:</strong></th><td><input type="number" id="ui_zy_amount" value="0" step="1"></td><td>py</td><td style="width: 100%;"><div id="ui_zy_slider"></div></td></tr>
+									<tr><th><strong>Z-Axis:</strong></th><td><input type="number" id="ui_zz_amount" value="0" step="1"></td><td>pz</td><td style="width: 100%;"><div id="ui_zz_slider"></div></td></tr>
+								</table>
+							</div>
+							<div id="tabs-4">
+								<table class="tabi" style="display: none;">
+									<tr><th><strong>X-Axis:</strong></th><td><input type="number" id="ui_mx_amount" value="0" step="1"></td><td>px</td><td style="width: 100%;"><div id="ui_mx_slider"></div></td></tr>
+									<tr><th><strong>Y-Axis:</strong></th><td><input type="number" id="ui_my_amount" value="0" step="1"></td><td>py</td><td style="width: 100%;"><div id="ui_my_slider"></div></td></tr>
+									<tr><th><strong>Z-Axis:</strong></th><td><input type="number" id="ui_mz_amount" value="0" step="1"></td><td>pz</td><td style="width: 100%;"><div id="ui_mz_slider"></div></td></tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br />
+					<b>Tranformation matrix:</b><br /><br />
+
+					<div id="matrix1" class="vectorValue" style="padding-bottom:10px;">
+						<table class="center">
+							<tr>
+								<td class="leftMV"> </td>
+								<td>
+									<div id="matrix1_inner">
+										<span class="m00"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{right-left}}$</div></span>
+										<span class="m01"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m02"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m03"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{right+left}{right-left}}$</div></span><br/>
+										<span class="m10"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m11"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${\frac{2}{top-bottom}}$</div></span>
+										<span class="m12"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m13"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{top+bottom}{top-bottom}}$</div></span><br/>
+										<span class="m20"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m21"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m22"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{2}{far-near}}$</div></span>
+										<span class="m23"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${-\frac{far+near}{far-near}}$</div></span><br/>
+										<span class="m30"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m31"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m32"><input class="vecInputCol" value="0" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span>
+										<span class="m33"><input class="vecInputCol" value="1" min="-20" max="20" step="1"/><div class="tooltip">${}$</div></span><br/>
+									</div>
+								</td>
+								<td class="rightMV"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="radio_camera">
+					<input type="radio" id="radio1" name="radio" value="0"><label for="radio1">Translation</label>
+					<input type="radio" id="radio2" name="radio" value="1"><label for="radio2">Rotation</label>
+					<input type="radio" id="radio3" name="radio" value="2"><label for="radio3">Scale</label>
+					<input type="radio" id="radio4" name="radio" value="3"><label for="radio4">Mirror</label>
+					<input type="radio" id="radio5" name="radio" value="4"><label for="radio5">Shear</label>
+				</div>
+		</div>
+		<div id="contentRight">
+			<div id="surface" name="container">
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+		function getURLParameter(name) { return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)','i').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null; }
+		
+		window.onload = function(){
+			var urlPara = getURLParameter("transmitions");
+			var urlChoice = getURLParameter("choice");
+			var urlNumber = parseInt(urlPara);
+			if(urlNumber == 0){
+				parameters();
+			}
+			if(urlChoice == '0') $("#radio1").click();
+			else if(urlChoice == '0') $("#radio1").click();
+			else if(urlChoice == '1') $("#radio2").click();
+			else if(urlChoice == '2') $("#radio3").click();
+			else if(urlChoice == '3') $("#radio4").click();
+			else if(urlChoice == '4') $("#radio5").click();
+			$("#tabs_config").tabs({ active: urlPara });
+			var tabContents = document.getElementsByClassName('tabi');	
+			for (var i = 0; i < tabContents.length; i++) { 
+				tabContents[i].style.display = 'block';
+			}
+		};
+</script>
+<script src="./scripts/html_gui/transformation3D.js"></script>
+</html>

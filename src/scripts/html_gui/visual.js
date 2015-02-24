@@ -212,13 +212,11 @@ function createMatrix(id, n, m){
 
 function updateMatrix(id, n, m, array){
 	var matrix = $("#"+id.substring(1)+"_inner").children("span");
-	
 	for(var i=0; i<m; i++){
 		for(var j=0; j<n; j++){
 			matrix[(i*n)+j].firstChild.value = precise_round(array[(i*n)+j],2);
 		}
 	}
-	//console.log(matrix[0].children );
 }
 
 function matrixDisableElements(id, n, m, array){

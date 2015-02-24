@@ -139,6 +139,14 @@ table, td, tr {border-collapse: collapse; border-spacing: 0px; border:0px; paddi
 #ui_left_slider, #ui_right_slider, #ui_top_slider, #ui_bottom_slider,
 #ui_aspect_slider, #ui_fov_slider{ margin-left: 13px; margin-right: 7px; }
 
+/*UI Sliders for transmitions*/
+#ui_xy_amount, #ui_xx_amount, #ui_xz_amount, #ui_yx_amount,
+#ui_yy_amount, #ui_yz_amount, #ui_zx_amount, #ui_zy_amount,
+#ui_zz_amount, #ui_mx_amount , #ui_mz_amount, #ui_my_amount{ margin-left:5px; margin-right:5px; border:1px solid #CCC; width:80px; text-align: center; font-size: 12px; }
+
+#ui_xy_slider, #ui_xx_slider, #ui_xz_slider, #ui_yx_slider,
+#ui_yy_slider, #ui_yz_slider, #ui_zx_slider, #ui_zy_slider,
+#ui_zz_slider, #ui_mx_slider, #ui_mz_slider, #ui_my_slider{ margin-left: 13px; margin-right: 7px; }
 #tabs_config table th strong, #other_settings table th strong{ float:right; width: 50px; text-align: right;}
 #tabs_config {  padding:0px; font-family: Verdana; color: #336699; font-size: 11px; }
 #tabs_config .ui-tabs-nav{ padding:0px 0px 0px 2px; font-style: normal; }
