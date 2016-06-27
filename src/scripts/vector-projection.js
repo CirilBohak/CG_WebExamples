@@ -6,6 +6,7 @@ var currID = 0;
 
 function exampleInit() {
     addVectorToList(new Vector3(2, 5, 0, 1, 2, 0));
+    addVectorToList(new Vector3(6, 3, 0, -2, 2, 0));
 }
 
 // adding new vector to the list
@@ -23,26 +24,16 @@ function addVectorToList(vec) {
    CALCULATION
 *****************/
 function calculateProjection() {
+	var vectorA = new Vector3(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
+								0);
+	var vectorB = new Vector3(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
+								parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
+								0);
 
-  	if(!drawGuide){
-  		var vectorA = new Vector3(	parseInt($($("#vec"+$("#firstvector").val()+" input")[0]).val()),
-  									parseInt($($("#vec"+$("#firstvector").val()+" input")[1]).val()),
-  									0,
-  									parseInt($($("#vec"+$("#firstvector").val()+" input")[2]).val()),
-  									parseInt($($("#vec"+$("#firstvector").val()+" input")[3]).val()),
-  									0);
-
-  		var vectorB = new Vector3(	parseInt($($("#vec"+$("#secondvector").val()+" input")[0]).val()),
-  									parseInt($($("#vec"+$("#secondvector").val()+" input")[1]).val()),
-  									0,
-  									parseInt($($("#vec"+$("#secondvector").val()+" input")[2]).val()),
-  									parseInt($($("#vec"+$("#secondvector").val()+" input")[3]).val()),
-  									0);
-
-      var dotProduct = new Vector3().dotVectors(vectorA,vectorB);
-      var length = Math.pow(vectorB.length(), 2);
-      var result = vectorA.multiplyScalar(dotProduct/length, vectorA);
-
+	var dotProduct = new Vector3().dotVectors(vectorA,vectorB);
+  var length = Math.sqrt(Math.pow(vectorB.length(), 2));
+  var result = new Vector3().copy(vectorB).multiplyScalar(dotProduct/Math.pow(length,2));
       $("#result").css({visibility : 'visible', display : 'block'});
       var AllJax = MathJax.Hub.getAllJax("result");
       MathJax.Hub.queue.Push([	"Text",
@@ -57,74 +48,29 @@ function calculateProjection() {
                   ]);
       MathJax.Hub.queue.Push([	"Text",
                               	AllJax[2],
-                                "\\left(\\frac{\\vec{a}*\\vec{b}}{\\|\\vec{b}\\|^2}\\right) = \\left[\\begin{array}{c}"+precise_round(result.x, 2)+"\\\\"+ precise_round(result.y,2)+"\\end{array}\\right]\\\\"
+                                "\\left(\\frac{\\vec{a}*\\vec{b}}{\\|\\vec{b}\\|^2}\\right) *\\vec{b}\\ = \\left[\\begin{array}{c}"+precise_round(result.x, 2)+"\\\\"+ precise_round(result.y,2)+"\\end{array}\\right]\\\\"
                               ]);
-  		/****************************
-  		   Settings for guide lines
-  		*****************************/
-  		guideVector = new Vector3(	vectorB.x, vectorB.y, vectorB.z, vectorA.x + vectorA.loc.x, vectorA.y + vectorA.loc.y, vectorA.z + vectorA.loc.z, 0, 200, 0);
-  		guideLine1 = new Vector3(	vectorA.x + vectorA.loc.x - vectorB.loc.x, vectorA.y + vectorA.loc.y - vectorB.loc.y, 0, vectorB.loc.x, vectorB.loc.y, 0, 0, 200, 0);
-  		guideLine2 = new Vector3(	vectorA.x + vectorA.loc.x - vectorB.loc.x, vectorA.y + vectorA.loc.y - vectorB.loc.y, 0, vectorB.x+vectorB.loc.x, vectorB.y+vectorB.loc.y, 0, 0, 200, 0);
-  		gudeLineAngle = precise_round(guideVector.angleTo(guideLine2),2);
-  		dashes = Math.round(guideLine1.length())*2;
-  		drawGuide = true; drawGuideLines = true;
 
-  		currID = $("#secondvector").val();
-  		vectors[currID].setColor(180,180,180);
-  		setTimeout(function(){
-  			addVectorToList(result);
-  			drawGuideLines = false;
-  			if(vectors.length>1) removedVectorUpdate(currID);
+                              /****************************
+                          		   Settings for guide lines
+                          		*****************************/
+                          		guideVector = new Vector3(	vectorB.x, vectorB.y, vectorB.z, vectorA.x + vectorA.loc.x, vectorA.y + vectorA.loc.y, vectorA.z + vectorA.loc.z, 0, 200, 0);
+                          		guideLine1 = new Vector3(	vectorA.x + vectorA.loc.x - vectorB.loc.x, vectorA.y + vectorA.loc.y - vectorB.loc.y, 0, vectorB.loc.x, vectorB.loc.y, 0, 0, 200, 0);
+                          		guideLine2 = new Vector3(	vectorA.x + vectorA.loc.x - vectorB.loc.x, vectorA.y + vectorA.loc.y - vectorB.loc.y, 0, vectorB.x+vectorB.loc.x, vectorB.y+vectorB.loc.y, 0, 0, 200, 0);
+                          		gudeLineAngle = precise_round(guideVector.angleTo(guideLine2),2);
+                          		dashes = Math.round(guideLine1.length())*2;
+                          		drawGuide = true; drawGuideLines = true;
 
-  			var target = document.getElementById( "vec"+(vectors.length-1) );
-  			target.parentNode.scrollTop = target.offsetTop;
+                          		currID = $("#secondvector").val();
+                          		vectors[currID].setColor(180,180,180);
+                          		setTimeout(function(){
+                          			addVectorToList(result);
+                          			drawGuideLines = false;
+                          			if(vectors.length>1) removedVectorUpdate(currID);
 
-  			setTimeout(function(){ drawGuide = false; }, 3500);
-  		}, 3500);
-  	}
-  }
+                          			var target = document.getElementById( "vec"+(vectors.length-1) );
+                          			target.parentNode.scrollTop = target.offsetTop;
 
-  /**********************
-     GUIDE LINES (DRAW)
-  ***********************/
-
-  var dashes;
-  var dotDia = 1;
-  function drawGuides(){
-  	if(drawGuide){
-  		proc.strokeWeight(3);
-  		guideVector.draw();
-
-  		if(drawGuideLines && gudeLineAngle != 0){
-
-  			/*First guide line*/
-  			var c_loc = gridToCanvasTransform(new Point(guideLine1.loc.x, guideLine1.loc.y));
-  			var toX = c_loc.x + guideLine1.x * unit;
-  			var toY = c_loc.y - guideLine1.y * unit;
-
-  			proc.stroke(guideLine1.r, guideLine1.g, guideLine1.b);
-
-  			for(var i=0; i<=dashes; i++) {
-  				var x = proc.lerp(c_loc.x, toX, i/dashes);
-  				var y = proc.lerp(c_loc.y, toY, i/dashes);
-  				proc.ellipse(x,y,dotDia,dotDia);
-  			}
-
-  			/*Second guide line*/
-  			c_loc = gridToCanvasTransform(new Point(guideLine2.loc.x, guideLine2.loc.y));
-  			toX = c_loc.x + guideLine2.x * unit;
-  			toY = c_loc.y - guideLine2.y * unit;
-
-  			proc.stroke(guideLine2.r, guideLine2.g, guideLine2.b);
-
-  			for(var i=0; i<=dashes; i++) {
-  				var x = proc.lerp(c_loc.x, toX, i/dashes);
-  				var y = proc.lerp(c_loc.y, toY, i/dashes);
-  				proc.ellipse(x,y,dotDia,dotDia);
-  			}
-
-  		}
-
-  		proc.strokeWeight(2);
-  	}
-  }
+                          			setTimeout(function(){ drawGuide = false; }, 3500);
+                          		}, 3500);
+                          	}
