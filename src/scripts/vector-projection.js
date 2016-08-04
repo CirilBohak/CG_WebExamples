@@ -66,7 +66,6 @@ function calculateProjection() {
                           		setTimeout(function(){
                           			addVectorToList(result);
                           			drawGuideLines = false;
-                          			if(vectors.length>1) removedVectorUpdate(currID);
 
                           			var target = document.getElementById( "vec"+(vectors.length-1) );
                           			target.parentNode.scrollTop = target.offsetTop;
